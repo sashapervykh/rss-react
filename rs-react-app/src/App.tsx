@@ -1,11 +1,8 @@
 import './App.css';
+import { PageMain } from './components/PageMain/PageMain';
 
 function App() {
-  return (
-    <>
-      <h1>BROWSE SPACE WITH US AND NASA</h1>
-    </>
-  );
+  return <PageMain />;
 }
 
 export default App;
