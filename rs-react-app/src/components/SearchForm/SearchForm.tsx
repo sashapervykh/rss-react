@@ -5,6 +5,7 @@ export class SearchForm extends Component {
   render(): ReactNode {
     return (
       <form>
+        <input></input>
         <Button text="Search" type="submit"></Button>
       </form>
     );
