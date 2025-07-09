@@ -5,6 +5,12 @@ interface Props {
   page?: number;
 }
 
+export interface SearchResultType {
+  title: string;
+  description: string;
+  image_url: string;
+}
+
 const APIDataSchema = z.object({
   collection: z.object({
     href: z.string(),
@@ -28,9 +34,9 @@ const APIDataSchema = z.object({
       })
     ),
     links: z.array(
-      z.object({ href: z.string(), rel: z.string(), render: z.string() })
+      z.object({ href: z.string(), rel: z.string(), prompt: z.string() })
     ),
-    metadata: z.object({ total_data: z.number() }),
+    metadata: z.object({ total_hits: z.number() }),
     version: z.string(),
   }),
 });

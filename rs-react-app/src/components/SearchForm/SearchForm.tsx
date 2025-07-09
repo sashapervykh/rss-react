@@ -1,14 +1,17 @@
 import { Component, type ReactNode } from 'react';
 import { Button } from '../Button/Button';
-import { getDataFromApi } from '../../api/getDataFromApi';
 
-export class SearchForm extends Component {
+interface Props {
+  handleSearch: (input: string) => Promise<void>;
+}
+
+export class SearchForm extends Component<Props> {
   render(): ReactNode {
     return (
       <form
         onSubmit={async (event) => {
           event.preventDefault();
-          getDataFromApi({ input: 'mars' });
+          this.props.handleSearch('mars');
         }}
       >
         <input></input>
