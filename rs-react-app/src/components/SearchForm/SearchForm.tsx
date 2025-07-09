@@ -5,16 +5,30 @@ interface Props {
   handleSearch: (input: string) => Promise<void>;
 }
 
-export class SearchForm extends Component<Props> {
+interface State {
+  input: string | undefined;
+}
+
+export class SearchForm extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { input: undefined };
+  }
+
+  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ input: event.target.value });
+  };
+
   render(): ReactNode {
     return (
       <form
         onSubmit={async (event) => {
           event.preventDefault();
-          this.props.handleSearch('mars');
+          if (!this.state.input) return;
+          this.props.handleSearch(this.state.input);
         }}
       >
-        <input></input>
+        <input onChange={this.handleChange}></input>
         <Button text="Search" type="submit"></Button>
       </form>
     );
