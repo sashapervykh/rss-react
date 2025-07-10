@@ -15,8 +15,9 @@ export class SearchResults extends Component<Props> {
           ? this.props.results.map((element, index) => (
               <Card
                 key={index}
-                img={element.image_url ?? NO_IMAGE}
+                source={element.source ?? NO_IMAGE}
                 title={element.title}
+                media_type={element.media_type}
                 description={element.description}
               />
             ))

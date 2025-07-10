@@ -1,4 +1,5 @@
 import { Component, type ReactNode } from 'react';
+import style from './style.module.css';
 
 interface Props {
   description: string;
@@ -9,8 +10,8 @@ export class CardText extends Component<Props> {
   render(): ReactNode {
     return (
       <div>
-        <h3>{this.props.title}</h3>
-        <p>{this.props.description}</p>
+        <h2 className={style['card-title']}>{this.props.title}</h2>
+        <p className={style['main-text']}>{this.props.description}</p>
       </div>
     );
   }

@@ -1,8 +1,9 @@
 .image-wrapper {
   width: 15vw;
   min-width: 15vw;
-  height: 15vw;
-  border-radius: 50%;
+  max-height: 15vw;
+  height: fit-content;
+  border-radius: 10px;
   justify-items: center;
   overflow: hidden;
   margin-right: 20px;
