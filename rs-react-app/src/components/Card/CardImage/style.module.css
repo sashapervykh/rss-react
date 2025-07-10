@@ -1,0 +1,15 @@
+.image-wrapper {
+  width: 15vw;
+  min-width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
+  justify-items: center;
+  overflow: hidden;
+  margin-right: 20px;
+}
+
+.image {
+  display: block;
+  max-width: 100%;
+  border-radius: 10px;
+}

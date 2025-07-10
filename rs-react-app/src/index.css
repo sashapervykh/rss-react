@@ -1,23 +1,18 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --main-font-family: Helvetica, Arial, sans-serif;
+  --main-font-color: rgba(255, 255, 255, 0.87);
 }
 
 body {
+  font-family: var(--main-font-family);
+  color: var(--main-font-color);
   margin: 0;
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+  background-color: black;
+  background-image: url('../../public/stars.png');
+  background-size: 20%;
 }
 
 @media (prefers-color-scheme: light) {

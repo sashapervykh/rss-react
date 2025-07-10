@@ -1,6 +1,7 @@
 import { Component, type ReactNode } from 'react';
 import { CardText } from './CardText/CardText';
 import { CardImage } from './CardImage/CardImage';
+import style from './style.module.css';
 
 interface Props {
   img: string;
@@ -11,7 +12,7 @@ interface Props {
 export class Card extends Component<Props> {
   render(): ReactNode {
     return (
-      <div>
+      <div className={style['card-wrapper']}>
         <CardImage src={this.props.img} alt={this.props.title} />
         <CardText
           title={this.props.title}
