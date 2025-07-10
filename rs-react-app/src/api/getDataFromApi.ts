@@ -8,42 +8,24 @@ interface Props {
 export interface SearchResultType {
   title: string;
   description: string;
-  image_url: string;
+  image_url?: string;
 }
 
-const APIDataSchema = z.object({
-  collection: z.object({
-    href: z.string(),
+const APIDataSchema = z.looseObject({
+  collection: z.looseObject({
     items: z.array(
-      z.object({
+      z.looseObject({
         data: z.array(
-          z.object({
-            center: z.string().optional(),
-            date_created: z.string(),
-            description: z.string(),
+          z.looseObject({
+            description: z.string().optional(),
             keywords: z.array(z.string()).optional(),
             media_type: z.enum(['image', 'audio', 'video']),
-            nasa_id: z.string().optional(),
             title: z.string(),
           })
         ),
-        href: z.string().optional(),
-        links: z.array(
-          z.object({
-            href: z.string(),
-            rel: z.string(),
-            render: z.string().optional(),
-          })
-        ),
+        links: z.array(z.object({ href: z.string() })),
       })
     ),
-    links: z
-      .array(
-        z.object({ href: z.string(), rel: z.string(), prompt: z.string() })
-      )
-      .optional(),
-    metadata: z.object({ total_hits: z.number() }),
-    version: z.string().optional(),
   }),
 });
 
@@ -58,8 +40,13 @@ export async function getDataFromApi({ input, page = 1 }: Props) {
     const searchResult = typedBody.collection.items.map((element) => {
       return {
         title: element.data[0].title,
-        description: element.data[0].description,
-        image_url: element.links[0].href,
+        description:
+          element.data[0].description ??
+          `NASA did not provide any description for this item(((`,
+        image_url:
+          element.data[0].media_type === 'image'
+            ? element.links[0].href
+            : undefined,
       };
     });
     return searchResult;
