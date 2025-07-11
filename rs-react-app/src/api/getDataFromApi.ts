@@ -36,7 +36,6 @@ export async function getDataFromApi({ input, page = 1 }: Props) {
       `https://images-api.nasa.gov/search?q=${input}&page=${page.toString()}&page_size=10`
     );
     const body = await response.json();
-    console.log(body);
     const typedBody = APIDataSchema.parse(body);
     const searchResult = typedBody.collection.items.map((element) => {
       return {
@@ -51,5 +50,6 @@ export async function getDataFromApi({ input, page = 1 }: Props) {
     return searchResult;
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }

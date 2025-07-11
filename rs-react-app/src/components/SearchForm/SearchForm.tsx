@@ -3,6 +3,7 @@ import { Button } from '../Button/Button';
 import { getLocalStorageData } from '../../utilities/getLocalStorageData';
 import { setLocalStorageData } from '../../utilities/setLocalStorageData';
 import style from './style.module.css';
+import { BreakingButton } from '../BreakingButton/BreakingButton';
 
 interface Props {
   handleSearch: (input: string) => Promise<void>;
@@ -50,11 +51,8 @@ export class SearchForm extends Component<Props, State> {
             disabled={this.props.disabled}
           ></input>
         </label>
-        <Button
-          text="Search"
-          type="submit"
-          disabled={this.props.disabled}
-        ></Button>
+        <Button text="Search" type="submit" disabled={this.props.disabled} />
+        <BreakingButton />
       </form>
     );
   }
