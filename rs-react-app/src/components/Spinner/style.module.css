@@ -1,0 +1,72 @@
+.wrapper {
+  position: relative;
+  display: flex;
+  margin: 0px auto;
+  width: 120px;
+  height: 120px;
+}
+
+.sun,
+.first-line,
+.first-planet,
+.second-line,
+.second-planet {
+  display: flex;
+  border-radius: 50%;
+  margin: 0px auto;
+}
+
+.sun {
+  position: absolute;
+  animation: right-spin 3s infinite linear;
+  width: 30px;
+  height: 30px;
+  background-image: linear-gradient(to bottom, #e1da62, #a68613);
+  top: 35%;
+  left: 35%;
+}
+
+.first-line {
+  animation: right-spin 3s infinite linear;
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border: 1px solid white;
+  top: 20%;
+  left: -3%;
+}
+
+.first-planet {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  background-color: rgb(94, 122, 192);
+  top: -5px;
+}
+
+.second-line {
+  animation: right-spin 4s infinite linear;
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border: 1px solid white;
+  top: 10%;
+  left: 10%;
+}
+
+.second-planet {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  background-color: rgb(226, 84, 55);
+  top: -6px;
+}
+
+@keyframes right-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
