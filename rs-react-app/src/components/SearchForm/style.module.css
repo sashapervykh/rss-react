@@ -1,0 +1,11 @@
+.form {
+  margin-bottom: 30px;
+}
+
+.input {
+  font-family: var(--main-font-family);
+  background-color: var(--elem-bg-color);
+  color: var(--main-font-family);
+  font-size: 25px;
+  margin-right: 10px;
+}

@@ -27,7 +27,10 @@ export class SearchWrapper extends Component<object, State> {
   render(): ReactNode {
     return (
       <div>
-        <SearchForm handleSearch={this.handleSearch} />
+        <SearchForm
+          handleSearch={this.handleSearch}
+          disabled={this.state.pending}
+        />
         {this.state.pending && <Spinner />}
         {!this.state.pending && <SearchResults results={this.state.results} />}
       </div>

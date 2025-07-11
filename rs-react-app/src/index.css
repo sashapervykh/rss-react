@@ -1,6 +1,7 @@
 :root {
   --main-font-family: Helvetica, Arial, sans-serif;
   --main-font-color: rgba(255, 255, 255, 0.87);
+  --elem-bg-color: rgba(255, 255, 255, 0.217);
 }
 
 body {

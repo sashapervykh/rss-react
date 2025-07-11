@@ -24,7 +24,7 @@ const APIDataSchema = z.looseObject({
             title: z.string(),
           })
         ),
-        links: z.array(z.object({ href: z.string() })),
+        links: z.array(z.looseObject({ href: z.string() })).optional(),
       })
     ),
   }),
@@ -38,7 +38,6 @@ export async function getDataFromApi({ input, page = 1 }: Props) {
     const body = await response.json();
     console.log(body);
     const typedBody = APIDataSchema.parse(body);
-    console.log(typedBody);
     const searchResult = typedBody.collection.items.map((element) => {
       return {
         title: element.data[0].title,
@@ -46,7 +45,7 @@ export async function getDataFromApi({ input, page = 1 }: Props) {
           element.data[0].description ??
           `NASA did not provide any description for this item(((`,
         media_type: element.data[0].media_type,
-        source: element.links[0].href,
+        source: element.links ? element.links[0].href : undefined,
       };
     });
     return searchResult;

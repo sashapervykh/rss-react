@@ -2,9 +2,11 @@ import { Component, type ReactNode } from 'react';
 import { Button } from '../Button/Button';
 import { getLocalStorageData } from '../../utilities/getLocalStorageData';
 import { setLocalStorageData } from '../../utilities/setLocalStorageData';
+import style from './style.module.css';
 
 interface Props {
   handleSearch: (input: string) => Promise<void>;
+  disabled: boolean;
 }
 
 interface State {
@@ -31,6 +33,7 @@ export class SearchForm extends Component<Props, State> {
   render(): ReactNode {
     return (
       <form
+        className={style.form}
         onSubmit={async (event) => {
           event.preventDefault();
           if (!this.state.input) return;
@@ -38,12 +41,20 @@ export class SearchForm extends Component<Props, State> {
           this.props.handleSearch(this.state.input);
         }}
       >
-        <input
-          onChange={this.handleChange}
-          placeholder="Enter your request"
-          value={this.state.input ?? ''}
-        ></input>
-        <Button text="Search" type="submit"></Button>
+        <label>
+          <input
+            className={style.input}
+            onChange={this.handleChange}
+            placeholder="Enter your request"
+            value={this.state.input ?? ''}
+            disabled={this.props.disabled}
+          ></input>
+        </label>
+        <Button
+          text="Search"
+          type="submit"
+          disabled={this.props.disabled}
+        ></Button>
       </form>
     );
   }
