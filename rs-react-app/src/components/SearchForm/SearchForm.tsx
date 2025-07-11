@@ -33,27 +33,29 @@ export class SearchForm extends Component<Props, State> {
 
   render(): ReactNode {
     return (
-      <form
-        className={style.form}
-        onSubmit={async (event) => {
-          event.preventDefault();
-          if (!this.state.input) return;
-          setLocalStorageData(this.state.input);
-          this.props.handleSearch(this.state.input);
-        }}
-      >
-        <label>
-          <input
-            className={style.input}
-            onChange={this.handleChange}
-            placeholder="Enter your request"
-            value={this.state.input ?? ''}
-            disabled={this.props.disabled}
-          ></input>
-        </label>
-        <Button text="Search" type="submit" disabled={this.props.disabled} />
-        <BreakingButton />
-      </form>
+      <section>
+        <form
+          className={style.form}
+          onSubmit={async (event) => {
+            event.preventDefault();
+            if (!this.state.input) return;
+            setLocalStorageData(this.state.input);
+            this.props.handleSearch(this.state.input);
+          }}
+        >
+          <label>
+            <input
+              className={style.input}
+              onChange={this.handleChange}
+              placeholder="Enter your request"
+              value={this.state.input ?? ''}
+              disabled={this.props.disabled}
+            ></input>
+          </label>
+          <Button text="Search" type="submit" disabled={this.props.disabled} />
+          <BreakingButton />
+        </form>
+      </section>
     );
   }
 }
