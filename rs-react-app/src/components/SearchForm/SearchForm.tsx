@@ -12,33 +12,19 @@ interface Props {
 
 interface State {
   input: string | undefined;
-  error: undefined | boolean;
 }
 
 export class SearchForm extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { input: undefined, error: false };
+    this.state = { input: undefined };
   }
 
   componentDidMount(): void {
-    try {
-      const savedInput = getLocalStorageData();
-      if (!savedInput) return;
-      this.props.handleSearch(savedInput);
-      this.setState({ input: savedInput });
-    } catch {
-      console.log(3);
-      this.setState({ error: true });
-    }
-  }
-
-  componentDidUpdate(): void {
-    console.log('1');
-    if (this.state.error) {
-      console.log('error');
-      throw new Error('something wrong');
-    }
+    const savedInput = getLocalStorageData();
+    if (!savedInput) return;
+    this.props.handleSearch(savedInput);
+    this.setState({ input: savedInput });
   }
 
   handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

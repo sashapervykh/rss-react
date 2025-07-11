@@ -12,7 +12,9 @@ export interface SearchResultType {
   media_type: string;
 }
 
-const APIDataSchema = z.looseObject({
+export const errorScheme = z.looseObject({ message: z.string() });
+
+const APIDataScheme = z.looseObject({
   collection: z.looseObject({
     items: z.array(
       z.looseObject({
@@ -24,7 +26,7 @@ const APIDataSchema = z.looseObject({
             title: z.string(),
           })
         ),
-        links: z.array(z.looseObject({ href: z.string() })),
+        links: z.array(z.looseObject({ href: z.string() })).optional(),
       })
     ),
   }),
@@ -36,7 +38,7 @@ export async function getDataFromApi({ input, page = 1 }: Props) {
       `https://images-api.nasa.gov/search?q=${input}&page=${page.toString()}&page_size=10`
     );
     const body = await response.json();
-    const typedBody = APIDataSchema.parse(body);
+    const typedBody = APIDataScheme.parse(body);
     const searchResult = typedBody.collection.items.map((element) => {
       return {
         title: element.data[0].title,
@@ -48,7 +50,12 @@ export async function getDataFromApi({ input, page = 1 }: Props) {
       };
     });
     return searchResult;
-  } catch {
-    throw new Error('There is a problem with API response');
+  } catch (error) {
+    console.log(error);
+    const message = errorScheme.parse(error).message;
+    console.log(message);
+    throw new Error(
+      `There is a problem with API response. ${message ? message : ''}`
+    );
   }
 }

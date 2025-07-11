@@ -2,6 +2,7 @@ import { Component, type ReactNode } from 'react';
 import { SearchForm } from '../SearchForm/SearchForm';
 import { SearchResults } from '../SearchResults/SearchResults';
 import {
+  errorScheme,
   getDataFromApi,
   type SearchResultType,
 } from '../../api/getDataFromApi';
@@ -24,8 +25,8 @@ export class SearchWrapper extends Component<object, State> {
       this.setState({ pending: true });
       const results = await getDataFromApi({ input: input });
       this.setState({ results: results, pending: false });
-    } catch {
-      const message = 'There is a problem with getting data from API';
+    } catch (error) {
+      const message = errorScheme.parse(error).message;
       this.setState({ error: message });
       throw new Error(message);
     }
