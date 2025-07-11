@@ -24,7 +24,7 @@ const APIDataSchema = z.looseObject({
             title: z.string(),
           })
         ),
-        links: z.array(z.looseObject({ href: z.string() })).optional(),
+        links: z.array(z.looseObject({ href: z.string() })),
       })
     ),
   }),
@@ -48,8 +48,7 @@ export async function getDataFromApi({ input, page = 1 }: Props) {
       };
     });
     return searchResult;
-  } catch (error) {
-    console.error(error);
-    throw error;
+  } catch {
+    throw new Error('There is a problem with API response');
   }
 }

@@ -10,19 +10,32 @@ import { Spinner } from '../Spinner/Spinner';
 interface State {
   results: SearchResultType[] | undefined;
   pending: boolean;
+  error: undefined | string;
 }
 
 export class SearchWrapper extends Component<object, State> {
   constructor(props = {}) {
     super(props);
-    this.state = { results: undefined, pending: false };
+    this.state = { results: undefined, pending: false, error: undefined };
   }
 
   handleSearch = async (input: string) => {
-    this.setState({ pending: true });
-    const results = await getDataFromApi({ input: input });
-    this.setState({ results: results, pending: false });
+    try {
+      this.setState({ pending: true });
+      const results = await getDataFromApi({ input: input });
+      this.setState({ results: results, pending: false });
+    } catch {
+      const message = 'There is a problem with getting data from API';
+      this.setState({ error: message });
+      throw new Error(message);
+    }
   };
+
+  componentDidUpdate(): void {
+    if (this.state.error) {
+      throw new Error(this.state.error);
+    }
+  }
 
   render(): ReactNode {
     return (
