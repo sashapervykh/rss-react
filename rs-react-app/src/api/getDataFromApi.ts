@@ -9,6 +9,7 @@ export interface SearchResultType {
   title: string;
   description: string;
   source?: string;
+  media_type: string;
 }
 
 const APIDataSchema = z.looseObject({
@@ -44,6 +45,7 @@ export async function getDataFromApi({ input, page = 1 }: Props) {
         description:
           element.data[0].description ??
           `NASA did not provide any description for this item(((`,
+        media_type: element.data[0].media_type,
         source: element.links[0].href,
       };
     });
