@@ -43,7 +43,6 @@ export async function getDataFromApi({ input = '', page = 1 }: Props) {
             `https://images-api.nasa.gov/search?media_type=image&page=${page.toString()}&page_size=10`
           );
 
-    console.log(response);
     if (!response.ok) {
       switch (true) {
         case response.status === 404: {
