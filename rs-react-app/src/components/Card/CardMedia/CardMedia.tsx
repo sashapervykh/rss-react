@@ -1,6 +1,6 @@
 import { Component, type ReactNode } from 'react';
 import style from './style.module.css';
-import NO_IMAGE from '../../../../public/no_image_available.png';
+import NO_IMAGE from '/no_image_available.png';
 
 interface Props {
   src?: string;

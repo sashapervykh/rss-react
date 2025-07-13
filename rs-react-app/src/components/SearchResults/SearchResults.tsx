@@ -1,7 +1,7 @@
 import { Component, type ReactNode } from 'react';
 import type { SearchResultType } from '../../api/getDataFromApi';
 import { Card } from '../Card/Card';
-import NO_IMAGE from '../../../public/no_image_available.png';
+import NO_IMAGE from '/no_image_available.png';
 import style from './style.module.css';
 
 interface Props {
