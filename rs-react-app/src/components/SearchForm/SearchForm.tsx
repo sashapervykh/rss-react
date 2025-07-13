@@ -38,8 +38,8 @@ export class SearchForm extends Component<Props, State> {
           onSubmit={async (event) => {
             event.preventDefault();
             const input = this.state.input ?? '';
-            setLocalStorageData(input);
-            this.props.handleSearch(input);
+            setLocalStorageData(input.trim());
+            this.props.handleSearch(input.trim());
           }}
         >
           <label>

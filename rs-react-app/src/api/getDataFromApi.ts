@@ -34,7 +34,6 @@ const APIDataScheme = z.looseObject({
 
 export async function getDataFromApi({ input = '', page = 1 }: Props) {
   try {
-    console.log(input !== '');
     const response =
       input !== ''
         ? await fetch(
@@ -43,8 +42,38 @@ export async function getDataFromApi({ input = '', page = 1 }: Props) {
         : await fetch(
             `https://images-api.nasa.gov/search?media_type=image&page=${page.toString()}&page_size=10`
           );
+
+    console.log(response);
+    if (!response.ok) {
+      switch (true) {
+        case response.status === 404: {
+          throw new Error(
+            `The requested resource is not found. Status code: ${response.status}`
+          );
+        }
+        case response.status === 503: {
+          throw new Error(
+            `The server is unavailable now. Try again later. Status code: ${response.status}`
+          );
+        }
+        case response.status >= 500: {
+          throw new Error(
+            `This is a server-side problem. Status code: ${response.status}`
+          );
+        }
+        case response.status >= 400: {
+          throw new Error(
+            `This is a client-side problem. Status code: ${response.status}`
+          );
+        }
+        default: {
+          throw new Error(`Status code: ${response.status}`);
+        }
+      }
+    }
+
     const body = await response.json();
-    console.log(body);
+
     const typedBody = APIDataScheme.parse(body);
     const searchResult = typedBody.collection.items.map((element) => {
       return {
@@ -58,10 +87,7 @@ export async function getDataFromApi({ input = '', page = 1 }: Props) {
     });
     return searchResult;
   } catch (error) {
-    console.log('done');
-    console.log(error);
     const message = errorScheme.parse(error).message;
-    console.log(message);
     throw new Error(
       `There is a problem with API response. ${message ? message : ''}`
     );
