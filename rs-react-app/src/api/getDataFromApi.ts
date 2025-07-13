@@ -32,12 +32,19 @@ const APIDataScheme = z.looseObject({
   }),
 });
 
-export async function getDataFromApi({ input, page = 1 }: Props) {
+export async function getDataFromApi({ input = '', page = 1 }: Props) {
   try {
-    const response = await fetch(
-      `https://images-api.nasa.gov/search?q=${input}&page=${page.toString()}&page_size=10`
-    );
+    console.log(input !== '');
+    const response =
+      input !== ''
+        ? await fetch(
+            `https://images-api.nasa.gov/search?q=${input}&page=${page.toString()}&page_size=10`
+          )
+        : await fetch(
+            `https://images-api.nasa.gov/search?media_type=image&page=${page.toString()}&page_size=10`
+          );
     const body = await response.json();
+    console.log(body);
     const typedBody = APIDataScheme.parse(body);
     const searchResult = typedBody.collection.items.map((element) => {
       return {
@@ -51,6 +58,7 @@ export async function getDataFromApi({ input, page = 1 }: Props) {
     });
     return searchResult;
   } catch (error) {
+    console.log('done');
     console.log(error);
     const message = errorScheme.parse(error).message;
     console.log(message);

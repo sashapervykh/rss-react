@@ -21,8 +21,7 @@ export class SearchForm extends Component<Props, State> {
   }
 
   componentDidMount(): void {
-    const savedInput = getLocalStorageData();
-    if (!savedInput) return;
+    const savedInput = getLocalStorageData() ?? '';
     this.props.handleSearch(savedInput);
     this.setState({ input: savedInput });
   }
@@ -38,9 +37,9 @@ export class SearchForm extends Component<Props, State> {
           className={style.form}
           onSubmit={async (event) => {
             event.preventDefault();
-            if (!this.state.input) return;
-            setLocalStorageData(this.state.input);
-            this.props.handleSearch(this.state.input);
+            const input = this.state.input ?? '';
+            setLocalStorageData(input);
+            this.props.handleSearch(input);
           }}
         >
           <label>
