@@ -1,4 +1,4 @@
-import { Component, type ReactNode } from 'react';
+import { Component } from 'react';
 import { ErrorFallback } from '../ErrorFallback/ErrorFallback';
 import { clearLocalStorage } from '../../utilities/clearLocalStorage';
 
@@ -19,6 +19,10 @@ export class ErrorBoundary extends Component<Props, State> {
 
   static getDerivedStateFromError(error: Error) {
     return { hasError: true, error: error.message };
+  }
+
+  componentDidCatch(error: Error): void {
+    console.error(error);
   }
 
   render() {
