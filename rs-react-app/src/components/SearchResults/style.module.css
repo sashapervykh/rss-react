@@ -1,0 +1,6 @@
+.results-wrapper {
+  color: var(--main-font-color);
+  font-family: var(--main-font-family);
+  font-size: 30px;
+  max-width: 80vw;
+}

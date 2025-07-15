@@ -1,0 +1,11 @@
+.button {
+  font-family: var(--main-font-family);
+  font-size: 25px;
+  margin-right: 10px;
+  color: var(--main-font-color);
+  background-color: var(--elem-bg-color);
+}
+
+.button:hover {
+  cursor: pointer;
+}

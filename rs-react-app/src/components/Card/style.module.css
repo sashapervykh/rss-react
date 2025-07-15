@@ -1,0 +1,7 @@
+.card-wrapper {
+  display: flex;
+  margin: 10px 20px;
+  padding: 15px;
+  background-color: var(--elem-bg-color);
+  border-radius: 10px;
+}
