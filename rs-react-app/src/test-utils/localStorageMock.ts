@@ -17,3 +17,7 @@ const localStorageMock = (() => {
 })();
 
 vi.stubGlobal('localStorage', localStorageMock);
+
+beforeEach(() => {
+  localStorage.clear();
+});
