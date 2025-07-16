@@ -72,7 +72,6 @@ describe('SearchForm', () => {
 
     expect(input).toHaveValue('input');
   });
-
   it(`should save entered search term in localStorage when pressing submit button`, async () => {
     renderForm(false);
 
@@ -86,5 +85,17 @@ describe('SearchForm', () => {
     await userEvent.click(searchButton);
     const savedInput = localStorage.getItem('input');
     expect(savedInput).toBe('input');
+  });
+  it(`should used term saved in localStorage`, async () => {
+    localStorage.setItem('input', 'input');
+
+    renderForm(false);
+
+    const input = screen.getByRole('textbox');
+
+    if (!(input instanceof HTMLInputElement))
+      throw new Error('The element is not an input');
+
+    expect(input).toHaveValue('input');
   });
 });
