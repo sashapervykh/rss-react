@@ -48,4 +48,43 @@ describe('SearchForm', () => {
 
     expect(input).toHaveValue('input');
   });
+  it(`should update input value when user typing`, async () => {
+    renderForm(false);
+
+    const input = screen.getByRole('textbox');
+
+    if (!(input instanceof HTMLInputElement))
+      throw new Error('The element is not an input');
+
+    await userEvent.type(input, 'input');
+
+    expect(input).toHaveValue('input');
+  });
+  it(`should update input value when user typing`, async () => {
+    renderForm(false);
+
+    const input = screen.getByRole('textbox');
+
+    if (!(input instanceof HTMLInputElement))
+      throw new Error('The element is not an input');
+
+    await userEvent.type(input, 'input');
+
+    expect(input).toHaveValue('input');
+  });
+
+  it(`should save entered search term in localStorage when pressing submit button`, async () => {
+    renderForm(false);
+
+    const input = screen.getByRole('textbox');
+
+    if (!(input instanceof HTMLInputElement))
+      throw new Error('The element is not an input');
+
+    await userEvent.type(input, 'input');
+    const searchButton = screen.getByRole('button', { name: 'Search' });
+    await userEvent.click(searchButton);
+    const savedInput = localStorage.getItem('input');
+    expect(savedInput).toBe('input');
+  });
 });
