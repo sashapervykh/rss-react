@@ -72,7 +72,7 @@ describe('SearchForm', () => {
 
     expect(input).toHaveValue('input');
   });
-  it(`should save entered search term in localStorage when pressing submit button`, async () => {
+  it(`should save entered trimmed search term in localStorage when pressing submit button`, async () => {
     renderForm(false);
 
     const input = screen.getByRole('textbox');
@@ -80,7 +80,7 @@ describe('SearchForm', () => {
     if (!(input instanceof HTMLInputElement))
       throw new Error('The element is not an input');
 
-    await userEvent.type(input, 'input');
+    await userEvent.type(input, '   input   ');
     const searchButton = screen.getByRole('button', { name: 'Search' });
     await userEvent.click(searchButton);
     const savedInput = localStorage.getItem('input');
