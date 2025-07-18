@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { BreakingButton } from './BreakingButton';
 import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import userEvent from '@testing-library/user-event';
+import { expectFallbackUI } from '../../test-utils/expectFallbackUI';
 
 describe('BreakingButton', () => {
   const renderBreakingButton = () => {
@@ -22,16 +23,6 @@ describe('BreakingButton', () => {
     const button = renderBreakingButton();
 
     await userEvent.click(button);
-
-    const firstParagraph = screen.getByText('Something went wrong...');
-    const secondParagraph = screen.getByText(`Press 'Reset' to try again`);
-    const details = screen.getByRole('group');
-    const resetButton = screen.getByRole('button', { name: 'Reset' });
-
-    expect(firstParagraph).toBeInTheDocument();
-    expect(secondParagraph).toBeInTheDocument();
-    expect(details).toBeInTheDocument();
-    expect(details).toHaveTextContent('Congratulations! You crashed the app!');
-    expect(resetButton).toBeInTheDocument();
+    expectFallbackUI('Congratulations! You crashed the app!');
   });
 });
