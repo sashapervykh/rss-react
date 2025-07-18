@@ -12,6 +12,7 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
       include: ['src/**/*.{js,jsx,ts,tsx}'],
       exclude: [
+        'src/test-utils/*.test.{js,jsx,ts,tsx}',
         'src/**/*.test.{js,jsx,ts,tsx}',
         'src/**/*.spec.{js,jsx,ts,tsx}',
         'src/index.{js,jsx,ts,tsx}',
