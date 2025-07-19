@@ -1,7 +1,18 @@
+export const TEST_REQUESTS = {
+  simple: 'simple',
+  withoutDescription: 'without description',
+  empty: '',
+  severalResults: 'several results',
+  notFound: 'not found',
+  unavailableServer: 'unavailable server',
+  serverError: 'server error',
+  clientError: 'client error',
+};
+
 export const mockedSimpleRequestResult = [
   {
-    title: 'Testing image',
-    description: 'Testing data for request',
+    title: TEST_REQUESTS.simple,
+    description: `Testing data for ${TEST_REQUESTS.simple}`,
     media_type: 'image',
     source: 'test.com',
   },
@@ -9,7 +20,7 @@ export const mockedSimpleRequestResult = [
 
 export const mockedRequestResultWithoutDescription = [
   {
-    title: 'Testing image',
+    title: TEST_REQUESTS.withoutDescription,
     description: `NASA did not provide any description for this item(((`,
     media_type: 'video',
     source: 'test.com',
@@ -18,8 +29,8 @@ export const mockedRequestResultWithoutDescription = [
 
 export const mockedEmptyRequestResult = [
   {
-    title: 'Testing image',
-    description: `Data for empty request`,
+    title: TEST_REQUESTS.empty,
+    description: `Testing data for ${TEST_REQUESTS.empty}`,
     media_type: 'audio',
     source: 'test.com',
   },

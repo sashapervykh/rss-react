@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw';
+import { TEST_REQUESTS } from './mockedCardsData';
 
 export const handlers = [
   http.get('https://images-api.nasa.gov/search', ({ request }) => {
@@ -6,41 +7,44 @@ export const handlers = [
     const requestedTerm = url.searchParams.get('q');
 
     switch (requestedTerm) {
-      case 'simpleRequest': {
+      case TEST_REQUESTS.simple: {
         return HttpResponse.json(
           returnMockResponses({
-            description: 'Testing data for request',
+            title: TEST_REQUESTS.simple,
+            description: `Testing data for ${TEST_REQUESTS.simple}`,
             links: 'test.com',
             repeats: 1,
             media_type: 'image',
           })
         );
       }
-      case 'without description': {
+      case TEST_REQUESTS.withoutDescription: {
         return HttpResponse.json(
           returnMockResponses({
+            title: TEST_REQUESTS.withoutDescription,
             links: 'test.com',
             repeats: 1,
             media_type: 'video',
           })
         );
       }
-      case 'not found': {
+      case TEST_REQUESTS.notFound: {
         return new HttpResponse(null, { status: 404 });
       }
-      case 'unavailable server': {
+      case TEST_REQUESTS.unavailableServer: {
         return new HttpResponse(null, { status: 503 });
       }
-      case 'server error': {
+      case TEST_REQUESTS.serverError: {
         return new HttpResponse(null, { status: 504 });
       }
-      case 'client error': {
+      case TEST_REQUESTS.clientError: {
         return new HttpResponse(null, { status: 403 });
       }
       case null: {
         return HttpResponse.json(
           returnMockResponses({
-            description: 'Data for empty request',
+            title: TEST_REQUESTS.empty,
+            description: `Testing data for ${TEST_REQUESTS.empty}`,
             links: 'test.com',
             repeats: 1,
             media_type: 'audio',
@@ -52,11 +56,13 @@ export const handlers = [
 ];
 
 function returnMockResponses({
+  title,
   description,
   links,
   repeats = 1,
   media_type,
 }: {
+  title: string;
   description?: string;
   links?: string;
   repeats: number;
@@ -71,7 +77,7 @@ function returnMockResponses({
             description ??
             `NASA did not provide any description for this item(((`,
           media_type: media_type,
-          title: 'Testing image',
+          title: title,
         },
       ],
       links: [{ href: links }],
