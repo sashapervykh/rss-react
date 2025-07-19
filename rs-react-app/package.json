@@ -48,5 +48,10 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,md}": "npm run format:fix",
     "*.{js,jsx,ts,tsx}": "npm run lint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test"
+    }
   }
 }
