@@ -35,3 +35,17 @@ export const mockedEmptyRequestResult = [
     source: 'test.com',
   },
 ];
+
+export const mockedResultWithoutSource = [
+  {
+    title: TEST_REQUESTS.simple,
+    description: `Testing data for ${TEST_REQUESTS.simple}`,
+    media_type: 'image',
+  },
+];
+
+export const mockedSeveralResults = Array.from({ length: 10 }, (elem, index) =>
+  index % 2 === 0
+    ? mockedSimpleRequestResult[0]
+    : mockedRequestResultWithoutDescription[0]
+);
