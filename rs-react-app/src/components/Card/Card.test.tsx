@@ -25,4 +25,17 @@ describe('Card', () => {
 
     expect(description).toBeInTheDocument();
   });
+  it(`should handle undefined source correctly`, () => {
+    render(
+      <Card
+        title="Test"
+        description="Testing rendering card"
+        media_type="audio"
+      />
+    );
+
+    const image = screen.getByRole('img');
+
+    expect(image).toHaveAttribute('src', '/no_image_available.png');
+  });
 });
