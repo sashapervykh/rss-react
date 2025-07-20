@@ -1,9 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { ErrorBoundary } from './ErrorBoundary';
 import { BuggyComponent } from '../../test-utils/BuggyComponent';
 import { expectFallbackUI } from '../../test-utils/expectFallbackUI';
-import { BreakingButton } from '../BreakingButton/BreakingButton';
-import userEvent from '@testing-library/user-event';
 
 describe('ErrorBoundary', () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
@@ -24,15 +22,15 @@ describe('ErrorBoundary', () => {
 
     expectFallbackUI('Throwing error to test ErrorBoundary');
   });
-  it(`should display fallback UI when pressing 'BREAK' button`, async () => {
+  it(`should call console.error when catch an error`, () => {
     render(
       <ErrorBoundary>
-        <BreakingButton />
+        <BuggyComponent isError={true} />
       </ErrorBoundary>
     );
 
-    const button = screen.getByRole('button', { name: 'BREAK!' });
-    await userEvent.click(button);
-    expectFallbackUI('Congratulations! You crashed the app!');
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      new Error('Throwing error to test ErrorBoundary')
+    );
   });
 });
