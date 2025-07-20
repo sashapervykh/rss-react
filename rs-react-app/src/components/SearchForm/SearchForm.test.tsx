@@ -44,16 +44,29 @@ describe('SearchForm', () => {
     expect(input).toHaveValue('input');
   });
   it(`should save entered trimmed search term in localStorage when pressing submit button`, async () => {
-    const { input } = renderForm(false);
+    const { input, searchButton } = renderForm(false);
 
     if (!(input instanceof HTMLInputElement))
       throw new Error('The element is not an input');
 
     await userEvent.type(input, '   input   ');
-    const searchButton = screen.getByRole('button', { name: 'Search' });
     await userEvent.click(searchButton);
     const savedInput = localStorage.getItem('input');
     expect(savedInput).toBe('input');
+  });
+  it(`should overwrites existing value with new search`, async () => {
+    localStorage.setItem('input', 'done');
+
+    const { input, searchButton } = renderForm(false);
+
+    if (!(input instanceof HTMLInputElement))
+      throw new Error('The element is not an input');
+
+    await userEvent.clear(input);
+    await userEvent.type(input, '   new input   ');
+    await userEvent.click(searchButton);
+    const savedInput = localStorage.getItem('input');
+    expect(savedInput).toBe('new input');
   });
   it(`should used term saved in localStorage`, async () => {
     localStorage.setItem('input', 'input');
@@ -65,12 +78,20 @@ describe('SearchForm', () => {
 
     expect(input).toHaveValue('input');
   });
-  it(`should call handleSearch function when click on 'Search' button`, async () => {
-    const { fn } = renderForm(false);
+  it(`should show empty input if there are no term saved in localStorage`, async () => {
+    const { input } = renderForm(false);
 
-    const button = screen.getByRole('button', { name: 'Search' });
-    await userEvent.click(button);
+    if (!(input instanceof HTMLInputElement))
+      throw new Error('The element is not an input');
 
-    expect(fn).toHaveBeenCalled();
+    expect(input).toHaveValue('');
+  });
+  it(`should call handleSearch function with correct parameters when click on 'Search' button`, async () => {
+    const { fn, input, searchButton } = renderForm(false);
+
+    await userEvent.type(input, 'moon');
+    await userEvent.click(searchButton);
+
+    expect(fn).toHaveBeenCalledWith('moon');
   });
 });
