@@ -3,10 +3,11 @@ import { SearchForm } from './SearchForm';
 import userEvent from '@testing-library/user-event';
 
 describe('SearchForm', () => {
-  const renderForm = (disabled: boolean = false) =>
-    render(
-      <SearchForm handleSearch={() => Promise.resolve()} disabled={disabled} />
-    );
+  const renderForm = (disabled: boolean = false) => {
+    const fn = vi.fn();
+    render(<SearchForm handleSearch={fn} disabled={disabled} />);
+    return fn;
+  };
 
   it(`should render disabled input and two buttons (search button is disabled, break button is active) when get disabled=true`, () => {
     renderForm(true);
@@ -97,5 +98,13 @@ describe('SearchForm', () => {
       throw new Error('The element is not an input');
 
     expect(input).toHaveValue('input');
+  });
+  it(`should call handleSearch function when click on 'Search' button`, async () => {
+    const fn = renderForm(false);
+
+    const button = screen.getByRole('button', { name: 'Search' });
+    await userEvent.click(button);
+
+    expect(fn).toHaveBeenCalled();
   });
 });
