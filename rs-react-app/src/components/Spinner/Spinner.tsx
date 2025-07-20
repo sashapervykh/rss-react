@@ -4,7 +4,7 @@ import style from './style.module.css';
 export class Spinner extends Component {
   render() {
     return (
-      <div className={style.wrapper}>
+      <div className={style.wrapper} data-testid="spinner">
         <div className={style.sun}></div>
         <div className={style['second-line']}>
           <div className={style['second-planet']}></div>
