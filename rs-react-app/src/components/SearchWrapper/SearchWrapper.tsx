@@ -28,7 +28,6 @@ export class SearchWrapper extends Component<object, State> {
     } catch (error) {
       const message = errorScheme.parse(error).message;
       this.setState({ error: message });
-      throw new Error(message);
     }
   };
 

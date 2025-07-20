@@ -11,7 +11,6 @@ import { SearchWrapper } from './SearchWrapper';
 
 describe('SearchWrapper', () => {
   beforeEach(() => {
-    vi.resetModules();
     vi.mock('../../api/getDataFromApi', () => ({
       getDataFromApi: vi.fn(),
     }));
