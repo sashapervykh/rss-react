@@ -20,28 +20,28 @@ describe('getDataFromApi', () => {
     expect(result).toEqual(mockedRequestResultWithoutDescription);
   });
   it(`should throw Error with correct description for status 404`, async () => {
-    expect(
+    await expect(
       getDataFromApi({ input: TEST_REQUESTS.notFound })
     ).rejects.toThrowError(
       'There is a problem with API response. The requested resource is not found. Status code: 404'
     );
   });
   it(`should throw Error with correct description for status 503`, async () => {
-    expect(
+    await expect(
       getDataFromApi({ input: TEST_REQUESTS.unavailableServer })
     ).rejects.toThrowError(
       'There is a problem with API response. The server is unavailable now. Try again later. Status code: 503'
     );
   });
   it(`should throw Error with correct description for status >= 400 & <500`, async () => {
-    expect(
+    await expect(
       getDataFromApi({ input: TEST_REQUESTS.clientError })
     ).rejects.toThrowError(
       'There is a problem with API response. This is a client-side problem. Status code: 403'
     );
   });
   it(`should throw Error with correct description for status >= 500`, async () => {
-    expect(
+    await expect(
       getDataFromApi({ input: TEST_REQUESTS.serverError })
     ).rejects.toThrowError(
       'There is a problem with API response. This is a server-side problem. Status code: 504'
