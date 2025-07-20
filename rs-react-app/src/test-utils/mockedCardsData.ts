@@ -1,3 +1,10 @@
+export interface MockResultType {
+  title: string;
+  description: string;
+  source: string;
+  media_type: 'audio' | 'video' | 'image';
+}
+
 export const TEST_REQUESTS = {
   simple: 'simple',
   withoutDescription: 'without description',
@@ -9,7 +16,7 @@ export const TEST_REQUESTS = {
   clientError: 'client error',
 };
 
-export const mockedSimpleRequestResult = [
+export const mockedSimpleRequestResult: MockResultType[] = [
   {
     title: TEST_REQUESTS.simple,
     description: `Testing data for ${TEST_REQUESTS.simple}`,
@@ -18,7 +25,7 @@ export const mockedSimpleRequestResult = [
   },
 ];
 
-export const mockedRequestResultWithoutDescription = [
+export const mockedRequestResultWithoutDescription: MockResultType[] = [
   {
     title: TEST_REQUESTS.withoutDescription,
     description: `NASA did not provide any description for this item(((`,
@@ -27,7 +34,7 @@ export const mockedRequestResultWithoutDescription = [
   },
 ];
 
-export const mockedEmptyRequestResult = [
+export const mockedEmptyRequestResult: MockResultType[] = [
   {
     title: TEST_REQUESTS.empty,
     description: `Testing data for ${TEST_REQUESTS.empty}`,
