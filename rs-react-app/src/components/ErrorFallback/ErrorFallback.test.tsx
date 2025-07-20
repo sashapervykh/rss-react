@@ -17,7 +17,9 @@ describe('ErrorFallback', () => {
         <BreakingButton />
       </ErrorBoundary>
     );
-
+    const consoleErrorSpy: ReturnType<typeof vi.spyOn> = vi
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
     const initialButton = screen.getByRole('button', { name: 'BREAK!' });
 
     await userEvent.click(initialButton);
@@ -27,5 +29,6 @@ describe('ErrorFallback', () => {
     const rerenderedButton = screen.getByRole('button', { name: 'BREAK!' });
 
     expect(rerenderedButton).toBeInTheDocument();
+    consoleErrorSpy.mockRestore();
   });
 });

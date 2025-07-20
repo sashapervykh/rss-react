@@ -6,6 +6,15 @@ import { BreakingButton } from '../BreakingButton/BreakingButton';
 import userEvent from '@testing-library/user-event';
 
 describe('ErrorBoundary', () => {
+  let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
+  beforeEach(() => {
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    consoleErrorSpy.mockRestore();
+  });
+
   it(`should catch Error and display fallback UI`, () => {
     render(
       <ErrorBoundary>
