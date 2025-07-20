@@ -51,7 +51,7 @@ describe('SearchWrapper', () => {
     expect(card).toHaveLength(1);
     expect(heading).toHaveTextContent(TEST_REQUESTS.simple);
   });
-  it(`should render spinner while waiting for results`, async () => {
+  it(`should shows loading state while fetching data`, async () => {
     vi.mocked(getDataFromApi).mockResolvedValue(mockedEmptyRequestResult);
     render(<SearchWrapper />);
 

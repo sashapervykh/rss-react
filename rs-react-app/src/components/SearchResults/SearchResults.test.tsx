@@ -4,6 +4,7 @@ import type { SearchResultType } from '../../api/getDataFromApi';
 import {
   mockedResultWithoutSource,
   mockedSeveralResults,
+  mockedSimpleRequestResult,
   TEST_REQUESTS,
 } from '../../test-utils/mockedCardsData';
 
@@ -50,5 +51,20 @@ describe('SearchResults', () => {
     const image = screen.getByRole('img');
 
     expect(image).toHaveAttribute('src', '/no_image_available.png');
+  });
+  it(`should correctly display items data`, () => {
+    renderResults(mockedSimpleRequestResult);
+
+    const image = screen.getByRole('img');
+    const title = screen.getByRole('heading');
+    const description = screen.getByText(
+      mockedSimpleRequestResult[0].description
+    );
+
+    expect(image).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    expect(description).toBeInTheDocument();
+    expect(image).toHaveAttribute('src', mockedSimpleRequestResult[0].source);
+    expect(title).toHaveTextContent(mockedSimpleRequestResult[0].title);
   });
 });
