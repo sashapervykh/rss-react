@@ -1,29 +1,18 @@
-import { Component } from 'react';
 import { Button } from '../Button/Button';
 
-interface State {
-  error: boolean;
-}
+export function BreakingButton() {
+  const [error, setError] = useState<boolean>(false);
 
-export class BreakingButton extends Component<object, State> {
-  constructor(props: object) {
-    super(props);
-    this.state = { error: false };
-  }
-  componentDidUpdate(): void {
-    if (this.state.error) {
-      throw new Error('Congratulations! You crashed the app!');
-    }
-  }
+  useEffect(() => {
+    if (error) throw new Error('Congratulations! You crashed the app!');
+  }, [error]);
 
-  render() {
-    return (
-      <Button
-        text="BREAK!"
-        onClick={() => {
-          this.setState({ error: true });
-        }}
-      />
-    );
-  }
+  return (
+    <Button
+      text="BREAK!"
+      onClick={() => {
+        setError(true);
+      }}
+    />
+  );
 }
