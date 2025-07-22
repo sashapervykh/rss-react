@@ -1,4 +1,3 @@
-import { Component, type ReactNode } from 'react';
 import style from './style.module.css';
 
 interface Props {
@@ -8,17 +7,15 @@ interface Props {
   disabled?: boolean;
 }
 
-export class Button extends Component<Props> {
-  render(): ReactNode {
-    return (
-      <button
-        className={style.button}
-        onClick={this.props.onClick}
-        type={this.props.type ? this.props.type : 'button'}
-        disabled={this.props.disabled}
-      >
-        {this.props.text}
-      </button>
-    );
-  }
+export function Button(props: Props) {
+  return (
+    <button
+      className={style.button}
+      onClick={props.onClick}
+      type={props.type ? props.type : 'button'}
+      disabled={props.disabled}
+    >
+      {props.text}
+    </button>
+  );
 }
