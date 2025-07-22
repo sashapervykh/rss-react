@@ -1,4 +1,4 @@
-import { Component, type ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import { SearchForm } from '../SearchForm/SearchForm';
 import { SearchResults } from '../SearchResults/SearchResults';
 import {
@@ -8,49 +8,38 @@ import {
 } from '../../api/getDataFromApi';
 import { Spinner } from '../Spinner/Spinner';
 
-interface State {
-  results: SearchResultType[] | undefined;
-  pending: boolean;
-  error: undefined | string;
-}
+export function SearchWrapper() {
+  const [results, setResults] = useState<undefined | SearchResultType[]>(
+    undefined
+  );
+  const [pending, setPending] = useState<boolean>(false);
+  const [error, setError] = useState<undefined | string>(undefined);
 
-export class SearchWrapper extends Component<object, State> {
-  constructor(props = {}) {
-    super(props);
-    this.state = { results: undefined, pending: false, error: undefined };
-  }
+  useEffect(() => {
+    if (error) {
+      throw new Error(error);
+    }
+  }, [error]);
 
-  handleSearch = async (input: string) => {
+  const handleSearch = async (input: string) => {
     try {
-      this.setState({ pending: true });
+      setPending(true);
       const results = await getDataFromApi({ input: input });
-      this.setState({ results: results, pending: false });
+      setPending(false);
+      setResults(results);
     } catch (error) {
       const message = errorScheme.parse(error).message;
-      this.setState({ error: message });
+      setError(message);
     }
   };
 
-  componentDidUpdate(): void {
-    if (this.state.error) {
-      throw new Error(this.state.error);
-    }
-  }
-
-  render(): ReactNode {
-    return (
-      <>
-        <SearchForm
-          handleSearch={this.handleSearch}
-          disabled={this.state.pending}
-        />
-        <section>
-          {this.state.pending && <Spinner />}
-          {!this.state.pending && (
-            <SearchResults results={this.state.results} />
-          )}
-        </section>
-      </>
-    );
-  }
+  return (
+    <>
+      <SearchForm handleSearch={handleSearch} disabled={pending} />
+      <section>
+        {pending && <Spinner />}
+        {!pending && <SearchResults results={results} />}
+      </section>
+    </>
+  );
 }
