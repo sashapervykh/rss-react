@@ -1,4 +1,6 @@
 .results-wrapper {
+  display: flex;
+  flex-direction: column;
   color: var(--main-font-color);
   font-family: var(--main-font-family);
   font-size: 30px;

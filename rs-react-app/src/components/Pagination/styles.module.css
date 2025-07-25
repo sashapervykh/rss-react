@@ -1,0 +1,9 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  margin: auto;
+  display: fit-content;
+  justify-content: center;
+  text-align: center;
+}

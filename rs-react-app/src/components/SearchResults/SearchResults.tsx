@@ -9,6 +9,7 @@ import style from './style.module.css';
 import { useEffect, useState } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Spinner } from '../Spinner/Spinner';
+import { Pagination } from '../Pagination/Pagination';
 
 export function SearchResults() {
   const { savedInput } = useLocalStorage();
@@ -42,6 +43,7 @@ export function SearchResults() {
 
   return (
     <section className={style['results-wrapper']}>
+      <Pagination />
       {pending || !results ? (
         <Spinner />
       ) : results.length === 0 ? (
