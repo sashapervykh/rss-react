@@ -1,3 +1,4 @@
+import { PageProvider } from '../../hooks/usePagination/PageProvider';
 import { PageTitle } from '../PageTitle/PageTitle';
 import { SearchForm } from '../SearchForm/SearchForm';
 import { SearchResults } from '../SearchResults/SearchResults';
@@ -7,7 +8,9 @@ export function PageMain() {
     <main>
       <PageTitle />
       <SearchForm />
-      <SearchResults />
+      <PageProvider>
+        <SearchResults />
+      </PageProvider>
     </main>
   );
 }

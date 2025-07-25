@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import { Button } from '../Button/Button';
 import styles from './styles.module.css';
+import { usePage } from '../../hooks/usePagination/usePagination';
 
 export function Pagination({ max = 10 }: { max: number }) {
-  const [page, setPage] = useState(1);
+  const { page, setPage } = usePage();
 
-  console.log(max);
   return (
     <div className={styles.wrapper}>
       <Button

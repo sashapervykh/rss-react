@@ -10,8 +10,10 @@ import { useEffect, useState } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Spinner } from '../Spinner/Spinner';
 import { Pagination } from '../Pagination/Pagination';
+import { usePage } from '../../hooks/usePagination/usePagination';
 
 export function SearchResults() {
+  const { page } = usePage();
   const { savedInput } = useLocalStorage();
   const [results, setResults] = useState<undefined | SearchResultType[]>(
     undefined
@@ -20,8 +22,9 @@ export function SearchResults() {
   const [error, setError] = useState<undefined | string>(undefined);
 
   useEffect(() => {
-    handleSearch(savedInput);
-  }, [savedInput]);
+    handleSearch(savedInput, page);
+    console.log(page);
+  }, [savedInput, page]);
 
   useEffect(() => {
     if (error) {
@@ -29,10 +32,10 @@ export function SearchResults() {
     }
   }, [error]);
 
-  const handleSearch = async (input: string) => {
+  const handleSearch = async (input: string, page: number) => {
     try {
       setPending(true);
-      const results = await getDataFromApi({ input: input });
+      const results = await getDataFromApi({ input: input, page: page });
       setPending(false);
       setResults(results);
     } catch (error) {
@@ -43,7 +46,7 @@ export function SearchResults() {
 
   return (
     <section className={style['results-wrapper']}>
-      <Pagination />
+      <Pagination max={10} />
       {pending || !results ? (
         <Spinner />
       ) : results.length === 0 ? (
