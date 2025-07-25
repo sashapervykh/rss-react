@@ -1,11 +1,13 @@
 import { PageTitle } from '../PageTitle/PageTitle';
-import { SearchWrapper } from '../SearchWrapper/SearchWrapper';
+import { SearchForm } from '../SearchForm/SearchForm';
+import { SearchResults } from '../SearchResults/SearchResults';
 
 export function PageMain() {
   return (
     <main>
       <PageTitle />
-      <SearchWrapper />
+      <SearchForm />
+      <SearchResults />
     </main>
   );
 }

@@ -1,3 +1,5 @@
+import type { SearchResultType } from '../api/getDataFromApi';
+
 export interface MockResultType {
   title: string;
   description: string;
@@ -43,11 +45,12 @@ export const mockedEmptyRequestResult: MockResultType[] = [
   },
 ];
 
-export const mockedResultWithoutSource = [
+export const mockedResultWithoutSource: SearchResultType[] = [
   {
     title: TEST_REQUESTS.simple,
     description: `Testing data for ${TEST_REQUESTS.simple}`,
     media_type: 'image',
+    source: undefined,
   },
 ];
 

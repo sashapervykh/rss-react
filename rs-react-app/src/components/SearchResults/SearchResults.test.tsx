@@ -1,6 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { SearchResults } from './SearchResults';
-import type { SearchResultType } from '../../api/getDataFromApi';
+import {
+  getDataFromApi,
+  type SearchResultType,
+} from '../../api/getDataFromApi';
 import {
   mockedResultWithoutSource,
   mockedSeveralResults,
@@ -9,35 +12,34 @@ import {
 } from '../../test-utils/mockedCardsData';
 
 describe('SearchResults', () => {
-  const renderResults = (results?: SearchResultType[]) =>
-    render(<SearchResults results={results} />);
+  beforeEach(() => {
+    vi.mock('../../api/getDataFromApi', () => ({
+      getDataFromApi: vi.fn(),
+    }));
+  });
 
-  it(`should show correct message when zero results received`, () => {
+  const renderResults = (results: SearchResultType[]) => {
+    vi.mocked(getDataFromApi).mockResolvedValueOnce(results);
+    render(<SearchResults />);
+  };
+
+  it(`should show correct message when zero results received`, async () => {
     renderResults([]);
 
-    const message = screen.getByText(
+    const message = await screen.findByText(
       'Nothing was found on your request. Try to change input to get results (e.g. enter the whole word, not its part)'
     );
 
     expect(message).toBeInTheDocument();
   });
-  it(`should show correct message when undefined received as results`, () => {
-    renderResults();
-
-    const message = screen.getByText(
-      `Enter your word and press 'Search' to start a journey!`
-    );
-
-    expect(message).toBeInTheDocument();
-  });
-  it(`should show ten cards (five for each type)`, () => {
+  it(`should show ten cards (five for each type)`, async () => {
     renderResults(mockedSeveralResults);
 
-    const cards = screen.getAllByTestId('card');
-    const titleWithSimpleResult = screen.getAllByRole('heading', {
+    const cards = await screen.findAllByTestId('card');
+    const titleWithSimpleResult = await screen.findAllByRole('heading', {
       name: TEST_REQUESTS.simple,
     });
-    const titleWithoutDescription = screen.getAllByRole('heading', {
+    const titleWithoutDescription = await screen.findAllByRole('heading', {
       name: TEST_REQUESTS.withoutDescription,
     });
 
@@ -45,19 +47,19 @@ describe('SearchResults', () => {
     expect(titleWithSimpleResult).toHaveLength(5);
     expect(titleWithoutDescription).toHaveLength(5);
   });
-  it(`should process undefined source correctly`, () => {
+  it(`should process undefined source correctly`, async () => {
     renderResults(mockedResultWithoutSource);
 
-    const image = screen.getByRole('img');
+    const image = await screen.findByRole('img');
 
     expect(image).toHaveAttribute('src', '/no_image_available.png');
   });
-  it(`should correctly display items data`, () => {
+  it(`should correctly display items data`, async () => {
     renderResults(mockedSimpleRequestResult);
 
-    const image = screen.getByRole('img');
-    const title = screen.getByRole('heading');
-    const description = screen.getByText(
+    const image = await screen.findByRole('img');
+    const title = await screen.findByRole('heading');
+    const description = await screen.findByText(
       mockedSimpleRequestResult[0].description
     );
 

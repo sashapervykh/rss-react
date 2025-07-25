@@ -8,8 +8,8 @@ interface Props {
 export interface SearchResultType {
   title: string;
   description: string;
-  source?: string;
-  media_type: string;
+  source: string | undefined;
+  media_type: 'audio' | 'image' | 'video';
 }
 
 export const errorScheme = z.looseObject({ message: z.string() });
