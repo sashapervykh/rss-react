@@ -7,8 +7,8 @@ export function PageMain() {
   return (
     <main>
       <PageTitle />
-      <SearchForm />
       <PageProvider>
+        <SearchForm />
         <SearchResults />
       </PageProvider>
     </main>

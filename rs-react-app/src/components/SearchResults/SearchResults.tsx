@@ -6,7 +6,7 @@ import {
 import { Card } from '../Card/Card';
 import NO_IMAGE from '/no_image_available.png';
 import style from './style.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Spinner } from '../Spinner/Spinner';
 import { Pagination } from '../Pagination/Pagination';
@@ -20,6 +20,8 @@ export function SearchResults() {
   );
   const [pending, setPending] = useState<boolean>(false);
   const [error, setError] = useState<undefined | string>(undefined);
+  const [isPageShown, setIsPageShown] = useState(true);
+  const prevInput = useRef(savedInput);
 
   useEffect(() => {
     handleSearch(savedInput, page);
@@ -34,10 +36,13 @@ export function SearchResults() {
 
   const handleSearch = async (input: string, page: number) => {
     try {
+      setIsPageShown(prevInput.current === savedInput);
       setPending(true);
       const results = await getDataFromApi({ input: input, page: page });
       setPending(false);
       setResults(results);
+      prevInput.current = savedInput;
+      setIsPageShown(true);
     } catch (error) {
       const message = errorScheme.parse(error).message;
       setError(message);
@@ -46,7 +51,9 @@ export function SearchResults() {
 
   return (
     <section className={style['results-wrapper']}>
-      <Pagination max={10} />
+      {results && results.length !== 0 && isPageShown && (
+        <Pagination max={10} />
+      )}
       {pending || !results ? (
         <Spinner />
       ) : results.length === 0 ? (
