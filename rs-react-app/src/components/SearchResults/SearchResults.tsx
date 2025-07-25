@@ -22,10 +22,10 @@ export function SearchResults() {
   const [error, setError] = useState<undefined | string>(undefined);
   const [isPageShown, setIsPageShown] = useState(true);
   const prevInput = useRef(savedInput);
+  const [maxPage, setMaxPage] = useState<number | undefined>(undefined);
 
   useEffect(() => {
     handleSearch(savedInput, page);
-    console.log(page);
   }, [savedInput, page]);
 
   useEffect(() => {
@@ -38,9 +38,10 @@ export function SearchResults() {
     try {
       setIsPageShown(prevInput.current === savedInput);
       setPending(true);
-      const results = await getDataFromApi({ input: input, page: page });
+      const response = await getDataFromApi({ input: input, page: page });
       setPending(false);
-      setResults(results);
+      setResults(response.results);
+      setMaxPage(response.max);
       prevInput.current = savedInput;
       setIsPageShown(true);
     } catch (error) {
@@ -52,7 +53,7 @@ export function SearchResults() {
   return (
     <section className={style['results-wrapper']}>
       {results && results.length !== 0 && isPageShown && (
-        <Pagination max={10} />
+        <Pagination max={maxPage} />
       )}
       {pending || !results ? (
         <Spinner />

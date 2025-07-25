@@ -1,5 +1,3 @@
-import { z } from 'zod/v4';
-
 interface Props {
   input: string;
   page?: number;
@@ -29,6 +27,7 @@ const APIDataScheme = z.looseObject({
         links: z.array(z.looseObject({ href: z.string() })).optional(),
       })
     ),
+    metadata: z.looseObject({ total_hits: z.number() }),
   }),
 });
 
@@ -74,6 +73,8 @@ export async function getDataFromApi({ input = '', page = 1 }: Props) {
     const body = await response.json();
 
     const typedBody = APIDataScheme.parse(body);
+    console.log(typedBody);
+    const maxPage = Math.ceil(typedBody.collection.metadata.total_hits / 10);
     const searchResult = typedBody.collection.items.map((element) => {
       return {
         title: element.data[0].title,
@@ -84,7 +85,7 @@ export async function getDataFromApi({ input = '', page = 1 }: Props) {
         source: element.links ? element.links[0].href : undefined,
       };
     });
-    return searchResult;
+    return { max: maxPage, results: searchResult };
   } catch (error) {
     const message = errorScheme.parse(error).message;
     throw new Error(
