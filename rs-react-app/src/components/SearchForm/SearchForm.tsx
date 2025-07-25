@@ -1,26 +1,14 @@
-import { useEffect, useState } from 'react';
 import { Button } from '../Button/Button';
-import { getLocalStorageData } from '../../utilities/getLocalStorageData';
-import { setLocalStorageData } from '../../utilities/setLocalStorageData';
 import style from './style.module.css';
 import { BreakingButton } from '../BreakingButton/BreakingButton';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
-interface Props {
-  handleSearch: (input: string) => Promise<void>;
-  disabled: boolean;
-}
-
-export function SearchForm(props: Props) {
-  const [userInput, setUserInput] = useState('');
-
-  useEffect(() => {
-    const savedInput = getLocalStorageData() ?? '';
-    props.handleSearch(savedInput);
-    setUserInput(savedInput);
-  }, []);
+export function SearchForm() {
+  const { savedInput, setSavedInput, updateStorageBySearch } =
+    useLocalStorage();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserInput(event.target.value);
+    setSavedInput(event.target.value);
   };
 
   return (
@@ -29,8 +17,7 @@ export function SearchForm(props: Props) {
         className={style.form}
         onSubmit={async (event) => {
           event.preventDefault();
-          setLocalStorageData(userInput.trim());
-          props.handleSearch(userInput.trim());
+          updateStorageBySearch(savedInput.trim());
         }}
       >
         <label>
@@ -38,11 +25,10 @@ export function SearchForm(props: Props) {
             className={style.input}
             onChange={handleChange}
             placeholder="Enter your request"
-            value={userInput}
-            disabled={props.disabled}
+            value={savedInput}
           ></input>
         </label>
-        <Button text="Search" type="submit" disabled={props.disabled} />
+        <Button text="Search" type="submit" />
         <BreakingButton />
       </form>
     </section>
