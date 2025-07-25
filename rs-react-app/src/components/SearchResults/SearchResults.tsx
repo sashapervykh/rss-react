@@ -24,31 +24,34 @@ export function SearchResults() {
   const prevInput = useRef(savedInput);
   const [maxPage, setMaxPage] = useState<number | undefined>(undefined);
 
+  const handleSearch = useCallback(
+    async (input: string, page: number) => {
+      try {
+        setIsPageShown(prevInput.current === savedInput);
+        setPending(true);
+        const response = await getDataFromApi({ input: input, page: page });
+        setPending(false);
+        setResults(response.results);
+        setMaxPage(response.max);
+        prevInput.current = savedInput;
+        setIsPageShown(true);
+      } catch (error) {
+        const message = errorScheme.parse(error).message;
+        setError(message);
+      }
+    },
+    [savedInput]
+  );
+
   useEffect(() => {
     handleSearch(savedInput, page);
-  }, [savedInput, page]);
+  }, [savedInput, page, handleSearch]);
 
   useEffect(() => {
     if (error) {
       throw new Error(error);
     }
   }, [error]);
-
-  const handleSearch = async (input: string, page: number) => {
-    try {
-      setIsPageShown(prevInput.current === savedInput);
-      setPending(true);
-      const response = await getDataFromApi({ input: input, page: page });
-      setPending(false);
-      setResults(response.results);
-      setMaxPage(response.max);
-      prevInput.current = savedInput;
-      setIsPageShown(true);
-    } catch (error) {
-      const message = errorScheme.parse(error).message;
-      setError(message);
-    }
-  };
 
   return (
     <section className={style['results-wrapper']}>
