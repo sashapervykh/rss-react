@@ -6,11 +6,12 @@ import {
 import { Card } from '../Card/Card';
 import NO_IMAGE from '/no_image_available.png';
 import style from './style.module.css';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Spinner } from '../Spinner/Spinner';
 import { Pagination } from '../Pagination/Pagination';
 import { usePage } from '../../hooks/usePagination/usePagination';
+import { useSearchParams } from 'react-router';
 
 export function SearchResults() {
   const { page } = usePage();
@@ -23,11 +24,13 @@ export function SearchResults() {
   const [isPageShown, setIsPageShown] = useState(true);
   const prevInput = useRef(savedInput);
   const [maxPage, setMaxPage] = useState<number | undefined>(undefined);
+  const [_, setSearchParams] = useSearchParams();
 
   const handleSearch = useCallback(
     async (input: string, page: number) => {
       try {
         setIsPageShown(prevInput.current === savedInput);
+        if (prevInput.current !== savedInput) setSearchParams();
         setPending(true);
         const response = await getDataFromApi({ input: input, page: page });
         setPending(false);
@@ -35,12 +38,14 @@ export function SearchResults() {
         setMaxPage(response.max);
         prevInput.current = savedInput;
         setIsPageShown(true);
+        if (response.results.length !== 0)
+          setSearchParams({ page: page.toString() });
       } catch (error) {
         const message = errorScheme.parse(error).message;
         setError(message);
       }
     },
-    [savedInput]
+    [savedInput, setSearchParams]
   );
 
   useEffect(() => {
