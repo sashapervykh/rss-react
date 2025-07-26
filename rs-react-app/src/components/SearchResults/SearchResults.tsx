@@ -30,6 +30,11 @@ export function SearchResults() {
     async (input: string, page: number) => {
       try {
         setIsPageShown(prevInput.current === savedInput);
+        if (
+          prevInput.current === savedInput &&
+          Number(searchParams.get('page')) === page
+        )
+          return;
         if (prevInput.current !== savedInput) setSearchParams();
         setPending(true);
         const response = await getDataFromApi({ input: input, page: page });
@@ -39,22 +44,21 @@ export function SearchResults() {
         prevInput.current = savedInput;
         setIsPageShown(true);
         if (response.results.length !== 0) {
-          const details = searchParams.get('details');
-          if (!details) {
-            setSearchParams({ page: page.toString() });
-          } else {
-            setSearchParams({
+          setSearchParams((prev) => {
+            const newState: { page: string; details?: string } = {
               page: page.toString(),
-              details: details.toString(),
-            });
-          }
+            };
+            const details = prev.get('details');
+            if (details) newState.details = details;
+            return newState;
+          });
         }
       } catch (error) {
         const message = errorScheme.parse(error).message;
         setError(message);
       }
     },
-    [savedInput, searchParams, setSearchParams]
+    [savedInput, setSearchParams]
   );
 
   useEffect(() => {
