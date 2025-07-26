@@ -3,6 +3,7 @@ import './App.css';
 import { PageMain } from './components/PageMain/PageMain';
 import { AboutPage } from './components/AboutPage/AboutPage';
 import { CardDetails } from './components/CardDetails/CardDetails';
+import { NotFoundPage } from './components/NotFoundPage/NotFoundPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route index element={<CardDetails />}></Route>
       </Route>
       <Route path="/about" element={<AboutPage />}></Route>
+      <Route path="*" element={<NotFoundPage />}></Route>
     </Routes>
   );
 }

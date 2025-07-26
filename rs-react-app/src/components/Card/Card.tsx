@@ -8,15 +8,15 @@ interface Props {
   title: string;
   description: string;
   media_type: string;
-  page: number;
+
   id: string;
 }
 
 export function Card(props: Props) {
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const handleClick = () => {
     setSearchParams({
-      page: props.page.toString(),
+      page: searchParams.get('page') ?? '1',
       details: props.id.toString(),
     });
   };

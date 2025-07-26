@@ -9,6 +9,7 @@ describe('Card', () => {
         title="Test"
         description="Testing rendering card"
         media_type="image"
+        id="test_id"
       />
     );
 
@@ -31,6 +32,7 @@ describe('Card', () => {
         title="Test"
         description="Testing rendering card"
         media_type="audio"
+        id="test_id"
       />
     );
 
