@@ -24,7 +24,7 @@ export function SearchResults() {
   const [isPageShown, setIsPageShown] = useState(true);
   const prevInput = useRef(savedInput);
   const [maxPage, setMaxPage] = useState<number | undefined>(undefined);
-  const [_, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSearch = useCallback(
     async (input: string, page: number) => {
@@ -38,17 +38,27 @@ export function SearchResults() {
         setMaxPage(response.max);
         prevInput.current = savedInput;
         setIsPageShown(true);
-        if (response.results.length !== 0)
-          setSearchParams({ page: page.toString() });
+        if (response.results.length !== 0) {
+          const details = searchParams.get('details');
+          if (!details) {
+            setSearchParams({ page: page.toString() });
+          } else {
+            setSearchParams({
+              page: page.toString(),
+              details: details.toString(),
+            });
+          }
+        }
       } catch (error) {
         const message = errorScheme.parse(error).message;
         setError(message);
       }
     },
-    [savedInput, setSearchParams]
+    [savedInput, searchParams, setSearchParams]
   );
 
   useEffect(() => {
+    console.log('render');
     handleSearch(savedInput, page);
   }, [savedInput, page, handleSearch]);
 
@@ -59,7 +69,7 @@ export function SearchResults() {
   }, [error]);
 
   return (
-    <section className={style['results-wrapper']}>
+    <div className={style['results-wrapper']}>
       {results && results.length !== 0 && isPageShown && (
         <Pagination max={maxPage} />
       )}
@@ -71,6 +81,8 @@ export function SearchResults() {
         results.map((element, index) => (
           <Card
             key={index}
+            id={index}
+            page={page}
             source={element.source ?? NO_IMAGE}
             title={element.title}
             media_type={element.media_type}
@@ -78,6 +90,6 @@ export function SearchResults() {
           />
         ))
       )}
-    </section>
+    </div>
   );
 }

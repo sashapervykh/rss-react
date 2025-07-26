@@ -1,7 +1,7 @@
 import { PageProvider } from '../../hooks/usePagination/PageProvider';
 import { PageTitle } from '../PageTitle/PageTitle';
+import { ResultsSection } from '../ResultsSection/ResultsSection';
 import { SearchForm } from '../SearchForm/SearchForm';
-import { SearchResults } from '../SearchResults/SearchResults';
 
 export function PageMain() {
   return (
@@ -9,7 +9,7 @@ export function PageMain() {
       <PageTitle />
       <PageProvider>
         <SearchForm />
-        <SearchResults />
+        <ResultsSection />
       </PageProvider>
     </main>
   );

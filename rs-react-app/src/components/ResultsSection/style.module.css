@@ -1,0 +1,5 @@
+.results-section {
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+}
