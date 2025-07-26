@@ -4,6 +4,7 @@ import { BuggyComponent } from '../../test-utils/BuggyComponent';
 import { expectFallbackUI } from '../../test-utils/expectFallbackUI';
 import App from '../../App';
 import { getDataFromApi } from '../../api/getDataFromApi';
+import { BrowserRouter } from 'react-router';
 
 describe('ErrorBoundary', () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
@@ -47,9 +48,11 @@ describe('ErrorBoundary', () => {
     });
 
     render(
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
+      <BrowserRouter>
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
+      </BrowserRouter>
     );
     await waitFor(() =>
       expectFallbackUI('The requested resource is not found. Status code: 404')
@@ -63,9 +66,11 @@ describe('ErrorBoundary', () => {
     });
 
     render(
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
+      <BrowserRouter>
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
+      </BrowserRouter>
     );
     await waitFor(() =>
       expectFallbackUI(

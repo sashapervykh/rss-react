@@ -78,6 +78,7 @@ function returnMockResponses({
             `NASA did not provide any description for this item(((`,
           media_type: media_type,
           title: title,
+          nasa_id: title,
         },
       ],
       links: [{ href: links }],
@@ -87,6 +88,7 @@ function returnMockResponses({
   return {
     collection: {
       items: items,
+      metadata: { total_hits: items.length },
     },
   };
 }

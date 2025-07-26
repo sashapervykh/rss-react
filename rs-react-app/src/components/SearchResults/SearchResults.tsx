@@ -21,17 +21,17 @@ export function SearchResults() {
   const [isPageShown, setIsPageShown] = useState(true);
   const prevInput = useRef(savedInput);
   const [maxPage, setMaxPage] = useState<number | undefined>(undefined);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [_, setSearchParams] = useSearchParams();
 
   const handleSearch = useCallback(
     async (input: string, page: number) => {
       try {
         setIsPageShown(prevInput.current === savedInput);
-        if (
-          prevInput.current === savedInput &&
-          Number(searchParams.get('page')) === page
-        )
-          return;
+        // if (
+        //   prevInput.current === savedInput &&
+        //   Number(searchParams.get('page')) === page
+        // )
+        //   return;
         if (prevInput.current !== savedInput) setSearchParams();
         setPending(true);
         const response = await getDataFromApi({ input: input, page: page });
@@ -55,7 +55,7 @@ export function SearchResults() {
         setError(message);
       }
     },
-    [savedInput, setSearchParams, searchParams]
+    [savedInput, setSearchParams]
   );
 
   useEffect(() => {
@@ -83,7 +83,6 @@ export function SearchResults() {
           <Card
             key={index}
             id={element.nasa_id}
-            page={page}
             source={element.source ?? NO_IMAGE}
             title={element.title}
             media_type={element.media_type}

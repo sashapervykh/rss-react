@@ -1,4 +1,4 @@
-import type { SearchResultType } from '../api/getDataFromApi';
+import type { SearchResultType } from '../api/types';
 
 export interface MockResultType {
   title: string;
@@ -18,44 +18,78 @@ export const TEST_REQUESTS = {
   clientError: 'client error',
 };
 
-export const mockedSimpleRequestResult: MockResultType[] = [
-  {
-    title: TEST_REQUESTS.simple,
-    description: `Testing data for ${TEST_REQUESTS.simple}`,
-    media_type: 'image',
-    source: 'test.com',
-  },
-];
+export const mockedSimpleRequestResult: {
+  max: number;
+  results: SearchResultType[];
+} = {
+  max: 1,
+  results: [
+    {
+      title: TEST_REQUESTS.simple,
+      description: `Testing data for ${TEST_REQUESTS.simple}`,
+      media_type: 'image',
+      source: 'test.com',
+      nasa_id: TEST_REQUESTS.simple,
+    },
+  ],
+};
 
-export const mockedRequestResultWithoutDescription: MockResultType[] = [
-  {
-    title: TEST_REQUESTS.withoutDescription,
-    description: `NASA did not provide any description for this item(((`,
-    media_type: 'video',
-    source: 'test.com',
-  },
-];
+export const mockedRequestResultWithoutDescription: {
+  max: number;
+  results: SearchResultType[];
+} = {
+  max: 1,
+  results: [
+    {
+      title: TEST_REQUESTS.withoutDescription,
+      description: `NASA did not provide any description for this item(((`,
+      media_type: 'video',
+      source: 'test.com',
+      nasa_id: TEST_REQUESTS.withoutDescription,
+    },
+  ],
+};
 
-export const mockedEmptyRequestResult: MockResultType[] = [
-  {
-    title: TEST_REQUESTS.empty,
-    description: `Testing data for ${TEST_REQUESTS.empty}`,
-    media_type: 'audio',
-    source: 'test.com',
-  },
-];
+export const mockedEmptyRequestResult: {
+  max: number;
+  results: SearchResultType[];
+} = {
+  max: 1,
+  results: [
+    {
+      title: TEST_REQUESTS.empty,
+      description: `Testing data for ${TEST_REQUESTS.empty}`,
+      media_type: 'audio',
+      source: 'test.com',
+      nasa_id: TEST_REQUESTS.empty,
+    },
+  ],
+};
 
-export const mockedResultWithoutSource: SearchResultType[] = [
-  {
-    title: TEST_REQUESTS.simple,
-    description: `Testing data for ${TEST_REQUESTS.simple}`,
-    media_type: 'image',
-    source: undefined,
-  },
-];
+export const mockedResultWithoutSource: {
+  max: number;
+  results: SearchResultType[];
+} = {
+  max: 1,
+  results: [
+    {
+      title: TEST_REQUESTS.simple,
+      description: `Testing data for ${TEST_REQUESTS.simple}`,
+      media_type: 'image',
+      source: undefined,
+      nasa_id: TEST_REQUESTS.simple,
+    },
+  ],
+};
 
-export const mockedSeveralResults = Array.from({ length: 10 }, (elem, index) =>
-  index % 2 === 0
-    ? mockedSimpleRequestResult[0]
-    : mockedRequestResultWithoutDescription[0]
-);
+export const mockedSeveralResults: {
+  max: number;
+  results: SearchResultType[];
+} = {
+  max: 1,
+  results: Array.from({ length: 10 }, (_, index) =>
+    index % 2 === 0
+      ? mockedSimpleRequestResult.results[0]
+      : mockedRequestResultWithoutDescription.results[0]
+  ),
+};
