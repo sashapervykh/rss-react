@@ -9,7 +9,7 @@ interface Props {
   description: string;
   media_type: string;
   page: number;
-  id: number;
+  id: string;
 }
 
 export function Card(props: Props) {

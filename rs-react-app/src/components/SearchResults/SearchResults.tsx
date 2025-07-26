@@ -1,8 +1,4 @@
-import {
-  errorScheme,
-  getDataFromApi,
-  type SearchResultType,
-} from '../../api/getDataFromApi';
+import { getDataFromApi } from '../../api/getDataFromApi';
 import { Card } from '../Card/Card';
 import NO_IMAGE from '/no_image_available.png';
 import style from './style.module.css';
@@ -12,6 +8,7 @@ import { Spinner } from '../Spinner/Spinner';
 import { Pagination } from '../Pagination/Pagination';
 import { usePage } from '../../hooks/usePagination/usePagination';
 import { useSearchParams } from 'react-router';
+import { errorScheme, type SearchResultType } from '../../api/types';
 
 export function SearchResults() {
   const { page } = usePage();
@@ -58,7 +55,7 @@ export function SearchResults() {
         setError(message);
       }
     },
-    [savedInput, setSearchParams]
+    [savedInput, setSearchParams, searchParams]
   );
 
   useEffect(() => {
@@ -85,7 +82,7 @@ export function SearchResults() {
         results.map((element, index) => (
           <Card
             key={index}
-            id={index}
+            id={element.nasa_id}
             page={page}
             source={element.source ?? NO_IMAGE}
             title={element.title}
