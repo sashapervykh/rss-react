@@ -5,3 +5,9 @@
   background-color: var(--elem-bg-color);
   border-radius: 10px;
 }
+
+.card-wrapper:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--hover-font-color);
+  cursor: pointer;
+}

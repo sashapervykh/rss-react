@@ -2,6 +2,8 @@
   --main-font-family: Helvetica, Arial, sans-serif;
   --main-font-color: rgba(255, 255, 255, 0.87);
   --elem-bg-color: rgba(255, 255, 255, 0.217);
+  --hover-bg-color: rgba(255, 255, 255, 0.607);
+  --hover-font-color: rgba(47, 33, 33, 0.607);
 }
 
 body {
