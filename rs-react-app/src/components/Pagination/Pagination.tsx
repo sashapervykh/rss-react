@@ -2,7 +2,7 @@ import { Button } from '../Button/Button';
 import styles from './styles.module.css';
 import { usePage } from '../../hooks/usePagination/usePagination';
 
-export function Pagination({ max = 10 }: { max: number | undefined }) {
+export function Pagination({ max }: { max: number | undefined }) {
   const { page, setPage } = usePage();
 
   if (!max) throw new Error('Information about max page is not received!');
@@ -16,7 +16,7 @@ export function Pagination({ max = 10 }: { max: number | undefined }) {
         }}
         disabled={page === 1 ? true : false}
       />
-      <div>{`${page}`}</div>
+      <div>{`${page} / ${max}`}</div>
       <Button
         text=">"
         onClick={() => setPage((prev) => prev + 1)}
