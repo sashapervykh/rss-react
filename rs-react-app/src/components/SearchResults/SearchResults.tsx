@@ -32,7 +32,8 @@ export function SearchResults() {
           Number(searchParams.get('page')) === page
         )
           return;
-        if (prevInput.current !== savedInput) setSearchParams();
+        if (prevInput.current !== savedInput && prevInput.current !== undefined)
+          setSearchParams();
         setPending(true);
         const response = await getDataFromApi({ input: input, page: page });
         setPending(false);
@@ -46,7 +47,8 @@ export function SearchResults() {
               page: page.toString(),
             };
             const details = prev.get('details');
-            if (details) newState.details = details;
+            if (details && prev.get('page') === page.toString())
+              newState.details = details;
             return newState;
           });
         }
@@ -55,7 +57,7 @@ export function SearchResults() {
         setError(message);
       }
     },
-    [savedInput, setSearchParams]
+    [savedInput, setSearchParams, searchParams]
   );
 
   useEffect(() => {

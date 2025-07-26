@@ -1,11 +1,11 @@
 import { createContext } from 'react';
 
 interface PageContextType {
-  page: number;
+  page: string;
   setPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const PageContext = createContext<PageContextType>({
-  page: 1,
+  page: '1',
   setPage: () => {},
 });
