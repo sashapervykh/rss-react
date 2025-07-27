@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import type { AssetType } from '../../api/types';
 import { Spinner } from '../Spinner/Spinner';
 import { Button } from '../Button/Button';
+import styles from './styles.module.css';
 
 export function CardDetails() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,22 +24,39 @@ export function CardDetails() {
     getDetails();
   }, [getDetails]);
 
-  if (pending) return <Spinner />;
-
   return (
-    <article>
-      <Button
-        text={'X'}
-        onClick={() => {
-          setSearchParams((prev) => {
-            const page = prev.get('page') ?? '1';
-            return { page: page };
-          });
-        }}
-      />
-      <h2>{details?.title}</h2>
-      <h3>Keywords: {details?.keywords.join('; ')}</h3>
-      <p>{details?.description}</p>
+    <article className={styles['card-details']}>
+      {pending && <Spinner />}
+      {!pending && (
+        <>
+          <Button
+            text={'X'}
+            onClick={() => {
+              setSearchParams((prev) => {
+                const page = prev.get('page') ?? '1';
+                return { page: page };
+              });
+            }}
+          />
+
+          <h2 className={styles['details-title']}>{details?.title}</h2>
+          <div className={styles['image-wrapper']}>
+            <img
+              className={styles['details-image']}
+              src={details?.source}
+              alt={details?.title}
+            />
+          </div>
+
+          <h3 className={styles['details-keyword']}>
+            Keywords: {details?.keywords.join('; ')}
+          </h3>
+          <h3 className={styles['description-title']}>Description:</h3>
+          <p className={styles['details-description']}>
+            {details?.description}
+          </p>
+        </>
+      )}
     </article>
   );
 }
