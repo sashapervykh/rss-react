@@ -1,5 +1,4 @@
 import { PageProvider } from '../../hooks/usePagination/PageProvider';
-import { MainHeader } from '../MainHeader/MainHeader';
 import { PageTitle } from '../PageTitle/PageTitle';
 import { ResultsSection } from '../ResultsSection/ResultsSection';
 import { SearchForm } from '../SearchForm/SearchForm';
@@ -7,7 +6,6 @@ import { SearchForm } from '../SearchForm/SearchForm';
 export function PageMain() {
   return (
     <>
-      <MainHeader />
       <main>
         <PageTitle />
         <PageProvider>
