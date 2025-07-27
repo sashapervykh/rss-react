@@ -9,3 +9,10 @@
 .button:hover {
   cursor: pointer;
 }
+
+.button:disabled {
+  background-color: rgba(214, 213, 213, 0.904);
+  color: rgba(40, 39, 39, 0.22);
+  border: none;
+  cursor: unset;
+}

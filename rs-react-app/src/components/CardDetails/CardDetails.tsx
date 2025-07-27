@@ -30,6 +30,7 @@ export function CardDetails() {
       {!pending && (
         <>
           <Button
+            style={styles.button}
             text={'X'}
             onClick={() => {
               setSearchParams((prev) => {
