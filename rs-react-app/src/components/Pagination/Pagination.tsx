@@ -15,9 +15,9 @@ export function Pagination({ max }: { max: number | undefined }) {
         text="<"
         onClick={() => {
           setPage((prev) => prev - 1);
-          setSearchParams(() => ({ page: (parseInt(page) - 1).toString() }));
+          setSearchParams(() => ({ page: (page - 1).toString() }));
         }}
-        disabled={page === '1' ? true : false}
+        disabled={page === 1 ? true : false}
       />
       <div>{`${page} / ${max}`}</div>
       <Button
@@ -28,7 +28,7 @@ export function Pagination({ max }: { max: number | undefined }) {
             page: (page + 1).toString(),
           }));
         }}
-        disabled={page === max.toString() ? true : false}
+        disabled={page === max ? true : false}
       />
     </div>
   );
