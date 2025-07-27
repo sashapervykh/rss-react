@@ -21,7 +21,7 @@ export function SearchResults() {
   const [isPageShown, setIsPageShown] = useState(true);
   const prevInput = useRef<string | undefined>(undefined);
   const [maxPage, setMaxPage] = useState<number | undefined>(undefined);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _] = useSearchParams();
   const navigate = useNavigate();
   const handleSearch = useCallback(
     async (input: string, page: number) => {
@@ -49,7 +49,7 @@ export function SearchResults() {
         setError(message);
       }
     },
-    [savedInput, setSearchParams, searchParams]
+    [savedInput, navigate, searchParams]
   );
 
   useEffect(() => {
