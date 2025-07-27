@@ -43,13 +43,6 @@ export function SearchResults() {
         setIsPageShown(true);
         if (response.results.length !== 0) {
           navigate(`/home?page=${page}`, { replace: true });
-          // window.history.replaceState(null, '', `/home?page=${page}`);
-          // setSearchParams(
-          //   {
-          //     page: page.toString(),
-          //   },
-          //   { replace: true }
-          // );
         }
       } catch (error) {
         const message = errorScheme.parse(error).message;
