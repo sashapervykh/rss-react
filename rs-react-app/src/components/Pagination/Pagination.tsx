@@ -10,7 +10,7 @@ export function Pagination({ max }: { max: number | undefined }) {
   if (!max) throw new Error('Information about max page is not received!');
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} data-testid="pagination">
       <Button
         text="<"
         onClick={() => {

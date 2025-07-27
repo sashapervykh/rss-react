@@ -33,7 +33,7 @@ export function SearchResults() {
         )
           return;
         if (prevInput.current !== savedInput && prevInput.current !== undefined)
-          setSearchParams();
+          setSearchParams(undefined, { replace: false });
         setPending(true);
         const response = await getDataFromApi({ input: input, page: page });
         setPending(false);
@@ -42,15 +42,18 @@ export function SearchResults() {
         prevInput.current = savedInput;
         setIsPageShown(true);
         if (response.results.length !== 0) {
-          setSearchParams((prev) => {
-            const newState: { page: string; details?: string } = {
-              page: page.toString(),
-            };
-            const details = prev.get('details');
-            if (details && prev.get('page') === page.toString())
-              newState.details = details;
-            return newState;
-          });
+          setSearchParams(
+            (prev) => {
+              const newState: { page: string; details?: string } = {
+                page: page.toString(),
+              };
+              const details = prev.get('details');
+              if (details && prev.get('page') === page.toString())
+                newState.details = details;
+              return newState;
+            },
+            { replace: false }
+          );
         }
       } catch (error) {
         const message = errorScheme.parse(error).message;
@@ -61,7 +64,6 @@ export function SearchResults() {
   );
 
   useEffect(() => {
-    console.log('render');
     handleSearch(savedInput, page);
   }, [savedInput, page, handleSearch]);
 

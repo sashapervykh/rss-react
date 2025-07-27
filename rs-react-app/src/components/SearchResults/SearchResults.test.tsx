@@ -1,12 +1,14 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { SearchResults } from './SearchResults';
 import { getDataFromApi } from '../../api/getDataFromApi';
 import {
   mockedResultWithoutSource,
+  mockedSeveralResults,
   mockedSimpleRequestResult,
+  TEST_REQUESTS,
 } from '../../test-utils/mockedCardsData';
 import type { SearchResultType } from '../../api/types';
-import { BrowserRouter } from 'react-router';
+import { MemoryRouter } from 'react-router';
 
 describe('SearchResults', () => {
   beforeEach(() => {
@@ -21,9 +23,9 @@ describe('SearchResults', () => {
   }) => {
     vi.mocked(getDataFromApi).mockResolvedValueOnce(results);
     render(
-      <BrowserRouter>
+      <MemoryRouter>
         <SearchResults />
-      </BrowserRouter>
+      </MemoryRouter>
     );
   };
 
@@ -36,21 +38,38 @@ describe('SearchResults', () => {
 
     expect(message).toBeInTheDocument();
   });
-  // it(`should show ten cards (five for each type)`, async () => {
-  //   renderResults(mockedSeveralResults);
+  it(`should not render pagination when zero results received`, async () => {
+    renderResults({ max: 1, results: [] });
 
-  //   const cards = await screen.findAllByTestId('card');
-  //   const titleWithSimpleResult = await screen.findAllByRole('heading', {
-  //     name: TEST_REQUESTS.simple,
-  //   });
-  //   const titleWithoutDescription = await screen.findAllByRole('heading', {
-  //     name: TEST_REQUESTS.withoutDescription,
-  //   });
+    await waitFor(
+      () => {
+        expect(screen.queryByTestId('pagination')).not.toBeInTheDocument();
+      },
+      { timeout: 2000 }
+    );
+  });
+  it(`should show ten cards (five for each type)`, async () => {
+    renderResults(mockedSeveralResults);
 
-  //   expect(cards).toHaveLength(10);
-  //   expect(titleWithSimpleResult).toHaveLength(5);
-  //   expect(titleWithoutDescription).toHaveLength(5);
-  // });
+    const cards = await screen.findAllByTestId('card');
+    const titleWithSimpleResult = await screen.findAllByRole('heading', {
+      name: TEST_REQUESTS.simple,
+    });
+    const titleWithoutDescription = await screen.findAllByRole('heading', {
+      name: TEST_REQUESTS.withoutDescription,
+    });
+
+    expect(cards).toHaveLength(10);
+    expect(titleWithSimpleResult).toHaveLength(5);
+    expect(titleWithoutDescription).toHaveLength(5);
+  });
+  it(`should render pagination when results are received`, async () => {
+    renderResults(mockedSeveralResults);
+
+    const pagination = await screen.findByTestId('pagination');
+
+    expect(pagination).toBeInTheDocument();
+  });
   it(`should process undefined source correctly`, async () => {
     renderResults(mockedResultWithoutSource);
 

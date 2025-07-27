@@ -25,7 +25,7 @@ export function CardDetails() {
   }, [getDetails]);
 
   return (
-    <article className={styles['card-details']}>
+    <article className={styles['card-details']} data-testid="card-details">
       {pending && <Spinner />}
       {!pending && (
         <>
