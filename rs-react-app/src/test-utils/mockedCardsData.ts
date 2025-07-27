@@ -1,4 +1,4 @@
-import type { SearchResultType } from '../api/types';
+import type { AssetType, SearchResultType } from '../api/types';
 
 export interface MockResultType {
   title: string;
@@ -16,6 +16,7 @@ export const TEST_REQUESTS = {
   unavailableServer: 'unavailable server',
   serverError: 'server error',
   clientError: 'client error',
+  withoutSource: 'without source',
 };
 
 export const mockedSimpleRequestResult: {
@@ -28,10 +29,26 @@ export const mockedSimpleRequestResult: {
       title: TEST_REQUESTS.simple,
       description: `Testing data for ${TEST_REQUESTS.simple}`,
       media_type: 'image',
-      source: 'test.com',
+      source: 'test.jpg',
       nasa_id: TEST_REQUESTS.simple,
     },
   ],
+};
+
+export const mockedAssetRequestResult: AssetType = {
+  title: TEST_REQUESTS.simple,
+  description: `Testing data for ${TEST_REQUESTS.simple}`,
+  media_type: 'image',
+  source: 'test.jpg',
+  keywords: [TEST_REQUESTS.simple],
+};
+
+export const mockedAssetWithoutSource: AssetType = {
+  title: TEST_REQUESTS.withoutSource,
+  description: `Testing data for ${TEST_REQUESTS.withoutSource}`,
+  media_type: 'video',
+  source: undefined,
+  keywords: [TEST_REQUESTS.withoutSource],
 };
 
 export const mockedRequestResultWithoutDescription: {
@@ -44,7 +61,7 @@ export const mockedRequestResultWithoutDescription: {
       title: TEST_REQUESTS.withoutDescription,
       description: `NASA did not provide any description for this item(((`,
       media_type: 'video',
-      source: 'test.com',
+      source: 'test.jpg',
       nasa_id: TEST_REQUESTS.withoutDescription,
     },
   ],
@@ -60,7 +77,7 @@ export const mockedEmptyRequestResult: {
       title: TEST_REQUESTS.empty,
       description: `Testing data for ${TEST_REQUESTS.empty}`,
       media_type: 'audio',
-      source: 'test.com',
+      source: 'test.jpg',
       nasa_id: TEST_REQUESTS.empty,
     },
   ],
