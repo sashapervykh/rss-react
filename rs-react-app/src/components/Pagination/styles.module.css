@@ -1,0 +1,10 @@
+.wrapper {
+  display: flex;
+  gap: 10px;
+  margin: auto;
+}
+
+.page-number {
+  display: flex;
+  text-align: center;
+}

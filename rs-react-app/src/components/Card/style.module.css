@@ -1,7 +1,14 @@
 .card-wrapper {
   display: flex;
+  width: inherit;
   margin: 10px 20px;
   padding: 15px;
   background-color: var(--elem-bg-color);
   border-radius: 10px;
+}
+
+.card-wrapper:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--hover-font-color);
+  cursor: pointer;
 }

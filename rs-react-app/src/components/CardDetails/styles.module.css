@@ -1,0 +1,46 @@
+.card-details {
+  position: sticky;
+  top: 10px;
+  left: 0;
+  width: 50%;
+  padding: 10px;
+  background-color: var(--elem-bg-color);
+  border-radius: 10px;
+  height: fit-content;
+}
+
+.details-title,
+.details-keyword,
+.details-description,
+.description-title {
+  text-align: left;
+  word-break: break-all;
+}
+
+.description-title {
+  margin-bottom: 0px;
+}
+
+.details-description {
+  font-size: 20px;
+  margin-top: 0px;
+}
+
+.image-wrapper {
+  display: flex;
+  width: 20vw;
+  max-height: 20vw;
+  border-radius: 20px;
+  margin: auto;
+}
+
+.details-image {
+  display: flex;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.button {
+  display: flex;
+  margin: 0px 0px 10px auto;
+}

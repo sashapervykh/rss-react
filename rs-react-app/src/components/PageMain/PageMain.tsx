@@ -1,14 +1,18 @@
-import { Component, type ReactNode } from 'react';
+import { PageProvider } from '../../hooks/usePagination/PageProvider';
 import { PageTitle } from '../PageTitle/PageTitle';
-import { SearchWrapper } from '../SearchWrapper/SearchWrapper';
+import { ResultsSection } from '../ResultsSection/ResultsSection';
+import { SearchForm } from '../SearchForm/SearchForm';
 
-export class PageMain extends Component {
-  render(): ReactNode {
-    return (
+export function PageMain() {
+  return (
+    <>
       <main>
         <PageTitle />
-        <SearchWrapper />
+        <PageProvider>
+          <SearchForm />
+          <ResultsSection />
+        </PageProvider>
       </main>
-    );
-  }
+    </>
+  );
 }

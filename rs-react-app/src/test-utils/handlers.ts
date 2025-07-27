@@ -5,6 +5,33 @@ export const handlers = [
   http.get('https://images-api.nasa.gov/search', ({ request }) => {
     const url = new URL(request.url);
     const requestedTerm = url.searchParams.get('q');
+    const requestedID = url.searchParams.get('nasa_id');
+
+    if (requestedID) {
+      switch (requestedID) {
+        case TEST_REQUESTS.simple: {
+          return HttpResponse.json(
+            returnMockResponses({
+              title: TEST_REQUESTS.simple,
+              description: `Testing data for ${TEST_REQUESTS.simple}`,
+              links: 'test.jpg',
+              repeats: 1,
+              media_type: 'image',
+            })
+          );
+        }
+        case TEST_REQUESTS.withoutSource: {
+          return HttpResponse.json(
+            returnMockResponses({
+              title: TEST_REQUESTS.withoutSource,
+              description: `Testing data for ${TEST_REQUESTS.withoutSource}`,
+              repeats: 1,
+              media_type: 'video',
+            })
+          );
+        }
+      }
+    }
 
     switch (requestedTerm) {
       case TEST_REQUESTS.simple: {
@@ -12,7 +39,7 @@ export const handlers = [
           returnMockResponses({
             title: TEST_REQUESTS.simple,
             description: `Testing data for ${TEST_REQUESTS.simple}`,
-            links: 'test.com',
+            links: 'test.jpg',
             repeats: 1,
             media_type: 'image',
           })
@@ -22,7 +49,7 @@ export const handlers = [
         return HttpResponse.json(
           returnMockResponses({
             title: TEST_REQUESTS.withoutDescription,
-            links: 'test.com',
+            links: 'test.jpg',
             repeats: 1,
             media_type: 'video',
           })
@@ -45,7 +72,7 @@ export const handlers = [
           returnMockResponses({
             title: TEST_REQUESTS.empty,
             description: `Testing data for ${TEST_REQUESTS.empty}`,
-            links: 'test.com',
+            links: 'test.jpg',
             repeats: 1,
             media_type: 'audio',
           })
@@ -70,23 +97,42 @@ function returnMockResponses({
 }) {
   const items = [];
   for (let i = 0; i < repeats; i++) {
-    items.push({
-      data: [
-        {
-          description:
-            description ??
-            `NASA did not provide any description for this item(((`,
-          media_type: media_type,
-          title: title,
-        },
-      ],
-      links: [{ href: links }],
-    });
+    items.push(
+      links
+        ? {
+            data: [
+              {
+                description:
+                  description ??
+                  `NASA did not provide any description for this item(((`,
+                media_type: media_type,
+                title: title,
+                nasa_id: title,
+                keywords: [title],
+              },
+            ],
+            links: [{ href: links }],
+          }
+        : {
+            data: [
+              {
+                description:
+                  description ??
+                  `NASA did not provide any description for this item(((`,
+                media_type: media_type,
+                title: title,
+                nasa_id: title,
+                keywords: [title],
+              },
+            ],
+          }
+    );
   }
 
   return {
     collection: {
       items: items,
+      metadata: { total_hits: items.length },
     },
   };
 }

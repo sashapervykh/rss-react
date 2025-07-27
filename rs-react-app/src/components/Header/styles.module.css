@@ -1,0 +1,12 @@
+.link {
+  display: flex;
+  width: fit-content;
+  margin: 0px 0px 0px auto;
+  font-size: 25px;
+  text-decoration: none;
+  padding: 10px;
+  color: var(--main-font-color);
+  background-color: var(--elem-bg-color);
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
