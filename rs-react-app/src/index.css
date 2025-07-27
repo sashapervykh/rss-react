@@ -18,6 +18,11 @@ body {
   background-size: 20%;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
