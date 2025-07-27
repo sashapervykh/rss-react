@@ -23,7 +23,7 @@ describe('SearchResults', () => {
   }) => {
     vi.mocked(getDataFromApi).mockResolvedValueOnce(results);
     render(
-      <MemoryRouter>
+      <MemoryRouter initialEntries={['/home']}>
         <SearchResults />
       </MemoryRouter>
     );

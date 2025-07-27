@@ -22,7 +22,7 @@ export async function getDataFromApi({ input = '', page = 1 }: Props) {
     const body = await response.json();
 
     const typedBody = APIDataScheme.parse(body);
-    console.log(typedBody);
+
     const maxPage = Math.ceil(typedBody.collection.metadata.total_hits / 10);
     const searchResult = typedBody.collection.items.map((element) => {
       const title =
