@@ -7,7 +7,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { Spinner } from '../Spinner/Spinner';
 import { Pagination } from '../Pagination/Pagination';
 import { usePage } from '../../hooks/usePagination/usePagination';
-import { useSearchParams } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import { errorScheme, type SearchResultType } from '../../api/types';
 
 export function SearchResults() {
@@ -22,7 +22,7 @@ export function SearchResults() {
   const prevInput = useRef<string | undefined>(undefined);
   const [maxPage, setMaxPage] = useState<number | undefined>(undefined);
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const navigate = useNavigate();
   const handleSearch = useCallback(
     async (input: string, page: number) => {
       try {
@@ -32,8 +32,8 @@ export function SearchResults() {
           Number(searchParams.get('page')) === page
         )
           return;
-        if (prevInput.current !== savedInput && prevInput.current !== undefined)
-          setSearchParams(undefined, { replace: false });
+        if (prevInput.current !== savedInput)
+          navigate(`/home`, { replace: true });
         setPending(true);
         const response = await getDataFromApi({ input: input, page: page });
         setPending(false);
@@ -42,18 +42,14 @@ export function SearchResults() {
         prevInput.current = savedInput;
         setIsPageShown(true);
         if (response.results.length !== 0) {
-          setSearchParams(
-            (prev) => {
-              const newState: { page: string; details?: string } = {
-                page: page.toString(),
-              };
-              const details = prev.get('details');
-              if (details && prev.get('page') === page.toString())
-                newState.details = details;
-              return newState;
-            },
-            { replace: false }
-          );
+          navigate(`/home?page=${page}`, { replace: true });
+          // window.history.replaceState(null, '', `/home?page=${page}`);
+          // setSearchParams(
+          //   {
+          //     page: page.toString(),
+          //   },
+          //   { replace: true }
+          // );
         }
       } catch (error) {
         const message = errorScheme.parse(error).message;
