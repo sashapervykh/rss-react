@@ -8,4 +8,5 @@
   color: var(--main-font-color);
   background-color: var(--elem-bg-color);
   border-radius: 5px;
+  margin-bottom: 20px;
 }

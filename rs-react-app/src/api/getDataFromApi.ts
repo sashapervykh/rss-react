@@ -26,8 +26,8 @@ export async function getDataFromApi({ input = '', page = 1 }: Props) {
     const maxPage = Math.ceil(typedBody.collection.metadata.total_hits / 10);
     const searchResult = typedBody.collection.items.map((element) => {
       const title =
-        element.data[0].title.length > 75
-          ? element.data[0].title.substring(0, 75) + '...'
+        element.data[0].title.length > 30
+          ? element.data[0].title.substring(0, 30) + '...'
           : element.data[0].title;
 
       const description =
