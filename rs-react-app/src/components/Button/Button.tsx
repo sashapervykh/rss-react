@@ -5,12 +5,13 @@ interface Props {
   type?: 'submit';
   onClick?: () => void;
   disabled?: boolean;
+  style?: string;
 }
 
 export function Button(props: Props) {
   return (
     <button
-      className={style.button}
+      className={`${style.button} ${props.style ?? ''}`}
       onClick={props.onClick}
       type={props.type ? props.type : 'button'}
       disabled={props.disabled}

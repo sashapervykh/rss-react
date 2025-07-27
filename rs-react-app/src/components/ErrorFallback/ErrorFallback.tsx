@@ -16,7 +16,11 @@ export function ErrorFallback(props: Props) {
       {props.message && (
         <details className={style['fallback-element']}>{props.message}</details>
       )}
-      <Button text="Reset" onClick={props.reset} />
+      <Button
+        text="Reset"
+        onClick={props.reset}
+        style={style['reset-button']}
+      />
     </div>
   );
 }

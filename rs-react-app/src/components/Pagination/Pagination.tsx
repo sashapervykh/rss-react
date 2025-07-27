@@ -19,7 +19,7 @@ export function Pagination({ max }: { max: number | undefined }) {
         }}
         disabled={page === 1 ? true : false}
       />
-      <div>{`${page} / ${max}`}</div>
+      <div className={styles['page-number']}>{`${page} / ${max}`}</div>
       <Button
         text=">"
         onClick={() => {

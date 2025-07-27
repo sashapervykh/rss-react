@@ -1,9 +1,10 @@
 .wrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
+  display: flex;
+  gap: 10px;
   margin: auto;
-  display: fit-content;
-  justify-content: center;
+}
+
+.page-number {
+  display: flex;
   text-align: center;
 }
