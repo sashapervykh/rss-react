@@ -31,21 +31,29 @@ export function Flyout() {
   };
 
   return (
-    amount && (
+    amount !== 0 && (
       <div className={style.flyout}>
-        <div>Selected items: {amount}</div>
-        <Button text="Unselect all" onClick={() => dispatch(clear())} />
-        <Button
-          text="Download"
-          disabled={amount === 0 ? true : false}
-          onClick={handleDownloadClick}
-        />
-        <a
-          ref={downloadRef}
-          href={downloadUrl}
-          className={style.link}
-          download={fileName}
-        />
+        <div className={style['flyout-content']}>
+          <div className={style['flyout-element']}>
+            Selected items: {amount}
+          </div>
+          <Button
+            style={style['flyout-element']}
+            text="Unselect all"
+            onClick={() => dispatch(clear())}
+          />
+          <Button
+            style={style['flyout-element']}
+            text="Download"
+            onClick={handleDownloadClick}
+          />
+          <a
+            ref={downloadRef}
+            href={downloadUrl}
+            className={style.link}
+            download={fileName}
+          />
+        </div>
       </div>
     )
   );
