@@ -75,7 +75,7 @@ export function SearchResults() {
         results.map((element, index) => (
           <Card
             key={index}
-            id={element.nasa_id}
+            nasa_id={element.nasa_id}
             source={element.source ?? NO_IMAGE}
             title={element.title}
             media_type={element.media_type}

@@ -12,3 +12,7 @@
   color: var(--hover-font-color);
   cursor: pointer;
 }
+
+.checkbox {
+  margin-right: 10px;
+}
