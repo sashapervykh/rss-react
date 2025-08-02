@@ -1,5 +1,6 @@
 import { processAPIFailure } from './processAPIFailure';
 import { APIDataScheme, errorScheme } from './types';
+import NO_IMAGE from './../../public/no_image_available.png';
 
 interface Props {
   input: string;
@@ -41,7 +42,7 @@ export async function getDataFromApi({ input = '', page = 1 }: Props) {
           element.data[0].description ??
           `NASA did not provide any description for this item(((`,
         media_type: element.data[0].media_type,
-        source: element.links ? element.links[0].href : undefined,
+        source: element.links ? element.links[0].href : NO_IMAGE,
         nasa_id: element.data[0].nasa_id,
       };
     });

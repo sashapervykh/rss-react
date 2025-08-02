@@ -1,11 +1,12 @@
 import { useCustomDispatch, useCustomSelector } from '../../hooks/reduxHooks';
 import { cardSlice } from '../../store/reducers/CardSlice';
+import { createFileContent } from '../../utilities/createFileContent';
 import { Button } from '../Button/Button';
 import style from './style.module.css';
 import { useRef, useState } from 'react';
 
 export function Flyout() {
-  const { amount } = useCustomSelector((state) => state.CardReducer);
+  const { amount, cards } = useCustomSelector((state) => state.CardReducer);
   const { clear } = cardSlice.actions;
   const dispatch = useCustomDispatch();
   const [downloadUrl, setDownloadUrl] = useState('');
@@ -13,7 +14,7 @@ export function Flyout() {
   const [fileName, setFileName] = useState('');
 
   const handleDownloadClick = () => {
-    const fileContent = 'file content';
+    const fileContent = createFileContent(cards);
     const blob = new Blob([fileContent], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
 
