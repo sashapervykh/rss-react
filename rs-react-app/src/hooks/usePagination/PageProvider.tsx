@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { PageContext } from './PaginationContext';
+import { PageContext } from '../../context/PaginationContext';
 
 export const PageProvider = ({ children }: { children: React.ReactNode }) => {
   const [page, setPage] = useState<number>(1);
