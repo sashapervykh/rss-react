@@ -1,5 +1,6 @@
 .flyout {
   position: fixed;
+  display: flex;
   bottom: 0px;
   left: 10px;
   background-color: blue;

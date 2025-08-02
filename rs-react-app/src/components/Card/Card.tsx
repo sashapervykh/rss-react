@@ -2,8 +2,9 @@ import { CardText } from './CardText/CardText';
 import { CardMedia } from './CardMedia/CardMedia';
 import style from './style.module.css';
 import { useSearchParams } from 'react-router';
-import { useCustomDispatch } from '../../hooks/reduxHooks';
+import { useCustomDispatch, useCustomSelector } from '../../hooks/reduxHooks';
 import { cardSlice } from '../../store/reducers/CardSlice';
+import { useEffect, useState } from 'react';
 
 interface Props {
   source?: string;
@@ -14,9 +15,21 @@ interface Props {
 }
 
 export function Card(props: Props) {
+  const { amount, cards } = useCustomSelector((state) => state.CardReducer);
   const [searchParams, setSearchParams] = useSearchParams();
   const { addCard, deleteCard } = cardSlice.actions;
   const dispatch = useCustomDispatch();
+  const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    if (amount === 0) {
+      setIsChecked(false);
+      return;
+    }
+    if (cards.find((card) => card.nasa_id === props.nasa_id)) {
+      setIsChecked(true);
+    }
+  }, [amount, cards, props.nasa_id]);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (!(event.target instanceof HTMLInputElement))
@@ -27,6 +40,7 @@ export function Card(props: Props) {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(event.target.checked);
     if (event.target.checked) {
       dispatch(addCard(props));
     } else {
@@ -41,6 +55,7 @@ export function Card(props: Props) {
       onClick={(event) => handleClick(event)}
     >
       <input
+        checked={isChecked}
         type="checkbox"
         className={style.checkbox}
         onChange={handleChange}

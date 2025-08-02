@@ -16,16 +16,20 @@ export const cardSlice = createSlice({
   initialState,
   reducers: {
     addCard(state, action: PayloadAction<SearchResultType>) {
-      console.log(action);
       state.cards.push(action.payload);
       state.amount += 1;
+      console.log(state.amount, state.cards);
     },
     deleteCard(state, action: PayloadAction<SearchResultType>) {
-      console.log(action);
       state.cards = state.cards.filter(
-        (elem) => elem.nasa_id === action.payload.nasa_id
+        (elem) => elem.nasa_id !== action.payload.nasa_id
       );
       state.amount -= 1;
+      console.log(state.amount, state.cards);
+    },
+    clear(state) {
+      state.amount = 0;
+      state.cards = [];
     },
   },
 });
