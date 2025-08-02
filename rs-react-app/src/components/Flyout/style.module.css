@@ -5,3 +5,7 @@
   left: 10px;
   background-color: blue;
 }
+
+.link {
+  display: none;
+}
