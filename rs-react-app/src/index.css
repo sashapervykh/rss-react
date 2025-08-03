@@ -8,14 +8,24 @@
 
 body {
   font-family: var(--main-font-family);
-  color: var(--main-font-color);
   margin: 0;
   display: flex;
   min-width: 320px;
   min-height: 100vh;
+}
+
+.background-dark {
+  color: var(--main-font-color);
   background-color: black;
   background-image: url('/stars.png');
   background-size: 20%;
+}
+
+.background-light {
+}
+
+.background-light,
+.background-dark {
 }
 
 a:visited {
@@ -25,11 +35,4 @@ a:visited {
 #root {
   display: flex;
   flex-direction: column;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
 }
