@@ -71,9 +71,9 @@ export function SearchResults() {
       ) : results.length === 0 ? (
         'Nothing was found on your request. Try to change input to get results (e.g. enter the whole word, not its part)'
       ) : (
-        results.map((element) => (
+        results.map((element, index) => (
           <Card
-            key={element.nasa_id}
+            key={index.toString()}
             nasa_id={element.nasa_id}
             source={element.source}
             title={element.title}

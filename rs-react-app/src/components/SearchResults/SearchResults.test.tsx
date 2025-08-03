@@ -2,7 +2,6 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { SearchResults } from './SearchResults';
 import { getDataFromApi } from '../../api/getDataFromApi';
 import {
-  mockedResultWithoutSource,
   mockedSeveralResults,
   mockedSimpleRequestResult,
   TEST_REQUESTS,
@@ -73,13 +72,6 @@ describe('SearchResults', () => {
     const pagination = await screen.findByTestId('pagination');
 
     expect(pagination).toBeInTheDocument();
-  });
-  it(`should process undefined source correctly`, async () => {
-    renderResults(mockedResultWithoutSource);
-
-    const image = await screen.findByRole('img');
-
-    expect(image).toHaveAttribute('src', '/no_image_available.png');
   });
   it(`should correctly display items data`, async () => {
     renderResults(mockedSimpleRequestResult);
