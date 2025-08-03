@@ -7,16 +7,9 @@ import { cardSlice } from '../../store/reducers/CardSlice';
 import { useEffect, useState } from 'react';
 import shared from '../../styles/shared.module.css';
 import { useTheme } from '../../hooks/useTheme/useTheme';
+import type { SearchResultType } from '../../api/types';
 
-interface Props {
-  source?: string;
-  title: string;
-  description: string;
-  media_type: string;
-  nasa_id: string;
-}
-
-export function Card(props: Props) {
+export function Card(props: SearchResultType) {
   const { theme } = useTheme();
   const { amount, cards } = useCustomSelector((state) => state.CardReducer);
   const [searchParams, setSearchParams] = useSearchParams();

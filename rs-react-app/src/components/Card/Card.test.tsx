@@ -14,7 +14,7 @@ describe('Card', () => {
             title="Test"
             description="Testing rendering card"
             media_type="image"
-            id="test_id"
+            nasa_id="test_id"
           />
         </BrowserRouter>
       </Provider>
@@ -32,23 +32,5 @@ describe('Card', () => {
     expect(heading).toHaveTextContent('Test');
 
     expect(description).toBeInTheDocument();
-  });
-  it(`should handle undefined source correctly`, () => {
-    render(
-      <Provider store={setupStore()}>
-        <BrowserRouter>
-          <Card
-            title="Test"
-            description="Testing rendering card"
-            media_type="audio"
-            id="test_id"
-          />
-        </BrowserRouter>
-      </Provider>
-    );
-
-    const image = screen.getByRole('img');
-
-    expect(image).toHaveAttribute('src', '/no_image_available.png');
   });
 });

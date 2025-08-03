@@ -1,6 +1,5 @@
 import { getDataFromApi } from '../../api/getDataFromApi';
 import { Card } from '../Card/Card';
-import NO_IMAGE from '/no_image_available.png';
 import style from './style.module.css';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -72,11 +71,11 @@ export function SearchResults() {
       ) : results.length === 0 ? (
         'Nothing was found on your request. Try to change input to get results (e.g. enter the whole word, not its part)'
       ) : (
-        results.map((element, index) => (
+        results.map((element) => (
           <Card
-            key={index}
+            key={element.nasa_id}
             nasa_id={element.nasa_id}
-            source={element.source ?? NO_IMAGE}
+            source={element.source}
             title={element.title}
             media_type={element.media_type}
             description={element.description}
