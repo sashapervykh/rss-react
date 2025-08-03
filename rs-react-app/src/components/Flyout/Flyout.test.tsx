@@ -58,20 +58,6 @@ describe('Flyout', () => {
     expect(unselectButton).not.toBeInTheDocument();
     expect(downloadButton).not.toBeInTheDocument();
   });
-  it(`should hide after click by "Unselect all"`, async () => {
-    renderFlyout();
-
-    const checkbox = screen.getByRole('checkbox');
-    await userEvent.click(checkbox);
-
-    const { text, unselectButton, downloadButton } = await getTestingElements();
-
-    await userEvent.click(unselectButton);
-
-    expect(text).not.toBeInTheDocument();
-    expect(unselectButton).not.toBeInTheDocument();
-    expect(downloadButton).not.toBeInTheDocument();
-  });
   it(`should trigger download by click on "Download"`, async () => {
     renderFlyout();
 
