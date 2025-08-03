@@ -1,6 +1,5 @@
 import { getDataFromApi } from '../../api/getDataFromApi';
 import { Card } from '../Card/Card';
-import NO_IMAGE from '/no_image_available.png';
 import style from './style.module.css';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -74,9 +73,9 @@ export function SearchResults() {
       ) : (
         results.map((element, index) => (
           <Card
-            key={index}
-            id={element.nasa_id}
-            source={element.source ?? NO_IMAGE}
+            key={index.toString()}
+            nasa_id={element.nasa_id}
+            source={element.source}
             title={element.title}
             media_type={element.media_type}
             description={element.description}

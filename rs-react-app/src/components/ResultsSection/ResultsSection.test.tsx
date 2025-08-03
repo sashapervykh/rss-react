@@ -2,13 +2,17 @@ import { render, screen } from '@testing-library/react';
 
 import { MemoryRouter } from 'react-router';
 import { ResultsSection } from './ResultsSection';
+import { Provider } from 'react-redux';
+import { setupStore } from '../../store/store';
 
 describe('SearchResults', () => {
   const renderResults = () => {
     render(
-      <MemoryRouter initialEntries={['/home']}>
-        <ResultsSection />
-      </MemoryRouter>
+      <Provider store={setupStore()}>
+        <MemoryRouter initialEntries={['/home']}>
+          <ResultsSection />
+        </MemoryRouter>
+      </Provider>
     );
   };
 

@@ -2,7 +2,7 @@ import style from './style.module.css';
 import NO_IMAGE from '/no_image_available.png';
 
 interface Props {
-  src?: string;
+  src: string;
   alt: string;
   media_type: string;
 }

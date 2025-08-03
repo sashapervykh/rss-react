@@ -2,13 +2,14 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { SearchResults } from './SearchResults';
 import { getDataFromApi } from '../../api/getDataFromApi';
 import {
-  mockedResultWithoutSource,
   mockedSeveralResults,
   mockedSimpleRequestResult,
   TEST_REQUESTS,
 } from '../../test-utils/mockedCardsData';
 import type { SearchResultType } from '../../api/types';
 import { MemoryRouter } from 'react-router';
+import { Provider } from 'react-redux';
+import { setupStore } from '../../store/store';
 
 describe('SearchResults', () => {
   beforeEach(() => {
@@ -23,9 +24,11 @@ describe('SearchResults', () => {
   }) => {
     vi.mocked(getDataFromApi).mockResolvedValueOnce(results);
     render(
-      <MemoryRouter initialEntries={['/home']}>
-        <SearchResults />
-      </MemoryRouter>
+      <Provider store={setupStore()}>
+        <MemoryRouter initialEntries={['/home']}>
+          <SearchResults />
+        </MemoryRouter>
+      </Provider>
     );
   };
 
@@ -69,13 +72,6 @@ describe('SearchResults', () => {
     const pagination = await screen.findByTestId('pagination');
 
     expect(pagination).toBeInTheDocument();
-  });
-  it(`should process undefined source correctly`, async () => {
-    renderResults(mockedResultWithoutSource);
-
-    const image = await screen.findByRole('img');
-
-    expect(image).toHaveAttribute('src', '/no_image_available.png');
   });
   it(`should correctly display items data`, async () => {
     renderResults(mockedSimpleRequestResult);

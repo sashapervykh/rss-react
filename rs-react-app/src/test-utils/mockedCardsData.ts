@@ -83,30 +83,16 @@ export const mockedEmptyRequestResult: {
   ],
 };
 
-export const mockedResultWithoutSource: {
-  max: number;
-  results: SearchResultType[];
-} = {
-  max: 1,
-  results: [
-    {
-      title: TEST_REQUESTS.simple,
-      description: `Testing data for ${TEST_REQUESTS.simple}`,
-      media_type: 'image',
-      source: undefined,
-      nasa_id: TEST_REQUESTS.simple,
-    },
-  ],
-};
-
 export const mockedSeveralResults: {
   max: number;
   results: SearchResultType[];
 } = {
-  max: 1,
+  max: 2,
   results: Array.from({ length: 10 }, (_, index) =>
     index % 2 === 0
       ? mockedSimpleRequestResult.results[0]
       : mockedRequestResultWithoutDescription.results[0]
-  ),
+  ).map((elem, index) => {
+    return { ...elem, nasa_id: elem.nasa_id + index.toString() };
+  }),
 };

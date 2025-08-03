@@ -1,0 +1,35 @@
+.flyout {
+  position: fixed;
+  display: flex;
+  bottom: 0px;
+  left: 0px;
+  width: 100vw;
+}
+
+.flyout-dark {
+  color: var(--main-font-color);
+  background-color: black;
+  background-image: url('/stars.png');
+  background-size: 20%;
+}
+
+.flyout-light {
+  background-color: #93c9f5;
+  color: var(--light-elem-color);
+}
+
+.flyout-content {
+  display: flex;
+  gap: 10px;
+  margin: auto;
+  padding: 10px;
+}
+
+.flyout-element {
+  font-size: 20px;
+  margin: auto;
+}
+
+.link {
+  display: none;
+}

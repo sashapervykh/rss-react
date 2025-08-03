@@ -5,8 +5,11 @@ import type { AssetType } from '../../api/types';
 import { Spinner } from '../Spinner/Spinner';
 import { Button } from '../Button/Button';
 import styles from './styles.module.css';
+import shared from '../../styles/shared.module.css';
+import { useTheme } from '../../hooks/useTheme/useTheme';
 
 export function CardDetails() {
+  const { theme } = useTheme();
   const [searchParams, setSearchParams] = useSearchParams();
   const [details, setDetails] = useState<AssetType | undefined>(undefined);
   const [pending, setPending] = useState(false);
@@ -25,7 +28,10 @@ export function CardDetails() {
   }, [getDetails]);
 
   return (
-    <article className={styles['card-details']} data-testid="card-details">
+    <article
+      className={`${styles['card-details']} ${shared[`element-${theme}`]}`}
+      data-testid="card-details"
+    >
       {pending && <Spinner />}
       {!pending && (
         <>

@@ -1,18 +1,48 @@
 .button {
   font-family: var(--main-font-family);
   font-size: 25px;
-  color: var(--main-font-color);
-  background-color: var(--elem-bg-color);
   width: fit-content;
+  height: fit-content;
+  padding: 5px;
+  border-radius: 10px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
 }
 
 .button:hover {
   cursor: pointer;
 }
 
-.button:disabled {
+.button:active {
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+}
+
+.button-dark {
+  color: var(--main-font-color);
+  background-color: var(--elem-bg-color);
+}
+
+.button-light {
+  color: var(--light-elem-color);
+  background-color: var(--light-elem-bg-color);
+  border-color: rgb(0, 65, 105);
+}
+
+.button-light:disabled {
+  color: var(--light-elem-color);
+  background-color: rgb(135, 178, 204);
+  cursor: none;
+  border: none;
+}
+
+.button-dark:disabled {
   background-color: rgba(214, 213, 213, 0.904);
   color: rgba(40, 39, 39, 0.22);
+  cursor: none;
   border: none;
-  cursor: unset;
 }

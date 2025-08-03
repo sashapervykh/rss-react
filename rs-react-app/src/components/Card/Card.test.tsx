@@ -1,19 +1,23 @@
 import { render, screen } from '@testing-library/react';
 import { Card } from './Card';
 import { BrowserRouter } from 'react-router';
+import { Provider } from 'react-redux';
+import { setupStore } from '../../store/store';
 
 describe('Card', () => {
   it(`should render Card with given src and alt, heading and paragraph with given text`, () => {
     render(
-      <BrowserRouter>
-        <Card
-          source="/somesrc.img"
-          title="Test"
-          description="Testing rendering card"
-          media_type="image"
-          id="test_id"
-        />
-      </BrowserRouter>
+      <Provider store={setupStore()}>
+        <BrowserRouter>
+          <Card
+            source="/somesrc.img"
+            title="Test"
+            description="Testing rendering card"
+            media_type="image"
+            nasa_id="test_id"
+          />
+        </BrowserRouter>
+      </Provider>
     );
 
     const image = screen.getByRole('img');
@@ -28,21 +32,5 @@ describe('Card', () => {
     expect(heading).toHaveTextContent('Test');
 
     expect(description).toBeInTheDocument();
-  });
-  it(`should handle undefined source correctly`, () => {
-    render(
-      <BrowserRouter>
-        <Card
-          title="Test"
-          description="Testing rendering card"
-          media_type="audio"
-          id="test_id"
-        />
-      </BrowserRouter>
-    );
-
-    const image = screen.getByRole('img');
-
-    expect(image).toHaveAttribute('src', '/no_image_available.png');
   });
 });

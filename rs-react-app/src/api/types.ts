@@ -11,9 +11,10 @@ export interface AssetType {
 export interface SearchResultType {
   title: string;
   description: string;
-  source: string | undefined;
+  source: string;
   media_type: 'audio' | 'image' | 'video';
   nasa_id: string;
+  [key: string]: string;
 }
 
 export const errorScheme = z.looseObject({ message: z.string() });

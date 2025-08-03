@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: var(--elem-bg-color);
   border-radius: 20px;
   padding: 20px;
 }
@@ -10,4 +9,8 @@
 .page-message {
   font-size: 30px;
   padding: 10px;
+}
+
+.link:visited {
+  color: rgb(61, 148, 172);
 }
