@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { CardMedia } from './CardMedia';
 
 describe('CardMedia', () => {
-  const renderImage = (props: { src?: string; media_type: string }) => {
+  const renderImage = (props: { src: string; media_type: string }) => {
     render(
       <CardMedia
         src={props.src}
