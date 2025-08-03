@@ -1,21 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import { MockedFlyoutRender } from '../../test-utils/MockedFlyoutRender';
 import userEvent from '@testing-library/user-event';
+import { getFlyoutElements } from '../../test-utils/getFlyoutElements';
 
 describe('Flyout', () => {
   const renderFlyout = () => {
     render(<MockedFlyoutRender />);
-  };
-
-  const getTestingElements = async () => {
-    const text = await screen.findByText('Selected items: 1');
-    const unselectButton = await screen.findByRole('button', {
-      name: 'Unselect all',
-    });
-    const downloadButton = await screen.findByRole('button', {
-      name: 'Download',
-    });
-    return { text, unselectButton, downloadButton };
   };
 
   it(`should render with 1 item and two buttons`, async () => {
@@ -24,7 +14,7 @@ describe('Flyout', () => {
     const checkbox = screen.getByRole('checkbox');
     await userEvent.click(checkbox);
 
-    const { text, unselectButton, downloadButton } = await getTestingElements();
+    const { text, unselectButton, downloadButton } = await getFlyoutElements(1);
 
     expect(text).toBeInTheDocument();
     expect(unselectButton).toBeInTheDocument();
@@ -36,7 +26,7 @@ describe('Flyout', () => {
     const checkbox = screen.getByRole('checkbox');
     await userEvent.click(checkbox);
 
-    const { text, unselectButton, downloadButton } = await getTestingElements();
+    const { text, unselectButton, downloadButton } = await getFlyoutElements(1);
 
     await userEvent.click(checkbox);
 
@@ -50,7 +40,7 @@ describe('Flyout', () => {
     const checkbox = screen.getByRole('checkbox');
     await userEvent.click(checkbox);
 
-    const { text, unselectButton, downloadButton } = await getTestingElements();
+    const { text, unselectButton, downloadButton } = await getFlyoutElements(1);
 
     await userEvent.click(unselectButton);
 
@@ -71,7 +61,7 @@ describe('Flyout', () => {
     const checkbox = screen.getByRole('checkbox');
     await userEvent.click(checkbox);
 
-    const { downloadButton } = await getTestingElements();
+    const { downloadButton } = await getFlyoutElements(1);
 
     await userEvent.click(downloadButton);
 

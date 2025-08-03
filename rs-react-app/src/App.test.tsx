@@ -1,14 +1,29 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
 import App from './App';
+import { Provider } from 'react-redux';
+import { setupStore } from './store/store';
+import { TEST_REQUESTS } from './test-utils/mockedCardsData';
+import { getFlyoutElements } from './test-utils/getFlyoutElements';
 
 describe('App', () => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
   const renderResults = (link: string) => {
+    const store = setupStore();
     render(
-      <MemoryRouter initialEntries={[link]}>
-        <App />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={[link]}>
+          <App />
+        </MemoryRouter>
+      </Provider>
     );
   };
 
@@ -21,7 +36,7 @@ describe('App', () => {
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveTextContent('About');
   });
-  it(`should direct to about page by link click`, async () => {
+  it(`should direct to home page by link click`, async () => {
     renderResults('/about');
 
     const link = await screen.findByRole('link', { name: 'Home' });
@@ -49,5 +64,26 @@ describe('App', () => {
     const closeButtons = await screen.findByRole('button', { name: 'X' });
     await userEvent.click(closeButtons);
     expect(cardDetails).not.toBeInTheDocument();
+  });
+  it(`should show selected page after changing page`, async () => {
+    localStorage.setItem('input', TEST_REQUESTS.severalResults);
+    renderResults('/home');
+
+    const checkbox = await screen.findAllByRole('checkbox');
+    await userEvent.click(checkbox[0]);
+    await userEvent.click(checkbox[1]);
+    await userEvent.click(checkbox[2]);
+    const nextButton = await screen.findByRole('button', { name: '>' });
+    const prevButton = await screen.findByRole('button', { name: '<' });
+    await userEvent.click(nextButton);
+    await userEvent.click(prevButton);
+
+    const { text, unselectButton, downloadButton } = await getFlyoutElements(3);
+    expect(checkbox[0]).toBeChecked();
+    expect(checkbox[1]).toBeChecked();
+    expect(checkbox[2]).toBeChecked();
+    expect(text).toBeInTheDocument();
+    expect(unselectButton).toBeInTheDocument();
+    expect(downloadButton).toBeInTheDocument();
   });
 });

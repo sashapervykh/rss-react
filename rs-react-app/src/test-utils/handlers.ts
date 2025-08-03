@@ -1,6 +1,21 @@
 import { http, HttpResponse } from 'msw';
 import { TEST_REQUESTS } from './mockedCardsData';
 
+const severalResults = returnMockResponses({
+  title: TEST_REQUESTS.withoutDescription,
+  links: 'test.jpg',
+  repeats: 10,
+  media_type: 'video',
+  size: 20,
+});
+
+severalResults.collection.items.forEach((elem, index) => {
+  elem.data[0] = {
+    ...elem.data[0],
+    nasa_id: elem.data[0].nasa_id + index.toString(),
+  };
+});
+
 export const handlers = [
   http.get('https://images-api.nasa.gov/search', ({ request }) => {
     const url = new URL(request.url);
@@ -55,6 +70,9 @@ export const handlers = [
           })
         );
       }
+      case TEST_REQUESTS.severalResults: {
+        return HttpResponse.json(severalResults);
+      }
       case TEST_REQUESTS.notFound: {
         return new HttpResponse(null, { status: 404 });
       }
@@ -88,12 +106,14 @@ function returnMockResponses({
   links,
   repeats = 1,
   media_type,
+  size,
 }: {
   title: string;
   description?: string;
   links?: string;
   repeats: number;
   media_type: 'image' | 'video' | 'audio';
+  size?: number;
 }) {
   const items = [];
   for (let i = 0; i < repeats; i++) {
@@ -132,7 +152,7 @@ function returnMockResponses({
   return {
     collection: {
       items: items,
-      metadata: { total_hits: items.length },
+      metadata: { total_hits: size ?? items.length },
     },
   };
 }
