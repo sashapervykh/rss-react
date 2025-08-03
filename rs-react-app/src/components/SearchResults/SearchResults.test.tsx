@@ -9,6 +9,8 @@ import {
 } from '../../test-utils/mockedCardsData';
 import type { SearchResultType } from '../../api/types';
 import { MemoryRouter } from 'react-router';
+import { Provider } from 'react-redux';
+import { setupStore } from '../../store/store';
 
 describe('SearchResults', () => {
   beforeEach(() => {
@@ -23,9 +25,11 @@ describe('SearchResults', () => {
   }) => {
     vi.mocked(getDataFromApi).mockResolvedValueOnce(results);
     render(
-      <MemoryRouter initialEntries={['/home']}>
-        <SearchResults />
-      </MemoryRouter>
+      <Provider store={setupStore()}>
+        <MemoryRouter initialEntries={['/home']}>
+          <SearchResults />
+        </MemoryRouter>
+      </Provider>
     );
   };
 
