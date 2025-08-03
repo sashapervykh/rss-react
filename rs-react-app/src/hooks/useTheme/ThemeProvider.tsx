@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const savedTheme: unknown = localStorage.getItem('theme');
+  const [theme, setTheme] = useState<'light' | 'dark'>(
+    savedTheme === 'dark' || savedTheme === 'light' ? savedTheme : 'dark'
+  );
 
   const themeContextValue = {
     theme,

@@ -15,6 +15,7 @@ export function Header() {
         text={theme[0].toUpperCase() + theme.slice(1)}
         onClick={() => {
           setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+          localStorage.setItem('theme', theme === 'dark' ? 'light' : 'dark');
         }}
       />
       <Link
