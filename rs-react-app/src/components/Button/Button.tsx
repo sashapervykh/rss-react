@@ -1,3 +1,4 @@
+import { useTheme } from '../../hooks/useTheme/useTheme';
 import style from './style.module.css';
 
 interface Props {
@@ -9,9 +10,11 @@ interface Props {
 }
 
 export function Button(props: Props) {
+  const { theme } = useTheme();
+
   return (
     <button
-      className={`${style.button} ${props.style ?? ''}`}
+      className={`${style.button} ${style[`button-${theme}`]} ${props.style ?? ''}`}
       onClick={props.onClick}
       type={props.type ? props.type : 'button'}
       disabled={props.disabled}

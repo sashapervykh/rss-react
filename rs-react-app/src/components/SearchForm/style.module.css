@@ -9,10 +9,23 @@
   box-sizing: border-box;
   display: flex;
   font-family: var(--main-font-family);
-  background-color: var(--elem-bg-color);
-  color: var(--main-font-family);
   font-size: 25px;
   height: 100%;
   margin-bottom: 10px;
   padding: 0px;
+  border-radius: 10px;
+}
+
+.input-dark {
+  color: var(--main-font-family);
+  background-color: var(--elem-bg-color);
+}
+
+.input-light {
+  color: var(--light-elem-color);
+  background-color: var(--light-elem-bg-color);
+}
+
+.input-light::placeholder {
+  color: var(--light-placeholder);
 }

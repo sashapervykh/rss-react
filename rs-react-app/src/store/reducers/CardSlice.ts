@@ -18,14 +18,12 @@ export const cardSlice = createSlice({
     addCard(state, action: PayloadAction<SearchResultType>) {
       state.cards.push(action.payload);
       state.amount += 1;
-      console.log(state.amount, state.cards);
     },
     deleteCard(state, action: PayloadAction<SearchResultType>) {
       state.cards = state.cards.filter(
         (elem) => elem.nasa_id !== action.payload.nasa_id
       );
       state.amount -= 1;
-      console.log(state.amount, state.cards);
     },
     clear(state) {
       state.amount = 0;

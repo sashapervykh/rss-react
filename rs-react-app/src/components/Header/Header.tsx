@@ -17,7 +17,10 @@ export function Header() {
           setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
         }}
       />
-      <Link to={linkPath} className={styles.link}>
+      <Link
+        to={linkPath}
+        className={`${styles.link} ${styles[`link-${theme}`]}`}
+      >
         {linkText}
       </Link>
     </header>

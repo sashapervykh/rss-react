@@ -5,6 +5,8 @@ import { useSearchParams } from 'react-router';
 import { useCustomDispatch, useCustomSelector } from '../../hooks/reduxHooks';
 import { cardSlice } from '../../store/reducers/CardSlice';
 import { useEffect, useState } from 'react';
+import shared from '../../styles/shared.module.css';
+import { useTheme } from '../../hooks/useTheme/useTheme';
 
 interface Props {
   source?: string;
@@ -15,6 +17,7 @@ interface Props {
 }
 
 export function Card(props: Props) {
+  const { theme } = useTheme();
   const { amount, cards } = useCustomSelector((state) => state.CardReducer);
   const [searchParams, setSearchParams] = useSearchParams();
   const { addCard, deleteCard } = cardSlice.actions;
@@ -50,7 +53,7 @@ export function Card(props: Props) {
 
   return (
     <div
-      className={style['card-wrapper']}
+      className={`${style['card-wrapper']} ${shared[`element-${theme}`]}`}
       data-testid="card"
       onClick={(event) => handleClick(event)}
     >

@@ -1,0 +1,7 @@
+.element-light {
+  background-color: white;
+}
+
+.element-dark {
+  background-color: var(--elem-bg-color);
+}

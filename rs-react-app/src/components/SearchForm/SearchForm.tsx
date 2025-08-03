@@ -3,8 +3,10 @@ import style from './style.module.css';
 import { BreakingButton } from '../BreakingButton/BreakingButton';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { usePage } from '../../hooks/usePagination/usePagination';
+import { useTheme } from '../../hooks/useTheme/useTheme';
 
 export function SearchForm() {
+  const { theme } = useTheme();
   const { savedInput, setSavedInput, updateStorageBySearch } =
     useLocalStorage();
   const { setPage } = usePage();
@@ -25,7 +27,7 @@ export function SearchForm() {
       >
         <label>
           <input
-            className={style.input}
+            className={`${style.input} ${style[`input-${theme}`]} `}
             onChange={handleChange}
             placeholder="Enter your request"
             value={savedInput}

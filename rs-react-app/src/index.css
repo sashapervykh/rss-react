@@ -3,7 +3,10 @@
   --main-font-color: rgba(255, 255, 255, 0.87);
   --elem-bg-color: rgba(255, 255, 255, 0.217);
   --hover-bg-color: rgba(255, 255, 255, 0.607);
-  --hover-font-color: rgba(47, 33, 33, 0.607);
+  --light-elem-color: #005ca8;
+  --light-elem-bg-color: white;
+  --light-elem-border-color: rgb(0, 65, 105);
+  --light-placeholder: #5591c3;
 }
 
 body {
@@ -22,10 +25,14 @@ body {
 }
 
 .background-light {
-}
-
-.background-light,
-.background-dark {
+  background: radial-gradient(
+    circle at top left,
+    #ffe23b 0%,
+    #add9fd 20%,
+    #93c9f5 70%,
+    #74b9f2 100%
+  );
+  color: #005ca8;
 }
 
 a:visited {
