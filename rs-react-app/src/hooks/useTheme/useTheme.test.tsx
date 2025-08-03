@@ -6,7 +6,7 @@ import { MockedThemeButton } from '../../test-utils/MockedThemeButton';
 import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
 
-describe('ThemeContext', () => {
+describe('useTheme', () => {
   const renderPage = (theme: 'dark' | 'light') => {
     render(
       <ThemeProvider>
@@ -18,7 +18,7 @@ describe('ThemeContext', () => {
     );
   };
 
-  it(`should have dark theme as initial`, () => {
+  it(`should set dark theme as initial`, () => {
     renderPage('dark');
     expect(document.documentElement).toHaveClass('background-dark');
   });
