@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router';
 
 import type { SearchResultType } from '../../api/types';
 
+import { useGetTransformedDataFromApiQuery } from '../../api/apiSlice';
 import { useCustomDispatch, useCustomSelector } from '../../hooks/reduxHooks';
 import { useTheme } from '../../hooks/useTheme/useTheme';
 import { cardSlice } from '../../store/reducers/CardSlice';
@@ -20,6 +21,14 @@ export function Card(props: SearchResultType) {
   const [isChecked, setIsChecked] = useState(false);
   const { addCard, deleteCard } = cardSlice.actions;
   const { title, description, source, media_type, nasa_id } = props;
+  const { data, error, isLoading } = useGetTransformedDataFromApiQuery({
+    q: 'moon',
+    page: 1,
+  });
+
+  useEffect(() => {
+    console.log(isLoading, data, error);
+  }, [data, error, isLoading]);
 
   useEffect(() => {
     if (amount === 0) {
