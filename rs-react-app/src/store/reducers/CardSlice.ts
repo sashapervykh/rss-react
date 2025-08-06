@@ -26,8 +26,8 @@ export const cardSlice = createSlice({
       state.amount -= 1;
     },
     clear(state) {
-      state.amount = 0;
-      state.cards = [];
+      state.amount = initialState.amount;
+      state.cards = initialState.cards;
     },
   },
 });

@@ -33,7 +33,7 @@ export function Flyout() {
   };
 
   return (
-    amount !== 0 && (
+    !!amount && (
       <div className={`${style.flyout} ${style[`flyout-${theme}`]}`}>
         <div className={style['flyout-content']}>
           <div className={style['flyout-element']}>
