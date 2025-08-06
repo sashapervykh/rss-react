@@ -16,25 +16,26 @@ export function Card(props: SearchResultType) {
   const { theme } = useTheme();
   const { amount, cards } = useCustomSelector((state) => state.CardReducer);
   const [searchParams, setSearchParams] = useSearchParams();
-  const { addCard, deleteCard } = cardSlice.actions;
   const dispatch = useCustomDispatch();
   const [isChecked, setIsChecked] = useState(false);
+  const { addCard, deleteCard } = cardSlice.actions;
+  const { title, description, source, media_type, nasa_id } = props;
 
   useEffect(() => {
     if (amount === 0) {
       setIsChecked(false);
       return;
     }
-    if (cards.find((card) => card.nasa_id === props.nasa_id)) {
+    if (cards.find((card) => card.nasa_id === nasa_id)) {
       setIsChecked(true);
     }
-  }, [amount, cards, props.nasa_id]);
+  }, [amount, cards, nasa_id]);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (!(event.target instanceof HTMLInputElement))
       setSearchParams({
         page: searchParams.get('page') ?? '1',
-        details: props.nasa_id.toString(),
+        details: nasa_id.toString(),
       });
   };
 
@@ -59,12 +60,8 @@ export function Card(props: SearchResultType) {
         className={style.checkbox}
         onChange={handleChange}
       />
-      <CardMedia
-        media_type={props.media_type}
-        src={props.source}
-        alt={props.title}
-      />
-      <CardText title={props.title} description={props.description} />
+      <CardMedia media_type={media_type} src={source} alt={title} />
+      <CardText title={title} description={description} />
     </div>
   );
 }
