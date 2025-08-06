@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+
 import type { SearchResultType } from '../../api/types';
 
 interface SelectorState {

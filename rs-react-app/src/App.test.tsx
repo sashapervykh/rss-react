@@ -1,11 +1,12 @@
 import { cleanup, render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
-import App from './App';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
+
+import App from './App';
 import { setupStore } from './store/store';
-import { TEST_REQUESTS } from './test-utils/mockedCardsData';
 import { getFlyoutElements } from './test-utils/getFlyoutElements';
+import { TEST_REQUESTS } from './test-utils/mockedCardsData';
 
 describe('App', () => {
   afterEach(() => {

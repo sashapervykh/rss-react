@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router';
+
 import App from '../../App';
 import { ThemeProvider } from '../../hooks/useTheme/ThemeProvider';
-import { MemoryRouter } from 'react-router';
 
 describe('Header', () => {
   const renderPage = () => {

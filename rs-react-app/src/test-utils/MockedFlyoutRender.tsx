@@ -1,8 +1,10 @@
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
-import { setupStore } from '../store/store';
+
 import { Card } from '../components/Card/Card';
 import { Flyout } from '../components/Flyout/Flyout';
+import { setupStore } from '../store/store';
+
 import { mockedSimpleRequestResult } from './mockedCardsData';
 
 export function MockedFlyoutRender() {

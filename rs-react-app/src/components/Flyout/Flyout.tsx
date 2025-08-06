@@ -1,10 +1,12 @@
+import { useRef, useState } from 'react';
+
 import { useCustomDispatch, useCustomSelector } from '../../hooks/reduxHooks';
 import { useTheme } from '../../hooks/useTheme/useTheme';
 import { cardSlice } from '../../store/reducers/CardSlice';
 import { createFileContent } from '../../utilities/createFileContent';
 import { Button } from '../Button/Button';
+
 import style from './style.module.css';
-import { useRef, useState } from 'react';
 
 export function Flyout() {
   const { theme } = useTheme();

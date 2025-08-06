@@ -1,7 +1,9 @@
 import { Link, useLocation } from 'react-router';
-import styles from './styles.module.css';
-import { Button } from '../Button/Button';
+
 import { useTheme } from '../../hooks/useTheme/useTheme';
+import { Button } from '../Button/Button';
+
+import styles from './styles.module.css';
 
 export function Header() {
   const { theme, setTheme } = useTheme();

@@ -1,13 +1,16 @@
-import { CardText } from './CardText/CardText';
-import { CardMedia } from './CardMedia/CardMedia';
-import style from './style.module.css';
-import { useSearchParams } from 'react-router';
-import { useCustomDispatch, useCustomSelector } from '../../hooks/reduxHooks';
-import { cardSlice } from '../../store/reducers/CardSlice';
 import { useEffect, useState } from 'react';
-import shared from '../../styles/shared.module.css';
-import { useTheme } from '../../hooks/useTheme/useTheme';
+import { useSearchParams } from 'react-router';
+
 import type { SearchResultType } from '../../api/types';
+
+import { useCustomDispatch, useCustomSelector } from '../../hooks/reduxHooks';
+import { useTheme } from '../../hooks/useTheme/useTheme';
+import { cardSlice } from '../../store/reducers/CardSlice';
+import shared from '../../styles/shared.module.css';
+
+import { CardMedia } from './CardMedia/CardMedia';
+import { CardText } from './CardText/CardText';
+import style from './style.module.css';
 
 export function Card(props: SearchResultType) {
   const { theme } = useTheme();

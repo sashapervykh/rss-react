@@ -1,10 +1,11 @@
-import { getDataFromApi } from './getDataFromApi';
 import {
   mockedEmptyRequestResult,
   mockedRequestResultWithoutDescription,
   mockedSimpleRequestResult,
   TEST_REQUESTS,
 } from '../test-utils/mockedCardsData';
+
+import { getDataFromApi } from './getDataFromApi';
 
 describe('getDataFromApi', () => {
   it(`should return mock data for simple request`, async () => {

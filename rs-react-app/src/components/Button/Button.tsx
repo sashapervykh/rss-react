@@ -1,4 +1,5 @@
 import { useTheme } from '../../hooks/useTheme/useTheme';
+
 import style from './style.module.css';
 
 interface Props {

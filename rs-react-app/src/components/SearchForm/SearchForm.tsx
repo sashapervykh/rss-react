@@ -1,9 +1,10 @@
-import { Button } from '../Button/Button';
-import style from './style.module.css';
-import { BreakingButton } from '../BreakingButton/BreakingButton';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { usePage } from '../../hooks/usePagination/usePagination';
 import { useTheme } from '../../hooks/useTheme/useTheme';
+import { BreakingButton } from '../BreakingButton/BreakingButton';
+import { Button } from '../Button/Button';
+
+import style from './style.module.css';
 
 export function SearchForm() {
   const { theme } = useTheme();

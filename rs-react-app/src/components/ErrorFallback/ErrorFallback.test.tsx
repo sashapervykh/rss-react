@@ -1,9 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { expectFallbackUI } from '../../test-utils/expectFallbackUI';
-import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
-import { ErrorFallback } from './ErrorFallback';
 import userEvent from '@testing-library/user-event';
+
+import { expectFallbackUI } from '../../test-utils/expectFallbackUI';
 import { BreakingButton } from '../BreakingButton/BreakingButton';
+import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
+
+import { ErrorFallback } from './ErrorFallback';
 
 describe('ErrorFallback', () => {
   it(`should render fallback UI`, () => {

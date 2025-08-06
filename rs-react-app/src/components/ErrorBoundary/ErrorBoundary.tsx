@@ -1,4 +1,5 @@
 import { Component, type ReactNode } from 'react';
+
 import { ErrorFallback } from '../ErrorFallback/ErrorFallback';
 
 interface Props {

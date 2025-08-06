@@ -1,12 +1,15 @@
-import { useSearchParams } from 'react-router';
-import { getOneAssetFromApi } from '../../api/getOneAssetFromApi';
 import { useCallback, useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router';
+
 import type { AssetType } from '../../api/types';
-import { Spinner } from '../Spinner/Spinner';
-import { Button } from '../Button/Button';
-import styles from './styles.module.css';
-import shared from '../../styles/shared.module.css';
+
+import { getOneAssetFromApi } from '../../api/getOneAssetFromApi';
 import { useTheme } from '../../hooks/useTheme/useTheme';
+import shared from '../../styles/shared.module.css';
+import { Button } from '../Button/Button';
+import { Spinner } from '../Spinner/Spinner';
+
+import styles from './styles.module.css';
 
 export function CardDetails() {
   const { theme } = useTheme();

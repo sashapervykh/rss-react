@@ -1,15 +1,18 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { SearchResults } from './SearchResults';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
+
+import type { SearchResultType } from '../../api/types';
+
 import { getDataFromApi } from '../../api/getDataFromApi';
+import { setupStore } from '../../store/store';
 import {
   mockedSeveralResults,
   mockedSimpleRequestResult,
   TEST_REQUESTS,
 } from '../../test-utils/mockedCardsData';
-import type { SearchResultType } from '../../api/types';
-import { MemoryRouter } from 'react-router';
-import { Provider } from 'react-redux';
-import { setupStore } from '../../store/store';
+
+import { SearchResults } from './SearchResults';
 
 describe('SearchResults', () => {
   beforeEach(() => {

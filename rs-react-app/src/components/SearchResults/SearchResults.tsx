@@ -1,13 +1,15 @@
-import { getDataFromApi } from '../../api/getDataFromApi';
-import { Card } from '../Card/Card';
-import style from './style.module.css';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { Spinner } from '../Spinner/Spinner';
-import { Pagination } from '../Pagination/Pagination';
-import { usePage } from '../../hooks/usePagination/usePagination';
 import { useNavigate, useSearchParams } from 'react-router';
+
+import { getDataFromApi } from '../../api/getDataFromApi';
 import { errorScheme, type SearchResultType } from '../../api/types';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { usePage } from '../../hooks/usePagination/usePagination';
+import { Card } from '../Card/Card';
+import { Pagination } from '../Pagination/Pagination';
+import { Spinner } from '../Spinner/Spinner';
+
+import style from './style.module.css';
 
 export function SearchResults() {
   const { page } = usePage();

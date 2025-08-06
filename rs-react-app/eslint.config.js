@@ -6,6 +6,8 @@ import react from 'eslint-plugin-react';
 import tseslint from 'typescript-eslint';
 import eslintPluginPrettier from 'eslint-plugin-prettier/recommended';
 import reactCompiler from 'eslint-plugin-react-compiler';
+import eslintImport from 'eslint-plugin-import';
+import { positive } from 'zod/v4';
 
 export default tseslint.config(
   { ignores: ['dist', 'coverage'] },
@@ -25,6 +27,7 @@ export default tseslint.config(
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'react-compiler': reactCompiler,
+      import: eslintImport,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -38,6 +41,22 @@ export default tseslint.config(
       '@typescript-eslint/no-unused-vars': [
         'error',
         { varsIgnorePattern: '^_' },
+      ],
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'type',
+            'internal',
+            'parent',
+            'sibling',
+          ],
+
+          'newlines-between': 'always',
+          alphabetize: { order: 'asc' },
+        },
       ],
     },
     settings: {

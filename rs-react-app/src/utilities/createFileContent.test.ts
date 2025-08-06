@@ -2,6 +2,7 @@ import {
   mockedRequestResultWithoutDescription,
   mockedSimpleRequestResult,
 } from '../test-utils/mockedCardsData';
+
 import { createFileContent } from './createFileContent';
 
 describe('createFileContent', () => {

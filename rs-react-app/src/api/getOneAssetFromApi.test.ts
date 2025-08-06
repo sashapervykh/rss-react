@@ -3,6 +3,7 @@ import {
   mockedAssetWithoutSource,
   TEST_REQUESTS,
 } from '../test-utils/mockedCardsData';
+
 import { getOneAssetFromApi } from './getOneAssetFromApi';
 
 describe('getOneAssetFromApi', () => {

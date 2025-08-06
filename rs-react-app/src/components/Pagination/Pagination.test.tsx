@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { Pagination } from './Pagination';
-import { MemoryRouter } from 'react-router';
 import userEvent from '@testing-library/user-event';
+import { MemoryRouter } from 'react-router';
+
 import { PageProvider } from '../../hooks/usePagination/PageProvider';
+
+import { Pagination } from './Pagination';
 
 describe('Pagination', () => {
   const renderPagination = (max: number) => {

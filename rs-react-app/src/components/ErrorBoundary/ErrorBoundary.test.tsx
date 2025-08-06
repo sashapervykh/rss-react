@@ -1,10 +1,12 @@
 import { render, waitFor } from '@testing-library/react';
-import { ErrorBoundary } from './ErrorBoundary';
-import { BuggyComponent } from '../../test-utils/BuggyComponent';
-import { expectFallbackUI } from '../../test-utils/expectFallbackUI';
+import { BrowserRouter } from 'react-router';
+
 import App from '../../App';
 import { getDataFromApi } from '../../api/getDataFromApi';
-import { BrowserRouter } from 'react-router';
+import { BuggyComponent } from '../../test-utils/BuggyComponent';
+import { expectFallbackUI } from '../../test-utils/expectFallbackUI';
+
+import { ErrorBoundary } from './ErrorBoundary';
 
 describe('ErrorBoundary', () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;

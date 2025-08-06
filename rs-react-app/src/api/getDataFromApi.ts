@@ -1,6 +1,6 @@
+import NO_IMAGE from './../../public/no_image_available.png';
 import { processAPIFailure } from './processAPIFailure';
 import { APIDataScheme, errorScheme } from './types';
-import NO_IMAGE from './../../public/no_image_available.png';
 
 interface Props {
   input: string;

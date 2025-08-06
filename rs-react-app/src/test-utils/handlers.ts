@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw';
+
 import { TEST_REQUESTS } from './mockedCardsData';
 
 const severalResults = returnMockResponses({

@@ -1,6 +1,7 @@
-import styles from './styles.module.css';
-import shared from '../../styles/shared.module.css';
 import { useTheme } from '../../hooks/useTheme/useTheme';
+import shared from '../../styles/shared.module.css';
+
+import styles from './styles.module.css';
 
 export function NotFoundPage() {
   const { theme } = useTheme();
