@@ -1,10 +1,8 @@
-import type z from 'zod/v4';
-
 import NO_IMAGE from '/no_image_available.png?url';
 
-import { APIDataScheme } from './types';
+import { type APIResponseType } from './types';
 
-export function processSearchResponse(response: z.infer<typeof APIDataScheme>) {
+export function processSearchResponse(response: APIResponseType) {
   const maxPage = Math.ceil(response.collection.metadata.total_hits / 10);
   const searchResult = response.collection.items.map((element) => {
     return {

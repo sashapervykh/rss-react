@@ -22,7 +22,7 @@ export function Card(props: SearchResultType) {
   const { addCard, deleteCard } = cardSlice.actions;
   const { title, description, source, media_type, nasa_id } = props;
   const { data, error, isLoading } = useGetTransformedDataFromApiQuery({
-    q: 'moon',
+    nasa_id: 'NHQ_2019_0311_Go Forward to the Moon',
     page: 1,
   });
 

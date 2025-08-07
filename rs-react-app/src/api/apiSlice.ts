@@ -1,7 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
+import { processDetailsResponse } from './processDetailsResponse';
 import { processSearchResponse } from './processSearchResponse';
-import { APIDataScheme, type SearchData } from './types';
+import {
+  APIDataScheme,
+  type APIResponseType,
+  type AssetType,
+  type SearchData,
+} from './types';
 
 interface QueryParams {
   q?: string;
@@ -15,21 +21,18 @@ export const nasaApi = createApi({
     baseUrl: 'https://images-api.nasa.gov',
   }),
   endpoints: (build) => ({
-    getTransformedDataFromApi: build.query<SearchData | undefined, QueryParams>(
+    getTransformedDataFromApi: build.query<SearchData | AssetType, QueryParams>(
       {
         query: (params) => ({
           url: 'search',
           params: { ...params, page_size: 10 },
         }),
-        transformResponse: (
-          response: z.infer<typeof APIDataScheme>,
-          meat,
-          args
-        ) => {
+        rawResponseSchema: APIDataScheme,
+        transformResponse: (response: APIResponseType, _, args) => {
           if (args.q || (!args.q && !args.nasa_id)) {
             return processSearchResponse(response);
           }
-          return;
+          return processDetailsResponse(response);
         },
       }
     ),

@@ -43,3 +43,5 @@ export const APIDataScheme = z.looseObject({
     metadata: z.looseObject({ total_hits: z.number() }),
   }),
 });
+
+export type APIResponseType = z.infer<typeof APIDataScheme>;
