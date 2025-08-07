@@ -8,6 +8,11 @@ export interface AssetType {
   keywords: string[];
 }
 
+export interface SearchData {
+  max: number;
+  results: SearchResultType[];
+}
+
 export interface SearchResultType {
   title: string;
   description: string;
