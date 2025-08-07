@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 
+import { useGetResultsQuery } from '../../api/apiSlice';
 import { getDataFromApi } from '../../api/getDataFromApi';
 import { errorScheme, type SearchResultType } from '../../api/types';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -24,6 +25,15 @@ export function SearchResults() {
   const [maxPage, setMaxPage] = useState<number | undefined>(undefined);
   const [searchParams, _] = useSearchParams();
   const navigate = useNavigate();
+  const { data, isLoading } = useGetResultsQuery({
+    q: savedInput,
+    page: page,
+  });
+
+  useEffect(() => {
+    console.log(isLoading, data, error);
+  }, [data, error, isLoading]);
+
   const handleSearch = useCallback(
     async (input: string, page: number) => {
       try {

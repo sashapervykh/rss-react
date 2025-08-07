@@ -9,9 +9,12 @@ import {
   type SearchData,
 } from './types';
 
-interface QueryParams {
+interface ResultsParams {
   q?: string;
-  nasa_id?: string;
+  page: number;
+}
+interface DetailsParams {
+  nasa_id: string;
   page: number;
 }
 
@@ -21,22 +24,34 @@ export const nasaApi = createApi({
     baseUrl: 'https://images-api.nasa.gov',
   }),
   endpoints: (build) => ({
-    getTransformedDataFromApi: build.query<SearchData | AssetType, QueryParams>(
-      {
-        query: (params) => ({
+    getResults: build.query<SearchData, ResultsParams>({
+      query: (params) => {
+        if (!params.q)
+          return {
+            url: 'search',
+            params: { ...params, media_type: 'image', page_size: 10 },
+          };
+        return {
           url: 'search',
           params: { ...params, page_size: 10 },
-        }),
-        rawResponseSchema: APIDataScheme,
-        transformResponse: (response: APIResponseType, _, args) => {
-          if (args.q || (!args.q && !args.nasa_id)) {
-            return processSearchResponse(response);
-          }
-          return processDetailsResponse(response);
-        },
-      }
-    ),
+        };
+      },
+      rawResponseSchema: APIDataScheme,
+      transformResponse: (response: APIResponseType) => {
+        return processSearchResponse(response);
+      },
+    }),
+    getDetails: build.query<AssetType, DetailsParams>({
+      query: (params) => ({
+        url: 'search',
+        params: { ...params, page_size: 10 },
+      }),
+      rawResponseSchema: APIDataScheme,
+      transformResponse: (response: APIResponseType) => {
+        return processDetailsResponse(response);
+      },
+    }),
   }),
 });
 
-export const { useGetTransformedDataFromApiQuery } = nasaApi;
+export const { useGetResultsQuery, useGetDetailsQuery } = nasaApi;
