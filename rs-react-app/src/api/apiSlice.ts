@@ -15,7 +15,6 @@ interface ResultsParams {
 }
 interface DetailsParams {
   nasa_id: string;
-  page: number;
 }
 
 export const nasaApi = createApi({
@@ -44,7 +43,7 @@ export const nasaApi = createApi({
     getDetails: build.query<AssetType, DetailsParams>({
       query: (params) => ({
         url: 'search',
-        params: { ...params, page_size: 10 },
+        params: { ...params },
       }),
       rawResponseSchema: APIDataScheme,
       transformResponse: (response: APIResponseType) => {
