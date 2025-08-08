@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router';
 import { useGetResultsQuery } from '../../api/apiSlice';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { usePage } from '../../hooks/usePagination/usePagination';
+import { Button } from '../Button/Button';
 import { Card } from '../Card/Card';
 import { Pagination } from '../Pagination/Pagination';
 import { Spinner } from '../Spinner/Spinner';
@@ -19,7 +20,7 @@ export function SearchResults() {
 
   const [searchParams, _] = useSearchParams();
   const navigate = useNavigate();
-  const { data, error, isLoading, isFetching } = useGetResultsQuery({
+  const { data, error, isLoading, isFetching, refetch } = useGetResultsQuery({
     q: savedInput,
     page: page,
   });
@@ -49,7 +50,10 @@ export function SearchResults() {
   return (
     <div className={style['results-wrapper']}>
       {data?.results && data.results.length !== 0 && isPageShown && (
-        <Pagination max={data.max} />
+        <div className={style['results-controls']}>
+          <Button text={'\u{21BA}'} onClick={() => refetch()} />
+          <Pagination max={data.max} />
+        </div>
       )}
       {isLoading || isFetching || !data ? (
         <Spinner />
