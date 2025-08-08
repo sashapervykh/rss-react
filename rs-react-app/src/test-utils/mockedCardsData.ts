@@ -36,6 +36,22 @@ export const mockedSimpleRequestResult: {
   ],
 };
 
+export const mockedResultWithoutSource: {
+  max: number;
+  results: SearchResultType[];
+} = {
+  max: 1,
+  results: [
+    {
+      title: TEST_REQUESTS.withoutSource,
+      description: `Testing data for ${TEST_REQUESTS.withoutSource}`,
+      media_type: 'video',
+      source: '/no_image_available.png',
+      nasa_id: TEST_REQUESTS.withoutSource,
+    },
+  ],
+};
+
 export const mockedAssetRequestResult: AssetType = {
   title: TEST_REQUESTS.simple,
   description: `Testing data for ${TEST_REQUESTS.simple}`,
@@ -50,6 +66,14 @@ export const mockedAssetWithoutSource: AssetType = {
   media_type: 'video',
   source: undefined,
   keywords: [TEST_REQUESTS.withoutSource],
+};
+
+export const mockedAssetWithoutDescription: AssetType = {
+  title: TEST_REQUESTS.withoutDescription,
+  description: `NASA did not provide any description for this item(((`,
+  media_type: 'video',
+  source: 'test.jpg',
+  keywords: [TEST_REQUESTS.withoutDescription],
 };
 
 export const mockedRequestResultWithoutDescription: {

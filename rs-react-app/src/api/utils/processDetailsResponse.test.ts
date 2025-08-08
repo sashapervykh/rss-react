@@ -1,7 +1,7 @@
-import {} from '@testing-library/react';
 import { TEST_RESPONSES } from '../../test-utils/mockedAPIResponses';
 import {
   mockedAssetRequestResult,
+  mockedAssetWithoutDescription,
   mockedAssetWithoutSource,
 } from '../../test-utils/mockedCardsData';
 
@@ -17,5 +17,10 @@ describe('processDetailsResponse', () => {
     const cardData = processDetailsResponse(TEST_RESPONSES.withoutSource);
 
     expect(cardData).toStrictEqual(mockedAssetWithoutSource);
+  });
+  it(`should return correct card data for response without description`, async () => {
+    const cardData = processDetailsResponse(TEST_RESPONSES.withoutDescription);
+
+    expect(cardData).toStrictEqual(mockedAssetWithoutDescription);
   });
 });

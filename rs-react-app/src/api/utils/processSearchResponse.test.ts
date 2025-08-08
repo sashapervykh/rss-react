@@ -1,7 +1,7 @@
-import {} from '@testing-library/react';
 import { TEST_RESPONSES } from '../../test-utils/mockedAPIResponses';
 import {
   mockedRequestResultWithoutDescription,
+  mockedResultWithoutSource,
   mockedSeveralResults,
   mockedSimpleRequestResult,
 } from '../../test-utils/mockedCardsData';
@@ -23,5 +23,10 @@ describe('processSearchResponse', () => {
     const cardData = processSearchResponse(TEST_RESPONSES.withoutDescription);
 
     expect(cardData).toStrictEqual(mockedRequestResultWithoutDescription);
+  });
+  it(`should return correct card data for response without source`, async () => {
+    const cardData = processSearchResponse(TEST_RESPONSES.withoutSource);
+
+    expect(cardData).toStrictEqual(mockedResultWithoutSource);
   });
 });
