@@ -27,7 +27,15 @@ export function SearchResults() {
 
   useEffect(() => {
     if (error) {
-      throw new Error('There is some error');
+      if (
+        typeof error === 'object' &&
+        'data' in error &&
+        typeof error.data === 'string'
+      ) {
+        throw new Error(error.data);
+      } else {
+        throw new Error('Unknown error!');
+      }
     }
   }, [error]);
 
@@ -51,7 +59,12 @@ export function SearchResults() {
     <div className={style['results-wrapper']}>
       {data?.results && data.results.length !== 0 && isPageShown && (
         <div className={style['results-controls']}>
-          <Button text={'\u{21BA}'} onClick={() => refetch()} />
+          <Button
+            text={'\u{21BA}'}
+            onClick={() => {
+              refetch();
+            }}
+          />
           <Pagination max={data.max} />
         </div>
       )}
