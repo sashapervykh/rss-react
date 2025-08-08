@@ -37,6 +37,12 @@ export const TEST_RESPONSES = {
     repeats: 1,
     media_type: 'audio',
   }),
+  withoutDescription: returnMockResponses({
+    title: TEST_REQUESTS.withoutDescription,
+    links: 'test.jpg',
+    repeats: 1,
+    media_type: 'video',
+  }),
   zeroResults: {
     collection: {
       items: [],
@@ -67,9 +73,7 @@ function returnMockResponses({
         ? {
             data: [
               {
-                description:
-                  description ??
-                  `NASA did not provide any description for this item(((`,
+                description: description,
                 media_type: media_type,
                 title: title,
                 nasa_id: title,
