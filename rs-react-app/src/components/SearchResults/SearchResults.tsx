@@ -34,7 +34,7 @@ export function SearchResults() {
       ) {
         throw new Error(error.data);
       } else {
-        throw new Error('Unknown error!');
+        throw new Error('Unknown error happened. Try to reload...');
       }
     }
   }, [error]);

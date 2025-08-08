@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 
 import { useGetDetailsQuery } from '../../api/apiSlice';
@@ -14,9 +15,23 @@ export function CardDetails() {
 
   const id = searchParams.get('details');
   if (!id) throw new Error('Information about details was not received');
-  const { data, isLoading, isFetching, refetch } = useGetDetailsQuery({
+  const { data, isLoading, isFetching, error, refetch } = useGetDetailsQuery({
     nasa_id: id,
   });
+
+  useEffect(() => {
+    if (error) {
+      if (
+        typeof error === 'object' &&
+        'data' in error &&
+        typeof error.data === 'string'
+      ) {
+        throw new Error(error.data);
+      } else {
+        throw new Error('Unknown error happened. Try to reload...');
+      }
+    }
+  }, [error]);
 
   return (
     <article
