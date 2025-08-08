@@ -89,10 +89,9 @@ export const mockedSeveralResults: {
   results: SearchResultType[];
 } = {
   max: 2,
-  results: Array.from({ length: 10 }, (_, index) =>
-    index % 2 === 0
-      ? mockedSimpleRequestResult.results[0]
-      : mockedRequestResultWithoutDescription.results[0]
+  results: Array.from(
+    { length: 10 },
+    () => mockedRequestResultWithoutDescription.results[0]
   ).map((elem, index) => {
     return { ...elem, nasa_id: elem.nasa_id + index.toString() };
   }),
