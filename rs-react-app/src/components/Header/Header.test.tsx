@@ -39,4 +39,13 @@ describe('Header', () => {
     expect(document.documentElement).toHaveClass('background-dark');
     expect(button).toHaveTextContent('Dark');
   });
+  it(`should change theme by click on theme button`, async () => {
+    renderPage();
+
+    const button = screen.getByRole('button', { name: 'Dark' });
+    await userEvent.click(button);
+
+    expect(document.documentElement).toHaveClass('background-light');
+    expect(button).toHaveTextContent('Light');
+  });
 });
