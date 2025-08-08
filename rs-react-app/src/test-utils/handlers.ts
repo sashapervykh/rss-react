@@ -1,10 +1,10 @@
-import { http, HttpResponse } from 'msw';
+import { delay, http, HttpResponse } from 'msw';
 
 import { TEST_RESPONSES } from './mockedAPIResponses';
 import { TEST_REQUESTS } from './mockedCardsData';
 
 export const handlers = [
-  http.get('https://images-api.nasa.gov/search', ({ request }) => {
+  http.get('https://images-api.nasa.gov/search', async ({ request }) => {
     const url = new URL(request.url);
     const requestedTerm = url.searchParams.get('q');
     const requestedID = url.searchParams.get('nasa_id');
@@ -15,6 +15,10 @@ export const handlers = [
           return HttpResponse.json(TEST_RESPONSES.simple);
         }
         case TEST_REQUESTS.withoutSource: {
+          return HttpResponse.json(TEST_RESPONSES.withoutSource);
+        }
+        case TEST_REQUESTS.delayed: {
+          await delay(100);
           return HttpResponse.json(TEST_RESPONSES.withoutSource);
         }
       }
@@ -35,6 +39,10 @@ export const handlers = [
       }
       case TEST_REQUESTS.notFound: {
         return new HttpResponse(null, { status: 404 });
+      }
+      case TEST_REQUESTS.delayed: {
+        await delay(100);
+        return HttpResponse.json(TEST_RESPONSES.withoutSource);
       }
       case TEST_REQUESTS.unavailableServer: {
         return new HttpResponse(null, { status: 503 });

@@ -49,6 +49,13 @@ export const TEST_RESPONSES = {
       metadata: { total_hits: 0 },
     },
   },
+  delayed: returnMockResponses({
+    title: TEST_REQUESTS.delayed,
+    description: `Testing data for ${TEST_REQUESTS.delayed}`,
+    links: 'test.jpg',
+    repeats: 1,
+    media_type: 'audio',
+  }),
 };
 
 function returnMockResponses({

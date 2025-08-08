@@ -18,6 +18,7 @@ export const TEST_REQUESTS = {
   clientError: 'client error',
   withoutSource: 'without source',
   zeroResults: 'zero results',
+  delayed: 'delayed',
 };
 
 export const mockedSimpleRequestResult: {
