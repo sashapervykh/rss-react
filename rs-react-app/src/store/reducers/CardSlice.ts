@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import type { SearchResultType } from '../../api/types';
+import type { SearchResultType } from '../../api/utils/types';
 
 interface SelectorState {
   amount: number;

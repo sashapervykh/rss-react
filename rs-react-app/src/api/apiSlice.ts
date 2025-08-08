@@ -1,14 +1,14 @@
 import { createApi, type BaseQueryFn } from '@reduxjs/toolkit/query/react';
 
-import { processAPIFailure } from './processAPIFailure';
-import { processDetailsResponse } from './processDetailsResponse';
-import { processSearchResponse } from './processSearchResponse';
+import { processAPIFailure } from './utils/processAPIFailure';
+import { processDetailsResponse } from './utils/processDetailsResponse';
+import { processSearchResponse } from './utils/processSearchResponse';
 import {
   APIDataScheme,
   type APIResponseType,
   type AssetType,
   type SearchData,
-} from './types';
+} from './utils/types';
 
 interface ResultsParams {
   q?: string;

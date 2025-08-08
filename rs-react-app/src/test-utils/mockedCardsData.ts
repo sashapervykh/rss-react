@@ -1,4 +1,4 @@
-import type { AssetType, SearchResultType } from '../api/types';
+import type { AssetType, SearchResultType } from '../api/utils/types';
 
 export interface MockResultType {
   title: string;
@@ -17,6 +17,7 @@ export const TEST_REQUESTS = {
   serverError: 'server error',
   clientError: 'client error',
   withoutSource: 'without source',
+  zeroResults: 'zero results',
 };
 
 export const mockedSimpleRequestResult: {

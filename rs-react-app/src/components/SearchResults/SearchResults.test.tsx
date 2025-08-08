@@ -2,12 +2,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 
-import type { SearchResultType } from '../../api/types';
-
-import { getDataFromApi } from '../../api/getDataFromApi';
 import { setupStore } from '../../store/store';
 import {
-  mockedSeveralResults,
   mockedSimpleRequestResult,
   TEST_REQUESTS,
 } from '../../test-utils/mockedCardsData';
@@ -15,17 +11,7 @@ import {
 import { SearchResults } from './SearchResults';
 
 describe('SearchResults', () => {
-  beforeEach(() => {
-    vi.mock('../../api/getDataFromApi', () => ({
-      getDataFromApi: vi.fn(),
-    }));
-  });
-
-  const renderResults = (results: {
-    max: number;
-    results: SearchResultType[];
-  }) => {
-    vi.mocked(getDataFromApi).mockResolvedValueOnce(results);
+  const renderResults = () => {
     render(
       <Provider store={setupStore()}>
         <MemoryRouter initialEntries={['/home']}>
@@ -36,7 +22,8 @@ describe('SearchResults', () => {
   };
 
   it(`should show correct message when zero results received`, async () => {
-    renderResults({ max: 1, results: [] });
+    localStorage.setItem('input', TEST_REQUESTS.zeroResults);
+    renderResults();
 
     const message = await screen.findByText(
       'Nothing was found on your request. Try to change input to get results (e.g. enter the whole word, not its part)'
@@ -45,7 +32,8 @@ describe('SearchResults', () => {
     expect(message).toBeInTheDocument();
   });
   it(`should not render pagination when zero results received`, async () => {
-    renderResults({ max: 1, results: [] });
+    localStorage.setItem('input', TEST_REQUESTS.zeroResults);
+    renderResults();
 
     await waitFor(
       () => {
@@ -54,30 +42,30 @@ describe('SearchResults', () => {
       { timeout: 2000 }
     );
   });
-  it(`should show ten cards (five for each type)`, async () => {
-    renderResults(mockedSeveralResults);
+  it(`should show ten cards`, async () => {
+    localStorage.setItem('input', TEST_REQUESTS.severalResults);
+    renderResults();
 
     const cards = await screen.findAllByTestId('card');
-    const titleWithSimpleResult = await screen.findAllByRole('heading', {
-      name: TEST_REQUESTS.simple,
-    });
+
     const titleWithoutDescription = await screen.findAllByRole('heading', {
       name: TEST_REQUESTS.withoutDescription,
     });
 
     expect(cards).toHaveLength(10);
-    expect(titleWithSimpleResult).toHaveLength(5);
-    expect(titleWithoutDescription).toHaveLength(5);
+    expect(titleWithoutDescription).toHaveLength(10);
   });
   it(`should render pagination when results are received`, async () => {
-    renderResults(mockedSeveralResults);
+    localStorage.setItem('input', TEST_REQUESTS.severalResults);
+    renderResults();
 
     const pagination = await screen.findByTestId('pagination');
 
     expect(pagination).toBeInTheDocument();
   });
   it(`should correctly display items data`, async () => {
-    renderResults(mockedSimpleRequestResult);
+    localStorage.setItem('input', TEST_REQUESTS.simple);
+    renderResults();
 
     const image = await screen.findByRole('img');
     const title = await screen.findByRole('heading');

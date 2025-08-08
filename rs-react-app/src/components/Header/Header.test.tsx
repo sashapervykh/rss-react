@@ -1,18 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 
 import App from '../../App';
 import { ThemeProvider } from '../../hooks/useTheme/ThemeProvider';
+import { setupStore } from '../../store/store';
 
 describe('Header', () => {
   const renderPage = () => {
     render(
-      <ThemeProvider>
-        <MemoryRouter>
-          <App />
-        </MemoryRouter>
-      </ThemeProvider>
+      <Provider store={setupStore()}>
+        <ThemeProvider>
+          <MemoryRouter>
+            <App />
+          </MemoryRouter>
+        </ThemeProvider>
+      </Provider>
     );
   };
 

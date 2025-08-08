@@ -8,6 +8,7 @@ import { ResultsSection } from './ResultsSection';
 
 describe('SearchResults', () => {
   const renderResults = () => {
+    localStorage.setItem('input', 'simple');
     render(
       <Provider store={setupStore()}>
         <MemoryRouter initialEntries={['/home']}>

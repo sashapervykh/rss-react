@@ -1,21 +1,7 @@
 import { http, HttpResponse } from 'msw';
 
+import { TEST_RESPONSES } from './mockedAPIResponses';
 import { TEST_REQUESTS } from './mockedCardsData';
-
-const severalResults = returnMockResponses({
-  title: TEST_REQUESTS.withoutDescription,
-  links: 'test.jpg',
-  repeats: 10,
-  media_type: 'video',
-  size: 20,
-});
-
-severalResults.collection.items.forEach((elem, index) => {
-  elem.data[0] = {
-    ...elem.data[0],
-    nasa_id: elem.data[0].nasa_id + index.toString(),
-  };
-});
 
 export const handlers = [
   http.get('https://images-api.nasa.gov/search', ({ request }) => {
@@ -26,53 +12,26 @@ export const handlers = [
     if (requestedID) {
       switch (requestedID) {
         case TEST_REQUESTS.simple: {
-          return HttpResponse.json(
-            returnMockResponses({
-              title: TEST_REQUESTS.simple,
-              description: `Testing data for ${TEST_REQUESTS.simple}`,
-              links: 'test.jpg',
-              repeats: 1,
-              media_type: 'image',
-            })
-          );
+          return HttpResponse.json(TEST_RESPONSES.simple);
         }
         case TEST_REQUESTS.withoutSource: {
-          return HttpResponse.json(
-            returnMockResponses({
-              title: TEST_REQUESTS.withoutSource,
-              description: `Testing data for ${TEST_REQUESTS.withoutSource}`,
-              repeats: 1,
-              media_type: 'video',
-            })
-          );
+          return HttpResponse.json(TEST_RESPONSES.withoutSource);
         }
       }
     }
 
     switch (requestedTerm) {
       case TEST_REQUESTS.simple: {
-        return HttpResponse.json(
-          returnMockResponses({
-            title: TEST_REQUESTS.simple,
-            description: `Testing data for ${TEST_REQUESTS.simple}`,
-            links: 'test.jpg',
-            repeats: 1,
-            media_type: 'image',
-          })
-        );
+        return HttpResponse.json(TEST_RESPONSES.simple);
       }
       case TEST_REQUESTS.withoutDescription: {
-        return HttpResponse.json(
-          returnMockResponses({
-            title: TEST_REQUESTS.withoutDescription,
-            links: 'test.jpg',
-            repeats: 1,
-            media_type: 'video',
-          })
-        );
+        return HttpResponse.json(TEST_RESPONSES.withoutSource);
       }
       case TEST_REQUESTS.severalResults: {
-        return HttpResponse.json(severalResults);
+        return HttpResponse.json(TEST_RESPONSES.severalResults);
+      }
+      case TEST_REQUESTS.zeroResults: {
+        return HttpResponse.json(TEST_RESPONSES.zeroResults);
       }
       case TEST_REQUESTS.notFound: {
         return new HttpResponse(null, { status: 404 });
@@ -87,73 +46,8 @@ export const handlers = [
         return new HttpResponse(null, { status: 403 });
       }
       case null: {
-        return HttpResponse.json(
-          returnMockResponses({
-            title: TEST_REQUESTS.empty,
-            description: `Testing data for ${TEST_REQUESTS.empty}`,
-            links: 'test.jpg',
-            repeats: 1,
-            media_type: 'audio',
-          })
-        );
+        return HttpResponse.json(TEST_RESPONSES.empty);
       }
     }
   }),
 ];
-
-function returnMockResponses({
-  title,
-  description,
-  links,
-  repeats = 1,
-  media_type,
-  size,
-}: {
-  title: string;
-  description?: string;
-  links?: string;
-  repeats: number;
-  media_type: 'image' | 'video' | 'audio';
-  size?: number;
-}) {
-  const items = [];
-  for (let i = 0; i < repeats; i++) {
-    items.push(
-      links
-        ? {
-            data: [
-              {
-                description:
-                  description ??
-                  `NASA did not provide any description for this item(((`,
-                media_type: media_type,
-                title: title,
-                nasa_id: title,
-                keywords: [title],
-              },
-            ],
-            links: [{ href: links }],
-          }
-        : {
-            data: [
-              {
-                description:
-                  description ??
-                  `NASA did not provide any description for this item(((`,
-                media_type: media_type,
-                title: title,
-                nasa_id: title,
-                keywords: [title],
-              },
-            ],
-          }
-    );
-  }
-
-  return {
-    collection: {
-      items: items,
-      metadata: { total_hits: size ?? items.length },
-    },
-  };
-}

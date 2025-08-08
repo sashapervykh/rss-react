@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
-import type { SearchResultType } from '../../api/types';
+import type { SearchResultType } from '../../api/utils/types';
 
 import { useCustomDispatch, useCustomSelector } from '../../hooks/reduxHooks';
 import { useTheme } from '../../hooks/useTheme/useTheme';

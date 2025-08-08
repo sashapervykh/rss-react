@@ -53,7 +53,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,md}": "npm run format:fix",
-    "*.{js,jsx,ts,tsx}": "npm run lint"
+    "*.{js,jsx,ts,tsx}": "npm run lint:fix"
   },
   "husky": {
     "hooks": {
