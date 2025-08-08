@@ -14,7 +14,7 @@ export function CardDetails() {
 
   const id = searchParams.get('details');
   if (!id) throw new Error('Information about details was not received');
-  const { data, isLoading, isFetching } = useGetDetailsQuery({
+  const { data, isLoading, isFetching, refetch } = useGetDetailsQuery({
     nasa_id: id,
   });
 
@@ -26,16 +26,18 @@ export function CardDetails() {
       {(isLoading || isFetching) && <Spinner />}
       {!(isLoading || isFetching) && (
         <>
-          <Button
-            style={styles.button}
-            text={'X'}
-            onClick={() => {
-              setSearchParams((prev) => {
-                const page = prev.get('page') ?? '1';
-                return { page: page };
-              });
-            }}
-          />
+          <div className={styles['detail-buttons']}>
+            <Button text={'\u{21BA}'} onClick={() => refetch()} />
+            <Button
+              text={'X'}
+              onClick={() => {
+                setSearchParams((prev) => {
+                  const page = prev.get('page') ?? '1';
+                  return { page: page };
+                });
+              }}
+            />
+          </div>
 
           <h2 className={styles['details-title']}>{data?.title}</h2>
           <div className={styles['image-wrapper']}>

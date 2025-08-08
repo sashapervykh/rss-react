@@ -33,4 +33,11 @@
   display: flex;
   gap: 10px;
   justify-content: space-around;
+  width: inherit;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin: 0px 0px 0px auto;
 }

@@ -22,7 +22,7 @@ export const nasaApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://images-api.nasa.gov',
   }),
-  keepUnusedDataFor: 300,
+  keepUnusedDataFor: 600,
   endpoints: (build) => ({
     getResults: build.query<SearchData, ResultsParams>({
       query: (params) => {

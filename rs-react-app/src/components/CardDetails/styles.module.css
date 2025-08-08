@@ -3,6 +3,7 @@
   top: 10px;
   left: 0;
   width: 50%;
+  min-height: 400px;
   padding: 15px;
   border-radius: 10px;
   height: fit-content;
@@ -39,7 +40,9 @@
   border-radius: 20px;
 }
 
-.button {
+.detail-buttons {
   display: flex;
+  width: fit-content;
+  gap: 10px;
   margin: 0px 0px 10px auto;
 }
