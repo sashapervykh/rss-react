@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 
@@ -81,5 +82,22 @@ describe('SearchResults', () => {
       mockedSimpleRequestResult.results[0].source
     );
     expect(title).toHaveTextContent(mockedSimpleRequestResult.results[0].title);
+  });
+  it(`should show spinner after click by 'Refetch' button and then show card again`, async () => {
+    localStorage.setItem('input', TEST_REQUESTS.delayed);
+    renderResults();
+
+    const refetchButton = await screen.findByRole('button', {
+      name: '\u{21BA}',
+    });
+    const card = await screen.findByTestId('card');
+
+    await userEvent.click(refetchButton);
+    waitFor(() => expect(card).not.toBeInTheDocument());
+    const spinner = await screen.findByTestId('spinner');
+    expect(spinner).toBeInTheDocument();
+    waitFor(() => expect(spinner).not.toBeInTheDocument());
+    const newCard = await screen.findByTestId('card');
+    expect(newCard).toBeInTheDocument();
   });
 });
