@@ -8,6 +8,7 @@ export const handlers = [
     const url = new URL(request.url);
     const requestedTerm = url.searchParams.get('q');
     const requestedID = url.searchParams.get('nasa_id');
+    const requestedPage = url.searchParams.get('page');
 
     if (requestedID) {
       switch (requestedID) {
@@ -45,7 +46,9 @@ export const handlers = [
       }
       case TEST_REQUESTS.delayed: {
         await delay(100);
-        return HttpResponse.json(TEST_RESPONSES.delayed);
+        if (!(requestedPage === '2'))
+          return HttpResponse.json(TEST_RESPONSES.delayed);
+        return HttpResponse.json(TEST_RESPONSES.delayedSecondPage);
       }
       case TEST_REQUESTS.unavailableServer: {
         return new HttpResponse(null, { status: 503 });

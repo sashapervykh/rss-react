@@ -55,6 +55,15 @@ export const TEST_RESPONSES = {
     links: 'test.jpg',
     repeats: 1,
     media_type: 'audio',
+    size: 20,
+  }),
+  delayedSecondPage: returnMockResponses({
+    title: TEST_REQUESTS.delayed,
+    description: `Testing data for ${TEST_REQUESTS.delayed}`,
+    links: 'test.jpg',
+    repeats: 1,
+    media_type: 'audio',
+    size: 20,
   }),
 };
 

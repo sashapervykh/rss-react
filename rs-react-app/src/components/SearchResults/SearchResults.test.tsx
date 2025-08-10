@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 
+import { PageProvider } from '../../hooks/usePagination/PageProvider';
 import { setupStore } from '../../store/store';
 import {
   mockedSimpleRequestResult,
@@ -16,7 +17,9 @@ describe('SearchResults', () => {
     render(
       <Provider store={setupStore()}>
         <MemoryRouter initialEntries={['/home']}>
-          <SearchResults />
+          <PageProvider>
+            <SearchResults />
+          </PageProvider>
         </MemoryRouter>
       </Provider>
     );
@@ -99,5 +102,28 @@ describe('SearchResults', () => {
     waitFor(() => expect(spinner).not.toBeInTheDocument());
     const newCard = await screen.findByTestId('card');
     expect(newCard).toBeInTheDocument();
+  });
+  it(`should not show spinner when moving back to cached page`, async () => {
+    localStorage.setItem('input', TEST_REQUESTS.delayed);
+    renderResults();
+
+    const nextButton = await screen.findByRole('button', {
+      name: '>',
+    });
+    const prevButton = await screen.findByRole('button', {
+      name: '<',
+    });
+
+    const heading = await screen.findByRole('heading');
+    expect(heading).toHaveTextContent(TEST_REQUESTS.delayed);
+    await userEvent.click(nextButton);
+    expect(heading).not.toBeInTheDocument();
+    const nextHeading = await screen.findByRole('heading');
+    expect(heading).not.toHaveTextContent(TEST_REQUESTS.delayedSecondPage);
+    await userEvent.click(prevButton);
+    await waitFor(async () => {
+      expect(screen.queryByTestId('spinner')).not.toBeInTheDocument();
+    });
+    expect(nextHeading).toHaveTextContent(TEST_REQUESTS.delayed);
   });
 });

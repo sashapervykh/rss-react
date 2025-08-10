@@ -19,6 +19,7 @@ export const TEST_REQUESTS = {
   withoutSource: 'without source',
   zeroResults: 'zero results',
   delayed: 'delayed',
+  delayedSecondPage: 'delayed second page',
 };
 
 export const mockedSimpleRequestResult: {

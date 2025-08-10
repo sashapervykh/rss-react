@@ -27,7 +27,7 @@ describe('CardDetails', () => {
     });
 
     await userEvent.click(refetchButton);
-    waitFor(() => {
+    await waitFor(() => {
       expect(heading).not.toBeInTheDocument();
     });
 
@@ -35,7 +35,7 @@ describe('CardDetails', () => {
 
     expect(spinner).toBeInTheDocument();
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(spinner).not.toBeInTheDocument();
     });
 
