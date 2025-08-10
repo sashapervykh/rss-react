@@ -19,7 +19,7 @@ export const handlers = [
         }
         case TEST_REQUESTS.delayed: {
           await delay(100);
-          return HttpResponse.json(TEST_RESPONSES.withoutSource);
+          return HttpResponse.json(TEST_RESPONSES.delayed);
         }
       }
     }
@@ -42,7 +42,7 @@ export const handlers = [
       }
       case TEST_REQUESTS.delayed: {
         await delay(100);
-        return HttpResponse.json(TEST_RESPONSES.withoutSource);
+        return HttpResponse.json(TEST_RESPONSES.delayed);
       }
       case TEST_REQUESTS.unavailableServer: {
         return new HttpResponse(null, { status: 503 });
