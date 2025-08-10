@@ -21,6 +21,9 @@ export const handlers = [
           await delay(100);
           return HttpResponse.json(TEST_RESPONSES.delayed);
         }
+        case TEST_REQUESTS.notFound: {
+          return HttpResponse.json(null, { status: 404 });
+        }
       }
     }
 
