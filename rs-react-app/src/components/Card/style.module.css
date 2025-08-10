@@ -11,6 +11,16 @@
   cursor: pointer;
 }
 
+.checkbox-label {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  margin: auto 10px auto 0px;
+}
+
 .checkbox {
+  display: flex;
+  width: 1.5rem;
+  height: 1.5rem;
   margin-right: 10px;
 }

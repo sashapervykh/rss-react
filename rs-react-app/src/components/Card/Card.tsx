@@ -54,12 +54,15 @@ export function Card(props: SearchResultType) {
       data-testid="card"
       onClick={(event) => handleClick(event)}
     >
-      <input
-        checked={isChecked}
-        type="checkbox"
-        className={style.checkbox}
-        onChange={handleChange}
-      />
+      <label htmlFor="select" className={style['checkbox-label']}>
+        <input
+          id="select"
+          checked={isChecked}
+          type="checkbox"
+          className={style.checkbox}
+          onChange={handleChange}
+        />
+      </label>
       <CardMedia media_type={media_type} src={source} alt={title} />
       <CardText title={title} description={description} />
     </div>
