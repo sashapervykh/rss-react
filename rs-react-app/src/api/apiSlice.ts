@@ -82,11 +82,13 @@ export const nasaApi = createApi({
   endpoints: (build) => ({
     getResults: build.query<SearchData, ResultsParams>({
       query: (params) => {
-        if (!params.q)
+        if (!params.q) {
           return {
             url: 'search',
-            params: { ...params, media_type: 'image', page_size: 10 },
+            params: { page: params.page, media_type: 'image', page_size: 10 },
           };
+        }
+
         return {
           url: 'search',
           params: { ...params, page_size: 10 },
