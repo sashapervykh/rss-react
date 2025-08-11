@@ -1,39 +1,33 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { SearchResults } from './SearchResults';
-import { getDataFromApi } from '../../api/getDataFromApi';
+import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
+
+import { PageProvider } from '../../hooks/usePagination/PageProvider';
+import { setupStore } from '../../store/store';
 import {
-  mockedSeveralResults,
   mockedSimpleRequestResult,
   TEST_REQUESTS,
 } from '../../test-utils/mockedCardsData';
-import type { SearchResultType } from '../../api/types';
-import { MemoryRouter } from 'react-router';
-import { Provider } from 'react-redux';
-import { setupStore } from '../../store/store';
+
+import { SearchResults } from './SearchResults';
 
 describe('SearchResults', () => {
-  beforeEach(() => {
-    vi.mock('../../api/getDataFromApi', () => ({
-      getDataFromApi: vi.fn(),
-    }));
-  });
-
-  const renderResults = (results: {
-    max: number;
-    results: SearchResultType[];
-  }) => {
-    vi.mocked(getDataFromApi).mockResolvedValueOnce(results);
+  const renderResults = () => {
     render(
       <Provider store={setupStore()}>
         <MemoryRouter initialEntries={['/home']}>
-          <SearchResults />
+          <PageProvider>
+            <SearchResults />
+          </PageProvider>
         </MemoryRouter>
       </Provider>
     );
   };
 
   it(`should show correct message when zero results received`, async () => {
-    renderResults({ max: 1, results: [] });
+    localStorage.setItem('input', TEST_REQUESTS.zeroResults);
+    renderResults();
 
     const message = await screen.findByText(
       'Nothing was found on your request. Try to change input to get results (e.g. enter the whole word, not its part)'
@@ -42,7 +36,8 @@ describe('SearchResults', () => {
     expect(message).toBeInTheDocument();
   });
   it(`should not render pagination when zero results received`, async () => {
-    renderResults({ max: 1, results: [] });
+    localStorage.setItem('input', TEST_REQUESTS.zeroResults);
+    renderResults();
 
     await waitFor(
       () => {
@@ -51,30 +46,30 @@ describe('SearchResults', () => {
       { timeout: 2000 }
     );
   });
-  it(`should show ten cards (five for each type)`, async () => {
-    renderResults(mockedSeveralResults);
+  it(`should show ten cards`, async () => {
+    localStorage.setItem('input', TEST_REQUESTS.severalResults);
+    renderResults();
 
     const cards = await screen.findAllByTestId('card');
-    const titleWithSimpleResult = await screen.findAllByRole('heading', {
-      name: TEST_REQUESTS.simple,
-    });
+
     const titleWithoutDescription = await screen.findAllByRole('heading', {
       name: TEST_REQUESTS.withoutDescription,
     });
 
     expect(cards).toHaveLength(10);
-    expect(titleWithSimpleResult).toHaveLength(5);
-    expect(titleWithoutDescription).toHaveLength(5);
+    expect(titleWithoutDescription).toHaveLength(10);
   });
   it(`should render pagination when results are received`, async () => {
-    renderResults(mockedSeveralResults);
+    localStorage.setItem('input', TEST_REQUESTS.severalResults);
+    renderResults();
 
     const pagination = await screen.findByTestId('pagination');
 
     expect(pagination).toBeInTheDocument();
   });
   it(`should correctly display items data`, async () => {
-    renderResults(mockedSimpleRequestResult);
+    localStorage.setItem('input', TEST_REQUESTS.simple);
+    renderResults();
 
     const image = await screen.findByRole('img');
     const title = await screen.findByRole('heading');
@@ -90,5 +85,45 @@ describe('SearchResults', () => {
       mockedSimpleRequestResult.results[0].source
     );
     expect(title).toHaveTextContent(mockedSimpleRequestResult.results[0].title);
+  });
+  it(`should show spinner after click by 'Refetch' button and then show card again`, async () => {
+    localStorage.setItem('input', TEST_REQUESTS.delayed);
+    renderResults();
+
+    const refetchButton = await screen.findByRole('button', {
+      name: '\u{21BA}',
+    });
+    const card = await screen.findByTestId('card');
+
+    await userEvent.click(refetchButton);
+    waitFor(() => expect(card).not.toBeInTheDocument());
+    const spinner = await screen.findByTestId('spinner');
+    expect(spinner).toBeInTheDocument();
+    waitFor(() => expect(spinner).not.toBeInTheDocument());
+    const newCard = await screen.findByTestId('card');
+    expect(newCard).toBeInTheDocument();
+  });
+  it(`should not show spinner when moving back to cached page`, async () => {
+    localStorage.setItem('input', TEST_REQUESTS.delayed);
+    renderResults();
+
+    const nextButton = await screen.findByRole('button', {
+      name: '>',
+    });
+    const prevButton = await screen.findByRole('button', {
+      name: '<',
+    });
+
+    const heading = await screen.findByRole('heading');
+    expect(heading).toHaveTextContent(TEST_REQUESTS.delayed);
+    await userEvent.click(nextButton);
+    expect(heading).not.toBeInTheDocument();
+    const nextHeading = await screen.findByRole('heading');
+    expect(heading).not.toHaveTextContent(TEST_REQUESTS.delayedSecondPage);
+    await userEvent.click(prevButton);
+    await waitFor(async () => {
+      expect(screen.queryByTestId('spinner')).not.toBeInTheDocument();
+    });
+    expect(nextHeading).toHaveTextContent(TEST_REQUESTS.delayed);
   });
 });

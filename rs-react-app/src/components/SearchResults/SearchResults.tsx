@@ -1,77 +1,79 @@
-import { getDataFromApi } from '../../api/getDataFromApi';
-import { Card } from '../Card/Card';
-import style from './style.module.css';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { Spinner } from '../Spinner/Spinner';
-import { Pagination } from '../Pagination/Pagination';
-import { usePage } from '../../hooks/usePagination/usePagination';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
-import { errorScheme, type SearchResultType } from '../../api/types';
+
+import { useGetResultsQuery } from '../../api/apiSlice';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { usePage } from '../../hooks/usePagination/usePagination';
+import { Button } from '../Button/Button';
+import { Card } from '../Card/Card';
+import { Pagination } from '../Pagination/Pagination';
+import { Spinner } from '../Spinner/Spinner';
+
+import style from './style.module.css';
 
 export function SearchResults() {
   const { page } = usePage();
   const { savedInput } = useLocalStorage();
-  const [results, setResults] = useState<undefined | SearchResultType[]>(
-    undefined
-  );
-  const [pending, setPending] = useState<boolean>(false);
-  const [error, setError] = useState<undefined | string>(undefined);
+
   const [isPageShown, setIsPageShown] = useState(true);
   const prevInput = useRef<string | undefined>(undefined);
-  const [maxPage, setMaxPage] = useState<number | undefined>(undefined);
+
   const [searchParams, _] = useSearchParams();
   const navigate = useNavigate();
-  const handleSearch = useCallback(
-    async (input: string, page: number) => {
-      try {
-        setIsPageShown(prevInput.current === savedInput);
-        if (
-          prevInput.current === savedInput &&
-          Number(searchParams.get('page')) === page
-        )
-          return;
-        if (prevInput.current !== savedInput)
-          navigate(`/home`, { replace: true });
-        setPending(true);
-        const response = await getDataFromApi({ input: input, page: page });
-        setPending(false);
-        setResults(response.results);
-        setMaxPage(response.max);
-        prevInput.current = savedInput;
-        setIsPageShown(true);
-        if (response.results.length !== 0) {
-          navigate(`/home?page=${page}`, { replace: true });
-        }
-      } catch (error) {
-        const message = errorScheme.parse(error).message;
-        setError(message);
-      }
-    },
-    [savedInput, navigate, searchParams]
-  );
-
-  useEffect(() => {
-    handleSearch(savedInput, page);
-  }, [savedInput, page, handleSearch]);
+  const { data, error, isLoading, isFetching, refetch } = useGetResultsQuery({
+    q: savedInput,
+    page: page,
+  });
 
   useEffect(() => {
     if (error) {
-      throw new Error(error);
+      if (
+        typeof error === 'object' &&
+        'data' in error &&
+        typeof error.data === 'string'
+      ) {
+        throw new Error(error.data);
+      } else {
+        throw new Error('Unknown error happened. Try to reload...');
+      }
     }
   }, [error]);
 
+  useEffect(() => {
+    setIsPageShown(prevInput.current === savedInput);
+    if (
+      prevInput.current === savedInput &&
+      Number(searchParams.get('page')) === page
+    )
+      return;
+    if (prevInput.current !== savedInput) navigate(`/home`, { replace: true });
+
+    prevInput.current = savedInput;
+    setIsPageShown(true);
+    if (data?.results.length !== 0) {
+      navigate(`/home?page=${page}`, { replace: true });
+    }
+  }, [data, isLoading, savedInput, navigate, page, searchParams]);
+
   return (
     <div className={style['results-wrapper']}>
-      {results && results.length !== 0 && isPageShown && (
-        <Pagination max={maxPage} />
+      {data?.results && data.results.length !== 0 && isPageShown && (
+        <div className={style['results-controls']}>
+          <Button
+            text={'\u{21BA}'}
+            onClick={() => {
+              refetch();
+            }}
+          />
+          <Pagination max={data.max} />
+        </div>
       )}
-      {pending || !results ? (
+      {isLoading || isFetching || !data ? (
         <Spinner />
-      ) : results.length === 0 ? (
+      ) : data.results.length === 0 ? (
         'Nothing was found on your request. Try to change input to get results (e.g. enter the whole word, not its part)'
       ) : (
-        results.map((element, index) => (
+        data.results.map((element, index) => (
           <Card
             key={index.toString()}
             nasa_id={element.nasa_id}

@@ -9,10 +9,20 @@
   --light-placeholder: #5591c3;
 }
 
+html {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+
 body {
+  box-sizing: border-box;
   font-family: var(--main-font-family);
-  margin: 0;
+  margin: 0px;
+  padding: 0px;
   display: flex;
+  width: 100%;
   min-width: 320px;
   min-height: 100vh;
 }

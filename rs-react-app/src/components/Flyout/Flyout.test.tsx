@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
-import { MockedFlyoutRender } from '../../test-utils/MockedFlyoutRender';
 import userEvent from '@testing-library/user-event';
+
+import { MockedFlyoutRender } from '../../test-utils/MockedFlyoutRender';
 import { getFlyoutElements } from '../../test-utils/getFlyoutElements';
 
 describe('Flyout', () => {

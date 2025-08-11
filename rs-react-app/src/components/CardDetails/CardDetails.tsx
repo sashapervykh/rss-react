@@ -1,67 +1,73 @@
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
-import { getOneAssetFromApi } from '../../api/getOneAssetFromApi';
-import { useCallback, useEffect, useState } from 'react';
-import type { AssetType } from '../../api/types';
-import { Spinner } from '../Spinner/Spinner';
-import { Button } from '../Button/Button';
-import styles from './styles.module.css';
-import shared from '../../styles/shared.module.css';
+
+import { useGetDetailsQuery } from '../../api/apiSlice';
 import { useTheme } from '../../hooks/useTheme/useTheme';
+import shared from '../../styles/shared.module.css';
+import { Button } from '../Button/Button';
+import { Spinner } from '../Spinner/Spinner';
+
+import styles from './styles.module.css';
 
 export function CardDetails() {
   const { theme } = useTheme();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [details, setDetails] = useState<AssetType | undefined>(undefined);
-  const [pending, setPending] = useState(false);
 
-  const getDetails = useCallback(async () => {
-    setPending(true);
-    const id = searchParams.get('details');
-    if (!id) throw new Error('Id of the asset was not received');
-    const results = await getOneAssetFromApi(id);
-    setDetails(results);
-    setPending(false);
-  }, [setPending, searchParams]);
+  const id = searchParams.get('details');
+  if (!id) throw new Error('Information about details was not received');
+  const { data, isLoading, isFetching, error, refetch } = useGetDetailsQuery({
+    nasa_id: id,
+  });
 
   useEffect(() => {
-    getDetails();
-  }, [getDetails]);
+    if (error) {
+      if (
+        typeof error === 'object' &&
+        'data' in error &&
+        typeof error.data === 'string'
+      ) {
+        throw new Error(error.data);
+      } else {
+        throw new Error('Unknown error happened. Try to reload...');
+      }
+    }
+  }, [error]);
 
   return (
     <article
       className={`${styles['card-details']} ${shared[`element-${theme}`]}`}
       data-testid="card-details"
     >
-      {pending && <Spinner />}
-      {!pending && (
+      {(isLoading || isFetching) && <Spinner />}
+      {!(isLoading || isFetching) && (
         <>
-          <Button
-            style={styles.button}
-            text={'X'}
-            onClick={() => {
-              setSearchParams((prev) => {
-                const page = prev.get('page') ?? '1';
-                return { page: page };
-              });
-            }}
-          />
+          <div className={styles['detail-buttons']}>
+            <Button text={'\u{21BA}'} onClick={() => refetch()} />
+            <Button
+              text={'X'}
+              onClick={() => {
+                setSearchParams((prev) => {
+                  const page = prev.get('page') ?? '1';
+                  return { page: page };
+                });
+              }}
+            />
+          </div>
 
-          <h2 className={styles['details-title']}>{details?.title}</h2>
+          <h2 className={styles['details-title']}>{data?.title}</h2>
           <div className={styles['image-wrapper']}>
             <img
               className={styles['details-image']}
-              src={details?.source}
-              alt={details?.title}
+              src={data?.source}
+              alt={data?.title}
             />
           </div>
 
           <h3 className={styles['details-keyword']}>
-            Keywords: {details?.keywords.join('; ')}
+            Keywords: {data?.keywords.join('; ')}
           </h3>
           <h3 className={styles['description-title']}>Description:</h3>
-          <p className={styles['details-description']}>
-            {details?.description}
-          </p>
+          <p className={styles['details-description']}>{data?.description}</p>
         </>
       )}
     </article>

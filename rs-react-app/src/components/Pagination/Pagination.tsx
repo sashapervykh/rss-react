@@ -1,7 +1,9 @@
-import { Button } from '../Button/Button';
-import styles from './styles.module.css';
-import { usePage } from '../../hooks/usePagination/usePagination';
 import { useSearchParams } from 'react-router';
+
+import { usePage } from '../../hooks/usePagination/usePagination';
+import { Button } from '../Button/Button';
+
+import styles from './styles.module.css';
 
 export function Pagination({ max }: { max: number | undefined }) {
   const { page, setPage } = usePage();

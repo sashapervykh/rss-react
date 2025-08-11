@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { Card } from './Card';
-import { BrowserRouter } from 'react-router';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router';
+
 import { setupStore } from '../../store/store';
+
+import { Card } from './Card';
 
 describe('Card', () => {
   it(`should render Card with given src and alt, heading and paragraph with given text`, () => {

@@ -1,9 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import cardReducer, { cardSlice } from '../reducers/CardSlice';
+
 import {
   mockedEmptyRequestResult,
   mockedSimpleRequestResult,
 } from '../../test-utils/mockedCardsData';
+import cardReducer, { cardSlice } from '../reducers/CardSlice';
 
 describe('card reducer reducer', () => {
   it('should set the initial state correctly', () => {

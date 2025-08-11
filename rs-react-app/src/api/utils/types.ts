@@ -8,6 +8,11 @@ export interface AssetType {
   keywords: string[];
 }
 
+export interface SearchData {
+  max: number;
+  results: SearchResultType[];
+}
+
 export interface SearchResultType {
   title: string;
   description: string;
@@ -38,3 +43,5 @@ export const APIDataScheme = z.looseObject({
     metadata: z.looseObject({ total_hits: z.number() }),
   }),
 });
+
+export type APIResponseType = z.infer<typeof APIDataScheme>;

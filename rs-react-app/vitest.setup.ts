@@ -1,8 +1,8 @@
-import { afterAll, afterEach, beforeAll, expect } from 'vitest';
-import { cleanup } from '@testing-library/react';
-import { server } from './src/test-utils/node';
-
 import * as matchers from '@testing-library/jest-dom/matchers';
+import { cleanup } from '@testing-library/react';
+import { afterAll, afterEach, beforeAll, expect } from 'vitest';
+
+import { server } from './src/test-utils/node';
 
 expect.extend(matchers);
 

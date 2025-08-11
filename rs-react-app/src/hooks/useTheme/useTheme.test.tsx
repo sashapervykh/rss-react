@@ -1,20 +1,25 @@
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from './ThemeProvider';
+import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
 
 import App from '../../App';
+import { setupStore } from '../../store/store';
 import { MockedThemeButton } from '../../test-utils/MockedThemeButton';
-import { MemoryRouter } from 'react-router';
-import userEvent from '@testing-library/user-event';
+
+import { ThemeProvider } from './ThemeProvider';
 
 describe('useTheme', () => {
   const renderPage = (theme: 'dark' | 'light') => {
     render(
-      <ThemeProvider>
-        <MemoryRouter>
-          <App />
-          <MockedThemeButton newTheme={theme}></MockedThemeButton>
-        </MemoryRouter>
-      </ThemeProvider>
+      <Provider store={setupStore()}>
+        <ThemeProvider>
+          <MemoryRouter>
+            <App />
+            <MockedThemeButton newTheme={theme}></MockedThemeButton>
+          </MemoryRouter>
+        </ThemeProvider>
+      </Provider>
     );
   };
 

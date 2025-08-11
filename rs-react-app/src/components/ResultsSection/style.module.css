@@ -1,8 +1,6 @@
 .results-section {
   display: flex;
   justify-content: center;
-  max-width: 90vw;
   width: 100%;
-  padding: 10px;
   position: relative;
 }

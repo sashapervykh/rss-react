@@ -1,12 +1,14 @@
 import { render, screen } from '@testing-library/react';
-
-import { MemoryRouter } from 'react-router';
-import { ResultsSection } from './ResultsSection';
 import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router';
+
 import { setupStore } from '../../store/store';
+
+import { ResultsSection } from './ResultsSection';
 
 describe('SearchResults', () => {
   const renderResults = () => {
+    localStorage.setItem('input', 'simple');
     render(
       <Provider store={setupStore()}>
         <MemoryRouter initialEntries={['/home']}>

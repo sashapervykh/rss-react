@@ -1,4 +1,4 @@
-import type { SearchResultType } from '../api/types';
+import type { SearchResultType } from '../api/utils/types';
 
 export function createFileContent(cards: SearchResultType[]) {
   const cardsStringArray = cards.map((card) => {

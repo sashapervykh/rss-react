@@ -1,7 +1,7 @@
 .card-wrapper {
   display: flex;
   width: inherit;
-  margin: 10px 20px;
+  margin: 10px 20px 10px 0px;
   padding: 15px;
   border-radius: 10px;
 }
@@ -11,6 +11,17 @@
   cursor: pointer;
 }
 
+.checkbox-label {
+  display: flex;
+  padding: 5px;
+  width: fit-content;
+  height: fit-content;
+  margin: auto 10px auto 0px;
+}
+
 .checkbox {
+  display: flex;
+  width: 1.5rem;
+  height: 1.5rem;
   margin-right: 10px;
 }

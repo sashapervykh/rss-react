@@ -1,5 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { SearchResultType } from '../../api/types';
+
+import type { SearchResultType } from '../../api/utils/types';
 
 interface SelectorState {
   amount: number;
@@ -26,8 +27,8 @@ export const cardSlice = createSlice({
       state.amount -= 1;
     },
     clear(state) {
-      state.amount = 0;
-      state.cards = [];
+      state.amount = initialState.amount;
+      state.cards = initialState.cards;
     },
   },
 });

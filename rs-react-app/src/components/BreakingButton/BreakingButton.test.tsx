@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import { BreakingButton } from './BreakingButton';
-import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
 import userEvent from '@testing-library/user-event';
+
 import { expectFallbackUI } from '../../test-utils/expectFallbackUI';
+import { ErrorBoundary } from '../ErrorBoundary/ErrorBoundary';
+
+import { BreakingButton } from './BreakingButton';
 
 describe('BreakingButton', () => {
   it(`should render button for breaking the app`, () => {

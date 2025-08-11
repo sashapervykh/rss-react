@@ -1,21 +1,19 @@
 import { render, waitFor } from '@testing-library/react';
-import { ErrorBoundary } from './ErrorBoundary';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router';
+
+import App from '../../App';
+import { setupStore } from '../../store/store';
 import { BuggyComponent } from '../../test-utils/BuggyComponent';
 import { expectFallbackUI } from '../../test-utils/expectFallbackUI';
-import App from '../../App';
-import { getDataFromApi } from '../../api/getDataFromApi';
-import { BrowserRouter } from 'react-router';
+import { TEST_REQUESTS } from '../../test-utils/mockedCardsData';
+
+import { ErrorBoundary } from './ErrorBoundary';
 
 describe('ErrorBoundary', () => {
   let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
   beforeEach(() => {
     consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    vi.mock('../../api/getDataFromApi', () => ({
-      getDataFromApi: vi.fn(),
-      errorScheme: {
-        parse: (error: { message: string }) => ({ message: error.message }),
-      },
-    }));
   });
 
   afterEach(() => {
@@ -43,34 +41,31 @@ describe('ErrorBoundary', () => {
     );
   });
   it(`should show appropriate error messages for HTTP status code 404`, async () => {
-    vi.mocked(getDataFromApi).mockImplementation(() => {
-      throw new Error('The requested resource is not found. Status code: 404');
-    });
-
+    localStorage.setItem('input', TEST_REQUESTS.notFound);
     render(
-      <BrowserRouter>
-        <ErrorBoundary>
-          <App />
-        </ErrorBoundary>
-      </BrowserRouter>
+      <Provider store={setupStore()}>
+        <BrowserRouter>
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
+        </BrowserRouter>
+      </Provider>
     );
     await waitFor(() =>
       expectFallbackUI('The requested resource is not found. Status code: 404')
     );
   });
   it(`should show appropriate error messages for HTTP status code 503`, async () => {
-    vi.mocked(getDataFromApi).mockImplementation(() => {
-      throw new Error(
-        'The server is unavailable now. Try again later. Status code: 503'
-      );
-    });
+    localStorage.setItem('input', TEST_REQUESTS.unavailableServer);
 
     render(
-      <BrowserRouter>
-        <ErrorBoundary>
-          <App />
-        </ErrorBoundary>
-      </BrowserRouter>
+      <Provider store={setupStore()}>
+        <BrowserRouter>
+          <ErrorBoundary>
+            <App />
+          </ErrorBoundary>
+        </BrowserRouter>
+      </Provider>
     );
     await waitFor(() =>
       expectFallbackUI(

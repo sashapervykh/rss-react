@@ -1,10 +1,11 @@
 import { Navigate, Route, Routes } from 'react-router';
+
 import './App.css';
-import { AboutPage } from './pages/AboutPage/AboutPage';
 import { CardDetails } from './components/CardDetails/CardDetails';
 import { Layout } from './components/Layout/Layout';
-import { PageMain } from './pages/PageMain/PageMain';
+import { AboutPage } from './pages/AboutPage/AboutPage';
 import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage';
+import { PageMain } from './pages/PageMain/PageMain';
 
 function App() {
   return (
