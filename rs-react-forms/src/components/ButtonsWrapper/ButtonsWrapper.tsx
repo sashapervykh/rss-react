@@ -1,4 +1,5 @@
 import { Button } from '../button/Button';
+import { Modal } from '../Modal/Modal';
 import style from './style.module.css';
 
 export function ButtonsWrapper() {
@@ -20,6 +21,7 @@ export function ButtonsWrapper() {
           text={'Uncontrolled Form'}
         />
       </div>
+      <Modal />
     </div>
   );
 }
