@@ -1,7 +1,12 @@
 import './App.css';
+import { ButtonsWrapper } from './components/ButtonsWrapper/ButtonsWrapper';
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <ButtonsWrapper />
+    </>
+  );
 }
 
 export default App;
