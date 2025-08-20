@@ -1,11 +1,11 @@
 import { createPortal } from 'react-dom';
-import { UncontrolledForm } from '../UncontrolledForm/UncontrolledForm';
 import style from './style.module.css';
+import { RHForm } from '../RHForm/RHForm';
 
 export function Modal() {
   return createPortal(
     <div className={style['modal-wrapper']}>
-      <UncontrolledForm />
+      <RHForm />
     </div>,
     document.body
   );

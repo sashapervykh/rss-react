@@ -1,23 +1,37 @@
 import { Button } from '../button/Button';
-import style from './style.module.css';
+import style from '../../shared/form.module.css';
 
 export function UncontrolledForm() {
   return (
     <form className={style.form}>
-      <label htmlFor="name">Please enter your name:</label>
-      <input name="name" type="text" placeholder="Enter name" />
-      <label htmlFor="age">Please enter your age:</label>
-      <input name="age" type="text" placeholder="Enter age" />
-      <label htmlFor="email">Please enter your email:</label>
-      <input name="email" type="email" placeholder="Enter label" />
-      <label htmlFor="password">Please enter your password:</label>
-      <input name="password" type="password" placeholder="Enter password" />
-      <label htmlFor="confirmation">Please enter your confirmation:</label>
-      <input
-        name="confirmation"
-        type="password"
-        placeholder="Confirm password"
-      />
+      <label htmlFor="name">
+        <div>Please enter your name:</div>
+        <input name="name" type="text" placeholder="Enter name" />
+      </label>
+      <label htmlFor="age">
+        <div>Please enter your age:</div>
+        <input name="age" type="text" placeholder="Enter age" />
+      </label>
+      <label htmlFor="email">
+        <div>Please enter your email:</div>
+        <input name="email" type="email" placeholder="Enter label" />
+      </label>
+      <label htmlFor="country">
+        <div>Please enter your country:</div>
+        <input name="country" type="text" placeholder="Enter country" />
+      </label>
+      <label htmlFor="password">
+        <div>Please enter your password:</div>
+        <input name="password" type="password" placeholder="Enter password" />
+      </label>
+      <label htmlFor="confirmation">
+        <div>Please enter your confirmation:</div>
+        <input
+          name="confirmation"
+          type="password"
+          placeholder="Confirm password"
+        />
+      </label>
       <label htmlFor="gender">
         <div>Choose your gender:</div>
         <input name="gender" type="radio" /> Man
@@ -27,6 +41,7 @@ export function UncontrolledForm() {
         <input name="agreement" type="checkbox" />I agree with Terms &
         Conditions
       </label>
+
       <div>
         <Button text="Cancel" />
         <Button text="Save" />
