@@ -12,7 +12,7 @@ export function RHForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     resolver: zodResolver(FormSchema),
     mode: 'onChange',
@@ -119,7 +119,7 @@ export function RHForm() {
 
       <div>
         <Button text="Cancel" onClick={() => toggleModal(null)} />
-        <Button text="Save" />
+        <Button text="Save" disabled={!isValid} />
       </div>
     </form>
   );
