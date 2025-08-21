@@ -2,12 +2,23 @@ import { useForm } from 'react-hook-form';
 import style from '../../shared/form.module.css';
 import { Button } from '../button/Button';
 import { useModal } from '../../hooks/useModal/useModal';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormSchema } from '../../models/schema';
+import type z from 'zod';
+import { ValidationError } from '../ValidationError/ValidationError';
 
 export function RHForm() {
   const { toggleModal } = useModal();
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(FormSchema),
+    mode: 'onChange',
+  });
 
-  function onSubmit(data) {
+  function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
   }
 
@@ -22,15 +33,17 @@ export function RHForm() {
           type="text"
           placeholder="Enter name"
         />
+        {errors.name && <ValidationError message={errors.name?.message} />}
       </label>
       <label htmlFor="age">
         <div>Please enter your age:</div>
         <input
           {...register('age')}
           name="age"
-          type="text"
+          type="number"
           placeholder="Enter age"
         />
+        {errors.age && <ValidationError message={errors.age?.message} />}
       </label>
       <label htmlFor="email">
         <div>Please enter your email:</div>
@@ -40,6 +53,7 @@ export function RHForm() {
           type="email"
           placeholder="Enter label"
         />
+        {errors.email && <ValidationError message={errors.email?.message} />}
       </label>
       <label htmlFor="country">
         <div>Please enter your country:</div>
@@ -49,15 +63,21 @@ export function RHForm() {
           type="text"
           placeholder="Enter country"
         />
+        {errors.country && (
+          <ValidationError message={errors.country?.message} />
+        )}
       </label>
       <label htmlFor="password">
         <div>Please enter your password:</div>
         <input
-          {...register('password ')}
+          {...register('password')}
           name="password"
           type="password"
           placeholder="Enter password"
         />
+        {errors.password && (
+          <ValidationError message={errors.password?.message} />
+        )}
       </label>
       <label htmlFor="confirmation">
         <div>Please enter your confirmation:</div>
@@ -67,6 +87,9 @@ export function RHForm() {
           type="password"
           placeholder="Confirm password"
         />
+        {errors.confirmation && (
+          <ValidationError message={errors.confirmation?.message} />
+        )}
       </label>
       <label htmlFor="gender">
         <div>Choose your gender:</div>
@@ -84,10 +107,14 @@ export function RHForm() {
           value="woman"
         />{' '}
         Woman
+        {errors.gender && <ValidationError message={errors.gender?.message} />}
       </label>
       <label htmlFor="agreement">
         <input {...register('agreement')} name="agreement" type="checkbox" />I
         agree with Terms & Conditions
+        {errors.agreement && (
+          <ValidationError message={errors.agreement?.message} />
+        )}
       </label>
 
       <div>

@@ -6,3 +6,8 @@
   background-color: white;
   border-radius: 1rem;
 }
+
+.error {
+  margin: 0px;
+  color: red;
+}
