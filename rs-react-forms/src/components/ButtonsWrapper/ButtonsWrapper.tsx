@@ -1,14 +1,16 @@
+import { useModal } from '../../hooks/useModal/useModal';
 import { Button } from '../button/Button';
 import { Modal } from '../Modal/Modal';
 import style from './style.module.css';
 
 export function ButtonsWrapper() {
+  const { toggleModal } = useModal();
   return (
     <div className={style['buttons-wrapper']}>
       <div>
         <Button
           onClick={() => {
-            console.log('click');
+            toggleModal('rhf');
           }}
           text={'RHF Form'}
         />
@@ -16,7 +18,7 @@ export function ButtonsWrapper() {
       <div>
         <Button
           onClick={() => {
-            console.log('click');
+            toggleModal('uncontrolled');
           }}
           text={'Uncontrolled Form'}
         />

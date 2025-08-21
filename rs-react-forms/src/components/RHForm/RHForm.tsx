@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
 import style from '../../shared/form.module.css';
 import { Button } from '../button/Button';
+import { useModal } from '../../hooks/useModal/useModal';
 
 export function RHForm() {
+  const { toggleModal } = useModal();
   const { register, handleSubmit } = useForm();
 
   function onSubmit(data) {
@@ -11,6 +13,7 @@ export function RHForm() {
 
   return (
     <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+      <h1>React-Hook-Form</h1>
       <label htmlFor="name">
         <div>Please enter your name:</div>
         <input
@@ -88,7 +91,7 @@ export function RHForm() {
       </label>
 
       <div>
-        <Button text="Cancel" />
+        <Button text="Cancel" onClick={() => toggleModal(null)} />
         <Button text="Save" />
       </div>
     </form>

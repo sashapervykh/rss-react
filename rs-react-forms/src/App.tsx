@@ -1,10 +1,13 @@
 import './App.css';
 import { ButtonsWrapper } from './components/ButtonsWrapper/ButtonsWrapper';
+import { ModalProvider } from './hooks/useModal/ModalProvider';
 
 function App() {
   return (
     <>
-      <ButtonsWrapper />
+      <ModalProvider>
+        <ButtonsWrapper />
+      </ModalProvider>
     </>
   );
 }

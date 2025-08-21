@@ -1,9 +1,13 @@
 import { Button } from '../button/Button';
 import style from '../../shared/form.module.css';
+import { useModal } from '../../hooks/useModal/useModal';
 
 export function UncontrolledForm() {
+  const { toggleModal } = useModal();
+
   return (
     <form className={style.form}>
+      <h1>Uncontrolled Form</h1>
       <label htmlFor="name">
         <div>Please enter your name:</div>
         <input name="name" type="text" placeholder="Enter name" />
@@ -43,7 +47,7 @@ export function UncontrolledForm() {
       </label>
 
       <div>
-        <Button text="Cancel" />
+        <Button text="Cancel" onClick={() => toggleModal(null)} />
         <Button text="Save" />
       </div>
     </form>
