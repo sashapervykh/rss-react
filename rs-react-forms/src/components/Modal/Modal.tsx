@@ -4,9 +4,9 @@ import { UncontrolledForm } from '../UncontrolledForm/UncontrolledForm';
 
 export function Modal() {
   return createPortal(
-    <div className={style['modal-wrapper']}>
+    <dialog className={style['modal-wrapper']}>
       <UncontrolledForm />
-    </div>,
+    </dialog>,
     document.body
   );
 }
