@@ -10,6 +10,7 @@ export const FormSchema = z
       .number('You should specify an age.')
       .min(1, 'You should specify an age.')
       .nonnegative('The age should be a positive number'),
+    image: z.transform((val) => (val instanceof FileList ? val.item(0) : val)),
     email: z
       .email('Invalid email is specified.')
       .nonempty('Your email is required!'),
@@ -45,6 +46,21 @@ export const FormSchema = z
         message: 'You should specify a gender.',
         path: ['gender'],
       });
+    if (
+      !val.image ||
+      (val.image?.type !== 'image/jpeg' && val.image?.type !== 'image/png')
+    )
+      ctx.addIssue({
+        code: 'custom',
+        message: 'You should upload jpeg or png file.',
+        path: ['image'],
+      });
+    if (val.image?.size && val.image?.size > 512000)
+      ctx.addIssue({
+        code: 'custom',
+        message: 'File size should be less than 500 Kb.',
+        path: ['image'],
+      });
   });
 
 function isValidPassword(val: string) {
@@ -64,7 +80,6 @@ function isValidPassword(val: string) {
   }
 
   if (missedSymbols.length !== 0) {
-    console.log(missedSymbols);
     return `Password should include ${missedSymbols.join(', ')}`;
   }
   return false;

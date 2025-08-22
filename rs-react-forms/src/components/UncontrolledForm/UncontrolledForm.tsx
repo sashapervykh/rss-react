@@ -22,6 +22,7 @@ export function UncontrolledForm() {
     const formData = new FormData(event.currentTarget);
 
     const formDataObject = Object.fromEntries(formData.entries());
+    console.log(formDataObject);
     const typedData = FormSchema.safeParse(formDataObject);
 
     if (typedData.success) {
@@ -97,6 +98,11 @@ export function UncontrolledForm() {
         {errors.confirmation && (
           <ValidationError message={errors.confirmation} />
         )}
+      </label>
+      <label htmlFor="image">
+        <div>Upload file:</div>
+        <input name="image" type="file" defaultValue="" />
+        {errors.image && <ValidationError message={errors.image} />}
       </label>
       <label htmlFor="gender">
         <div>Choose your gender:</div>

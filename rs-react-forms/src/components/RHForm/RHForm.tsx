@@ -28,7 +28,7 @@ export function RHForm() {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     if (!data.gender)
       throw new Error('There is an error in validation of gender!');
-
+    console.log(data);
     const newPerson = {
       name: data.name,
       age: data.age,
@@ -110,6 +110,11 @@ export function RHForm() {
         {errors.confirmation && (
           <ValidationError message={errors.confirmation?.message} />
         )}
+      </label>
+      <label htmlFor="image">
+        <div>Upload file:</div>
+        <input {...register('image')} name="image" type="file" />
+        {errors.image && <ValidationError message={errors.image.message} />}
       </label>
       <label htmlFor="gender">
         <div>Choose your gender:</div>
