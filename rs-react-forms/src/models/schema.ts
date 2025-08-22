@@ -16,18 +16,8 @@ export const FormSchema = z
     country: z.string().nonempty('You should specify a country.'),
     password: z.string().nonempty('You should specify a password.'),
     confirmation: z.string().nonempty('You should confirm a password.'),
-    gender: z
-      .enum(['man', 'woman'], { message: 'You should specify gender' })
-      .or(z.literal('', { message: 'You should specify gender' })),
-    agreement: z
-      .boolean({
-        message: 'You should confirm an agreement with Terms & Conditions.',
-      })
-      .or(
-        z.literal('on', {
-          message: 'You should confirm an agreement with Terms & Conditions.',
-        })
-      ),
+    gender: z.enum(['man', 'woman']).or(z.literal('')).or(z.undefined()),
+    agreement: z.boolean().or(z.literal('on')).or(z.undefined()),
   })
   .superRefine((val, ctx) => {
     const validPasswordCheck = isValidPassword(val.password);
@@ -49,7 +39,7 @@ export const FormSchema = z
         message: 'You should confirm an agreement with Terms & Conditions.',
         path: ['agreement'],
       });
-    if (val.gender === '')
+    if (!val.gender)
       ctx.addIssue({
         code: 'custom',
         message: 'You should specify a gender.',
