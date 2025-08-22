@@ -26,7 +26,7 @@ export function RHForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    if (data.gender === '')
+    if (!data.gender)
       throw new Error('There is an error in validation of gender!');
 
     const newPerson = {

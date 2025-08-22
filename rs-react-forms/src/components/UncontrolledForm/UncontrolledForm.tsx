@@ -25,7 +25,7 @@ export function UncontrolledForm() {
     const typedData = FormSchema.safeParse(formDataObject);
 
     if (typedData.success) {
-      if (typedData.data.gender === '')
+      if (!typedData.data.gender)
         throw new Error('There is an error in validation of gender!');
       const newPerson = {
         name: typedData.data.name,
