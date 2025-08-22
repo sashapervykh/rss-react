@@ -6,7 +6,6 @@ export interface Person {
   email: string;
   password: string;
   gender: 'man' | 'woman';
-  image: string;
 }
 
 export type PersonStorage = Person[];

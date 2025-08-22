@@ -6,8 +6,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormSchema } from '../../models/schema';
 import type z from 'zod';
 import { ValidationError } from '../ValidationError/ValidationError';
+import { useAppDispatch } from '../../hooks/reduxHooks';
+import { personsSlice } from '../../store/reducers/reducers';
 
 export function RHForm() {
+  const dispatch = useAppDispatch();
+  const { addNewly, addRHFData } = personsSlice.actions;
   const { toggleModal } = useModal();
   const {
     register,
@@ -22,7 +26,20 @@ export function RHForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
+    if (data.gender === '')
+      throw new Error('There is an error in validation of gender!');
+
+    const newPerson = {
+      name: data.name,
+      age: data.age,
+      email: data.email,
+      password: data.password,
+      gender: data.gender,
+    };
+
+    dispatch(addNewly(newPerson));
+    dispatch(addRHFData(newPerson));
+    toggleModal(null);
   }
 
   return (

@@ -38,7 +38,7 @@ export const FormSchema = z
         message: 'You should confirm an agreement with Terms & Conditions.',
         path: ['agreement'],
       });
-    if (!val.gender)
+    if (val.gender === '')
       ctx.addIssue({
         code: 'custom',
         message: 'You should specify a gender.',
