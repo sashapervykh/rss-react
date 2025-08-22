@@ -16,6 +16,9 @@ export function RHForm() {
   } = useForm({
     resolver: zodResolver(FormSchema),
     mode: 'onChange',
+    defaultValues: {
+      gender: '',
+    },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {

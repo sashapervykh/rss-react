@@ -15,8 +15,8 @@ export const FormSchema = z
     country: z.string().nonempty('You should specify a country.'),
     password: z.string().nonempty('You should specify a password.'),
     confirmation: z.string().nonempty('You should confirm a password.'),
-    gender: z.unknown(),
-    agreement: z.unknown(),
+    gender: z.enum(['man', 'woman']).or(z.literal('')),
+    agreement: z.boolean(),
   })
   .superRefine((val, ctx) => {
     const validPasswordCheck = isValidPassword(val.password);
