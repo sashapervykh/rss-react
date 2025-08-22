@@ -8,6 +8,7 @@ export const FormSchema = z
       .regex(/^[A-ZА-Я]/, 'First letter of the name should be capital'),
     age: z.coerce
       .number('You should specify an age.')
+      .min(1, 'You should specify an age.')
       .nonnegative('The age should be a positive number'),
     email: z
       .email('Invalid email is specified.')
@@ -15,8 +16,18 @@ export const FormSchema = z
     country: z.string().nonempty('You should specify a country.'),
     password: z.string().nonempty('You should specify a password.'),
     confirmation: z.string().nonempty('You should confirm a password.'),
-    gender: z.enum(['man', 'woman']).or(z.literal('')),
-    agreement: z.boolean(),
+    gender: z
+      .enum(['man', 'woman'], { message: 'You should specify gender' })
+      .or(z.literal('', { message: 'You should specify gender' })),
+    agreement: z
+      .boolean({
+        message: 'You should confirm an agreement with Terms & Conditions.',
+      })
+      .or(
+        z.literal('on', {
+          message: 'You should confirm an agreement with Terms & Conditions.',
+        })
+      ),
   })
   .superRefine((val, ctx) => {
     const validPasswordCheck = isValidPassword(val.password);
@@ -29,7 +40,7 @@ export const FormSchema = z
     if (val.password !== val.confirmation)
       ctx.addIssue({
         code: 'custom',
-        message: 'The password do not match',
+        message: 'The passwords do not match',
         path: ['confirmation'],
       });
     if (!val.agreement)

@@ -38,13 +38,13 @@ export function ButtonsWrapper() {
           text={'Uncontrolled Form'}
         />
         <div>
-          {uncontrolledData.map((elem) => (
+          {uncontrolledData.map((elem, index) => (
             <>
-              <p>Name: {elem.name}</p>
-              <p>Age: {elem.age}</p>
-              <p>Email: {elem.email}</p>
-              <p>Gender: {elem.gender}</p>
-              <p>Password: {elem.password}</p>
+              <p key={elem.name + index}>Name: {elem.name}</p>
+              <p key={elem.age + index}>Age: {elem.age}</p>
+              <p key={elem.email + index}>Email: {elem.email}</p>
+              <p key={elem.gender + index}>Gender: {elem.gender}</p>
+              <p key={elem.password + index}>Password: {elem.password}</p>
             </>
           ))}
         </div>
