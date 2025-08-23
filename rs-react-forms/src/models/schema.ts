@@ -53,10 +53,10 @@ export const FormSchema = z
         message: 'You should upload jpeg or png file.',
         path: ['image'],
       });
-    if (file && file.size > 512000)
+    if (file && file.size > 1050000)
       ctx.addIssue({
         code: 'custom',
-        message: 'File size should be less than 500 Kb.',
+        message: 'File size should be less than 1 Mb.',
         path: ['image'],
       });
   });

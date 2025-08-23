@@ -8,6 +8,7 @@ import type z from 'zod';
 import { ValidationError } from '../ValidationError/ValidationError';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { personsSlice } from '../../store/reducers/reducers';
+import { transformFileToBase64 } from '../../utilities/transformFileToBase64';
 
 export function RHForm() {
   const dispatch = useAppDispatch();
@@ -25,16 +26,23 @@ export function RHForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     if (!data.gender)
       throw new Error('There is an error in validation of gender!');
-    console.log(data);
+    const imageBase64 = await transformFileToBase64(data.image);
+    if (typeof imageBase64 !== 'string')
+      throw new Error('The result of image transformation is not string');
     const newPerson = {
       name: data.name,
       age: data.age,
       email: data.email,
       password: data.password,
       gender: data.gender,
+      image: imageBase64,
+      type:
+        data.image instanceof FileList
+          ? data.image.item(0)?.type
+          : data.image.type,
     };
 
     dispatch(addNewly(newPerson));
@@ -144,7 +152,7 @@ export function RHForm() {
 
       <div>
         <Button text="Cancel" onClick={() => toggleModal(null)} />
-        <Button text="Save" disabled={isValid} />
+        <Button text="Save" disabled={!isValid} />
       </div>
     </form>
   );

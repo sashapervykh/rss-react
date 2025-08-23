@@ -19,15 +19,18 @@ export function ButtonsWrapper() {
           text={'RHF Form'}
         />
         <div>
-          {rhfData.map((elem) => (
-            <>
-              <p>Name: {elem.name}</p>
-              <p>Age: {elem.age}</p>
-              <p>Email: {elem.email}</p>
-              <p>Gender: {elem.gender}</p>
-              <p>Password: {elem.password}</p>
-            </>
-          ))}
+          {rhfData.map((elem) => {
+            return (
+              <>
+                <p>Name: {elem.name}</p>
+                <p>Age: {elem.age}</p>
+                <p>Email: {elem.email}</p>
+                <p>Gender: {elem.gender}</p>
+                <p>Password: {elem.password}</p>
+                <img src={`${elem.image}`} />
+              </>
+            );
+          })}
         </div>
       </div>
       <div>
