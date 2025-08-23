@@ -6,6 +6,7 @@ import { personsSlice } from '../../store/reducers/reducers';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { useState } from 'react';
 import { ValidationError } from '../ValidationError/ValidationError';
+import { transformFileToBase64 } from '../../utilities/transformFileToBase64';
 
 interface Errors {
   [key: string | symbol]: string;
@@ -17,23 +18,28 @@ export function UncontrolledForm() {
   const { toggleModal } = useModal();
   const [errors, setErrors] = useState<Errors>({});
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     const formDataObject = Object.fromEntries(formData.entries());
-    console.log(formDataObject);
+
     const typedData = FormSchema.safeParse(formDataObject);
 
     if (typedData.success) {
       if (!typedData.data.gender)
         throw new Error('There is an error in validation of gender!');
+      const base64string = await transformFileToBase64(typedData.data.image);
+      if (typeof base64string !== 'string')
+        throw new Error('Base64 string was not received!');
+
       const newPerson = {
         name: typedData.data.name,
         age: typedData.data.age,
         gender: typedData.data.gender,
         password: typedData.data.password,
         email: typedData.data.email,
+        image: base64string,
       };
 
       dispatch(addNewly(newPerson));

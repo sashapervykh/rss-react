@@ -48,6 +48,7 @@ export function ButtonsWrapper() {
               <p key={elem.email + index}>Email: {elem.email}</p>
               <p key={elem.gender + index}>Gender: {elem.gender}</p>
               <p key={elem.password + index}>Password: {elem.password}</p>
+              <img src={`${elem.image}`} />
             </>
           ))}
         </div>

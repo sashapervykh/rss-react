@@ -39,10 +39,6 @@ export function RHForm() {
       password: data.password,
       gender: data.gender,
       image: imageBase64,
-      type:
-        data.image instanceof FileList
-          ? data.image.item(0)?.type
-          : data.image.type,
     };
 
     dispatch(addNewly(newPerson));
