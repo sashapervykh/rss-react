@@ -3,7 +3,7 @@ import style from '../../shared/form.module.css';
 import { useModal } from '../../hooks/useModal/useModal';
 import { FormSchema } from '../../models/schema';
 import { personsSlice } from '../../store/reducers/reducers';
-import { useAppDispatch } from '../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { useState } from 'react';
 import { ValidationError } from '../ValidationError/ValidationError';
 import { transformFileToBase64 } from '../../utilities/transformFileToBase64';
@@ -14,6 +14,7 @@ interface Errors {
 
 export function UncontrolledForm() {
   const dispatch = useAppDispatch();
+  const { countries } = useAppSelector((state) => state.personsReducer);
   const { addNewly, addUncontrolledData } = personsSlice.actions;
   const { toggleModal } = useModal();
   const [errors, setErrors] = useState<Errors>({});
@@ -86,8 +87,18 @@ export function UncontrolledForm() {
       </label>
       <label htmlFor="country">
         <div>Please enter your country:</div>
-        <input name="country" type="text" placeholder="Enter country" />
+        <input
+          name="country"
+          type="text"
+          list="countries"
+          placeholder="Enter country"
+        />
         {errors.country && <ValidationError message={errors.country} />}
+        <datalist id="countries">
+          {countries.map((elem) => (
+            <option key={elem}>{elem}</option>
+          ))}
+        </datalist>
       </label>
       <label htmlFor="password">
         <div>Please enter your password:</div>

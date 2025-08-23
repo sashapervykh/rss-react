@@ -6,12 +6,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormSchema } from '../../models/schema';
 import type z from 'zod';
 import { ValidationError } from '../ValidationError/ValidationError';
-import { useAppDispatch } from '../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { personsSlice } from '../../store/reducers/reducers';
 import { transformFileToBase64 } from '../../utilities/transformFileToBase64';
 
 export function RHForm() {
   const dispatch = useAppDispatch();
+
+  const { countries } = useAppSelector((state) => state.personsReducer);
   const { addNewly, addRHFData } = personsSlice.actions;
   const { toggleModal } = useModal();
   const {
@@ -86,10 +88,16 @@ export function RHForm() {
           name="country"
           type="text"
           placeholder="Enter country"
+          list="countries"
         />
         {errors.country && (
           <ValidationError message={errors.country?.message} />
         )}
+        <datalist id="countries">
+          {countries.map((elem) => (
+            <option key={elem}>{elem}</option>
+          ))}
+        </datalist>
       </label>
       <label htmlFor="password">
         <div>Please enter your password:</div>
