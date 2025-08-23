@@ -144,7 +144,7 @@ export function RHForm() {
 
       <div>
         <Button text="Cancel" onClick={() => toggleModal(null)} />
-        <Button text="Save" disabled={!isValid} />
+        <Button text="Save" disabled={isValid} />
       </div>
     </form>
   );
