@@ -4,7 +4,7 @@ import type { Person } from '../../models/types';
 export type PersonStorage = Person[];
 
 export interface PersonsState {
-  newlyAdded: Person | null;
+  newlyAdded: 'rhf' | 'uncontrolled' | null;
   uncontrolledData: PersonStorage;
   rhfData: PersonStorage;
   countries: string[];
@@ -218,7 +218,7 @@ export const personsSlice = createSlice({
   name: 'persons',
   initialState,
   reducers: {
-    addNewly(state, action: PayloadAction<Person>) {
+    addNewly(state, action: PayloadAction<'rhf' | 'uncontrolled'>) {
       state.newlyAdded = action.payload;
     },
     clearNewly(state) {

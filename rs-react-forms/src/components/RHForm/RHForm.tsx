@@ -48,7 +48,7 @@ export function RHForm() {
       image: imageBase64,
     };
 
-    dispatch(addNewly(newPerson));
+    dispatch(addNewly('rhf'));
     dispatch(addRHFData(newPerson));
     toggleModal(null);
   }

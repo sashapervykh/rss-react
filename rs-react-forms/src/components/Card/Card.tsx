@@ -3,12 +3,15 @@ import style from './style.module.css';
 
 interface Props {
   elem: Person;
+  isNew: boolean;
 }
 
 export function Card(props: Props) {
-  const { elem } = props;
+  const { elem, isNew } = props;
   return (
-    <div className={style['card-wrapper']}>
+    <div
+      className={`${style['card-wrapper']} ${isNew ? style['newly-added'] : ''}`}
+    >
       <div className={style['image-wrapper']}>
         <img className={style.image} src={`${elem.image}`} />
       </div>

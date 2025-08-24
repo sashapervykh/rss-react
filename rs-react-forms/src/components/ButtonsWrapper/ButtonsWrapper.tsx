@@ -6,7 +6,7 @@ import { Modal } from '../Modal/Modal';
 import style from './style.module.css';
 
 export function ButtonsWrapper() {
-  const { rhfData, uncontrolledData } = useAppSelector(
+  const { newlyAdded, rhfData, uncontrolledData } = useAppSelector(
     (state) => state.personsReducer
   );
   const { modal, toggleModal } = useModal();
@@ -23,7 +23,15 @@ export function ButtonsWrapper() {
 
         {rhfData.map((elem, index) => {
           return (
-            <Card key={'rhf' + elem.name + index.toString()} elem={elem} />
+            <Card
+              key={'rhf' + elem.name + index.toString()}
+              elem={elem}
+              isNew={
+                newlyAdded === 'rhf' && index === uncontrolledData.length - 1
+                  ? true
+                  : false
+              }
+            />
           );
         })}
       </div>
@@ -41,6 +49,12 @@ export function ButtonsWrapper() {
             <Card
               key={'uncontrolled' + elem.name + index.toString()}
               elem={elem}
+              isNew={
+                newlyAdded === 'uncontrolled' &&
+                index === uncontrolledData.length - 1
+                  ? true
+                  : false
+              }
             />
           );
         })}

@@ -48,7 +48,7 @@ export function UncontrolledForm() {
         image: base64string,
       };
 
-      dispatch(addNewly(newPerson));
+      dispatch(addNewly('uncontrolled'));
       dispatch(addUncontrolledData(newPerson));
       toggleModal(null);
     } else {
