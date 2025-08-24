@@ -21,8 +21,10 @@ export function ButtonsWrapper() {
           tabIndex={modal ? -1 : 0}
         />
 
-        {rhfData.map((elem) => {
-          return <Card key={Symbol(elem.name).toString()} elem={elem} />;
+        {rhfData.map((elem, index) => {
+          return (
+            <Card key={'rhf' + elem.name + index.toString()} elem={elem} />
+          );
         })}
       </div>
       <div>
@@ -34,8 +36,13 @@ export function ButtonsWrapper() {
           tabIndex={modal ? -1 : 0}
         />
 
-        {uncontrolledData.map((elem) => {
-          return <Card key={Symbol(elem.name).toString()} elem={elem} />;
+        {uncontrolledData.map((elem, index) => {
+          return (
+            <Card
+              key={'uncontrolled' + elem.name + index.toString()}
+              elem={elem}
+            />
+          );
         })}
       </div>
       <Modal />
