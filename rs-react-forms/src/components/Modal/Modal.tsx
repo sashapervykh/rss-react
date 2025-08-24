@@ -25,8 +25,6 @@ export function Modal() {
   return createPortal(
     <dialog
       className={style['modal-wrapper']}
-      role="dialog"
-      aria-modal="true"
       onClick={(event) => {
         const clickedElement = event.target;
         if (clickedElement instanceof HTMLElement) {

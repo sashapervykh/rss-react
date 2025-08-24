@@ -8,7 +8,7 @@ export function ButtonsWrapper() {
   const { rhfData, uncontrolledData } = useAppSelector(
     (state) => state.personsReducer
   );
-  const { toggleModal } = useModal();
+  const { modal, toggleModal } = useModal();
   return (
     <div className={style['buttons-wrapper']}>
       <div>
@@ -17,6 +17,7 @@ export function ButtonsWrapper() {
             toggleModal('rhf');
           }}
           text={'RHF Form'}
+          tabIndex={modal ? -1 : 0}
         />
         <div>
           {rhfData.map((elem) => {
@@ -39,6 +40,7 @@ export function ButtonsWrapper() {
             toggleModal('uncontrolled');
           }}
           text={'Uncontrolled Form'}
+          tabIndex={modal ? -1 : 0}
         />
         <div>
           {uncontrolledData.map((elem, index) => (

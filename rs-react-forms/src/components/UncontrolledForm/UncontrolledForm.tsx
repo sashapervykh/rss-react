@@ -73,7 +73,12 @@ export function UncontrolledForm() {
   }
 
   return (
-    <form className={style.form} onSubmit={(event) => handleSubmit(event)}>
+    <form
+      className={style.form}
+      onSubmit={(event) => handleSubmit(event)}
+      role="dialog"
+      aria-modal="true"
+    >
       <h1>Uncontrolled Form</h1>
       <label htmlFor="name">
         <div>Please enter your name:</div>

@@ -54,7 +54,12 @@ export function RHForm() {
   }
 
   return (
-    <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={style.form}
+      onSubmit={handleSubmit(onSubmit)}
+      role="dialog"
+      aria-modal="true"
+    >
       <h1>React-Hook-Form</h1>
       <label htmlFor="name">
         <div>Please enter your name:</div>
