@@ -5,4 +5,5 @@ export interface Person {
   password: string;
   gender: 'man' | 'woman';
   image: string;
+  country: string;
 }

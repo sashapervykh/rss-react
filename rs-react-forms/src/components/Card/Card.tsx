@@ -24,6 +24,9 @@ export function Card(props: Props) {
           <b>Age:</b> {elem.age}
         </p>
         <p className={style['text-line']}>
+          <b>Country:</b> {elem.country}
+        </p>
+        <p className={style['text-line']}>
           <b>Email:</b> {elem.email}
         </p>
         <p className={style['text-line']}>

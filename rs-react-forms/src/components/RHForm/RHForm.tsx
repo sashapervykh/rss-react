@@ -46,6 +46,7 @@ export function RHForm() {
       password: data.password,
       gender: data.gender,
       image: imageBase64,
+      country: data.country,
     };
 
     dispatch(addNewly('rhf'));

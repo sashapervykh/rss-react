@@ -46,6 +46,7 @@ export function UncontrolledForm() {
         password: typedData.data.password,
         email: typedData.data.email,
         image: base64string,
+        country: typedData.data.country,
       };
 
       dispatch(addNewly('uncontrolled'));

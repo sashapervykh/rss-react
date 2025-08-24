@@ -10,7 +10,7 @@ export const FormSchema = z
       .regex(/^[A-ZА-Я]/, ERRORS_MAP.name.firstLetter),
     age: z.coerce
       .number(ERRORS_MAP.age.required)
-      .min(1, ERRORS_MAP.age.required)
+      .min(1, ERRORS_MAP.age.value)
       .nonnegative(ERRORS_MAP.age.value),
     image: z.instanceof(FileList).or(z.instanceof(File)),
     email: z.email({ message: ERRORS_MAP.email.required }),

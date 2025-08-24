@@ -1,63 +1,77 @@
-import z from 'zod/v4';
-import { isValidPassword } from '../utilities/isValidPassword';
+import { ERRORS_MAP } from '../constants/errorMap';
+import {
+  CorrectInput,
+  EmptyInput,
+  PartiallyIncorrectInput,
+} from '../test-utils/mockedData';
+import { FormSchema } from './schema';
 
-export const FormSchema = z
-  .object({
-    name: z
-      .string()
-      .nonempty('You should specify a name.')
-      .regex(/^[A-ZА-Я]/, 'First letter of the name should be capital'),
-    age: z.coerce
-      .number('You should specify an age.')
-      .min(1, 'You should specify an age.')
-      .nonnegative('The age should be a positive number'),
-    image: z.instanceof(FileList).or(z.instanceof(File)),
-    email: z
-      .email('Invalid email is specified.')
-      .nonempty('Your email is required!'),
-    country: z.string().nonempty('You should specify a country.'),
-    password: z.string().nonempty('You should specify a password.'),
-    confirmation: z.string().nonempty('You should confirm a password.'),
-    gender: z.enum(['man', 'woman']).or(z.literal('')).or(z.undefined()),
-    agreement: z.boolean().or(z.literal('on')).or(z.undefined()),
-  })
-  .superRefine((val, ctx) => {
-    const validPasswordCheck = isValidPassword(val.password);
-    if (validPasswordCheck)
-      ctx.addIssue({
-        code: 'custom',
-        message: validPasswordCheck,
-        path: ['password'],
-      });
-    if (val.password !== val.confirmation)
-      ctx.addIssue({
-        code: 'custom',
-        message: 'The passwords do not match',
-        path: ['confirmation'],
-      });
-    if (!val.agreement)
-      ctx.addIssue({
-        code: 'custom',
-        message: 'You should confirm an agreement with Terms & Conditions.',
-        path: ['agreement'],
-      });
-    if (!val.gender)
-      ctx.addIssue({
-        code: 'custom',
-        message: 'You should specify a gender.',
-        path: ['gender'],
-      });
-    const file = val.image instanceof FileList ? val.image.item(0) : val.image;
-    if (!file || (file.type !== 'image/jpeg' && file.type !== 'image/png'))
-      ctx.addIssue({
-        code: 'custom',
-        message: 'You should upload jpeg or png file.',
-        path: ['image'],
-      });
-    if (file && file.size > 1050000)
-      ctx.addIssue({
-        code: 'custom',
-        message: 'File size should be less than 1 Mb.',
-        path: ['image'],
-      });
+describe('Schema', () => {
+  it('should have success status for correct input', () => {
+    const result = FormSchema.safeParse(CorrectInput);
+    expect(result.success).toBe(true);
   });
+  it('should return correct messages for empty input', () => {
+    const result = FormSchema.safeParse(EmptyInput);
+    expect(result.success).toBe(false);
+
+    const nameErrors = result.error?.issues
+      .filter((issue) => issue.path[0] === 'name')
+      .map((issue) => issue.message);
+    expect(nameErrors).toContain(ERRORS_MAP.name.required);
+
+    const ageErrors = result.error?.issues
+      .filter((issue) => issue.path[0] === 'age')
+      .map((issue) => issue.message);
+    expect(ageErrors).toContain(ERRORS_MAP.age.required);
+
+    const countryErrors = result.error?.issues
+      .filter((issue) => issue.path[0] === 'country')
+      .map((issue) => issue.message);
+    expect(countryErrors).toContain(ERRORS_MAP.country.required);
+
+    const passwordErrors = result.error?.issues
+      .filter((issue) => issue.path[0] === 'password')
+      .map((issue) => issue.message);
+    expect(passwordErrors).toContain(ERRORS_MAP.password.required);
+
+    const confirmationErrors = result.error?.issues
+      .filter((issue) => issue.path[0] === 'confirmation')
+      .map((issue) => issue.message);
+    expect(confirmationErrors).toContain(ERRORS_MAP.confirmation.required);
+  });
+  it('should return correct messages for partially incorrect input', () => {
+    const result = FormSchema.safeParse(PartiallyIncorrectInput);
+    expect(result.success).toBe(false);
+
+    const agreementErrors = result.error?.issues
+      .filter((issue) => issue.path[0] === 'agreement')
+      .map((issue) => issue.message);
+    expect(agreementErrors).toContain(ERRORS_MAP.agreement.required);
+
+    const nameErrors = result.error?.issues
+      .filter((issue) => issue.path[0] === 'name')
+      .map((issue) => issue.message);
+    expect(nameErrors).toContain(ERRORS_MAP.name.firstLetter);
+
+    const ageErrors = result.error?.issues
+      .filter((issue) => issue.path[0] === 'age')
+      .map((issue) => issue.message);
+    expect(ageErrors).toContain(ERRORS_MAP.age.value);
+
+    const confirmationErrors = result.error?.issues
+      .filter((issue) => issue.path[0] === 'confirmation')
+      .map((issue) => issue.message);
+    expect(confirmationErrors).toContain(ERRORS_MAP.confirmation.equal);
+
+    const genderErrors = result.error?.issues
+      .filter((issue) => issue.path[0] === 'gender')
+      .map((issue) => issue.message);
+    expect(genderErrors).toContain(ERRORS_MAP.gender.required);
+
+    const imageError = result.error?.issues
+      .filter((issue) => issue.path[0] === 'image')
+      .map((issue) => issue.message);
+    expect(imageError).toContain(ERRORS_MAP.image.type);
+  });
+});
