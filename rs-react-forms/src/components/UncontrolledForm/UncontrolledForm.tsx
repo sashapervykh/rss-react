@@ -4,7 +4,7 @@ import { useModal } from '../../hooks/useModal/useModal';
 import { FormSchema } from '../../models/schema';
 import { personsSlice } from '../../store/reducers/reducers';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ValidationError } from '../ValidationError/ValidationError';
 import { transformFileToBase64 } from '../../utilities/transformFileToBase64';
 
@@ -18,6 +18,11 @@ export function UncontrolledForm() {
   const { addNewly, addUncontrolledData } = personsSlice.actions;
   const { toggleModal } = useModal();
   const [errors, setErrors] = useState<Errors>({});
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.focus();
+  }, [inputRef]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -72,7 +77,12 @@ export function UncontrolledForm() {
       <h1>Uncontrolled Form</h1>
       <label htmlFor="name">
         <div>Please enter your name:</div>
-        <input name="name" type="text" placeholder="Enter name" />
+        <input
+          name="name"
+          type="text"
+          placeholder="Enter name"
+          ref={inputRef}
+        />
         {errors.name && <ValidationError message={errors.name} />}
       </label>
       <label htmlFor="age">

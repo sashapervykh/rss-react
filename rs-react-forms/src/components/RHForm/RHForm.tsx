@@ -9,13 +9,14 @@ import { ValidationError } from '../ValidationError/ValidationError';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { personsSlice } from '../../store/reducers/reducers';
 import { transformFileToBase64 } from '../../utilities/transformFileToBase64';
+import { useEffect, useRef } from 'react';
 
 export function RHForm() {
   const dispatch = useAppDispatch();
-
   const { countries } = useAppSelector((state) => state.personsReducer);
   const { addNewly, addRHFData } = personsSlice.actions;
   const { toggleModal } = useModal();
+  const inputRef = useRef<HTMLInputElement>(null);
   const {
     register,
     handleSubmit,
@@ -27,6 +28,10 @@ export function RHForm() {
       gender: '',
     },
   });
+
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.focus();
+  }, [inputRef]);
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     if (!data.gender)
@@ -58,6 +63,7 @@ export function RHForm() {
           name="name"
           type="text"
           placeholder="Enter name"
+          ref={inputRef}
         />
         {errors.name && <ValidationError message={errors.name?.message} />}
       </label>
