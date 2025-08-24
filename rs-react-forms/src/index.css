@@ -1,0 +1,23 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  width: 100vw;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+html {
+  width: 100vw;
+}
+datalist {
+  max-height: 100px;
+}
+
+label {
+  margin-bottom: 10px;
+}

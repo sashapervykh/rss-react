@@ -1,0 +1,11 @@
+.button {
+  font-size: 1.7rem;
+  background-color: #2196f3;
+  color: aliceblue;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.button:hover {
+  cursor: pointer;
+}
