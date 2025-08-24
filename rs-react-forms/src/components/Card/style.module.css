@@ -1,0 +1,39 @@
+.card-wrapper {
+  display: flex;
+  border: 3px dashed gray;
+  padding: 10px;
+  margin: 10px auto;
+  border-radius: 1rem;
+  gap: 2rem;
+  justify-content: space-around;
+}
+
+.image-wrapper {
+  display: flex;
+  height: 15vw;
+  width: 15vw;
+  overflow: hidden;
+  border-radius: 2rem;
+  margin: 0px;
+  justify-content: center;
+}
+
+.image {
+  display: flex;
+  width: 100%;
+  height: auto;
+  margin: auto;
+  justify-self: center;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 1.5rem;
+}
+
+.text-line {
+  width: 100%;
+  margin: 0px 0px 5px auto;
+}

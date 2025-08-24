@@ -1,13 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-
-export interface Person {
-  name: string;
-  age: number;
-  email: string;
-  password: string;
-  gender: 'man' | 'woman';
-  image: string;
-}
+import type { Person } from '../../models/types';
 
 export type PersonStorage = Person[];
 
