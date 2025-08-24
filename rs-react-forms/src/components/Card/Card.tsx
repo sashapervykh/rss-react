@@ -11,6 +11,7 @@ export function Card(props: Props) {
   return (
     <div
       className={`${style['card-wrapper']} ${isNew ? style['newly-added'] : ''}`}
+      data-testid="card"
     >
       <div className={style['image-wrapper']}>
         <img className={style.image} src={`${elem.image}`} />

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { ValidationError } from './ValidationError';
 
 describe('ValidationError', () => {
-  it(`should paragraph with the given text`, () => {
+  it(`should render paragraph with the given text`, () => {
     render(<ValidationError message="Test" />);
     const message = screen.getByText('Test');
 

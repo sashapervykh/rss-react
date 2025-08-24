@@ -6,5 +6,5 @@ export const DataAddedToStore: Person = {
   email: 'aa@aa.aa',
   password: 'test',
   gender: 'man',
-  image: 'image',
+  image: 'image.png',
 };
