@@ -184,7 +184,7 @@ export function RHForm() {
         )}
       </label>
 
-      <div>
+      <div className={style['form-buttons']}>
         <Button text="Cancel" onClick={() => toggleModal(null)} />
         <Button text="Save" disabled={!isValid} />
       </div>

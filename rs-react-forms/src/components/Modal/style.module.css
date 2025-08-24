@@ -1,7 +1,10 @@
 .modal-wrapper {
   display: flex;
   position: absolute;
-  width: 100%;
+  width: inherit;
   min-height: 100%;
   background-color: rgba(3, 3, 46, 0.7);
+  box-sizing: border-box;
+  margin: auto;
+  padding: 0px;
 }

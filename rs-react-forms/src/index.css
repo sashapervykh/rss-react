@@ -14,3 +14,10 @@ body {
 html {
   width: 100vw;
 }
+datalist {
+  max-height: 100px;
+}
+
+label {
+  margin-bottom: 10px;
+}

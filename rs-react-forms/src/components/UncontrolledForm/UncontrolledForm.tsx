@@ -122,7 +122,7 @@ export function UncontrolledForm() {
           data-testid="country"
         />
         {errors.country && <ValidationError message={errors.country} />}
-        <datalist id="countries">
+        <datalist id="countries" className={style.datalist}>
           {countries.map((elem) => (
             <option key={elem}>{elem}</option>
           ))}
@@ -173,7 +173,7 @@ export function UncontrolledForm() {
         {errors.agreement && <ValidationError message={errors.agreement} />}
       </label>
 
-      <div>
+      <div className={style['form-buttons']}>
         <Button text="Cancel" onClick={() => toggleModal(null)} />
         <Button text="Save" />
       </div>
