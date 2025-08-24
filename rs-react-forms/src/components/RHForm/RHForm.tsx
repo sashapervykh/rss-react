@@ -68,6 +68,7 @@ export function RHForm() {
           name="name"
           type="text"
           placeholder="Enter name"
+          data-testid="name"
         />
         {errors.name && <ValidationError message={errors.name?.message} />}
       </label>
@@ -78,6 +79,7 @@ export function RHForm() {
           name="age"
           type="number"
           placeholder="Enter age"
+          data-testid="age"
         />
         {errors.age && <ValidationError message={errors.age?.message} />}
       </label>
@@ -88,6 +90,7 @@ export function RHForm() {
           name="email"
           type="email"
           placeholder="Enter label"
+          data-testid="email"
         />
         {errors.email && <ValidationError message={errors.email?.message} />}
       </label>
@@ -99,6 +102,7 @@ export function RHForm() {
           type="text"
           placeholder="Enter country"
           list="countries"
+          data-testid="country"
         />
         {errors.country && (
           <ValidationError message={errors.country?.message} />
@@ -116,6 +120,7 @@ export function RHForm() {
           name="password"
           type="password"
           placeholder="Enter password"
+          data-testid="password"
         />
         {errors.password && (
           <ValidationError message={errors.password?.message} />
@@ -128,6 +133,7 @@ export function RHForm() {
           name="confirmation"
           type="password"
           placeholder="Confirm password"
+          data-testid="confirmation"
         />
         {errors.confirmation && (
           <ValidationError message={errors.confirmation?.message} />
@@ -135,7 +141,12 @@ export function RHForm() {
       </label>
       <label htmlFor="image">
         <div>Upload file:</div>
-        <input {...register('image')} name="image" type="file" />
+        <input
+          {...register('image')}
+          name="image"
+          type="file"
+          data-testid="image"
+        />
         {errors.image && <ValidationError message={errors.image.message} />}
       </label>
       <label htmlFor="gender">
@@ -145,6 +156,7 @@ export function RHForm() {
           name="gender"
           type="radio"
           value="man"
+          data-testid="man"
         />{' '}
         Man
         <input
@@ -152,13 +164,19 @@ export function RHForm() {
           name="gender"
           type="radio"
           value="woman"
+          data-testid="woman"
         />{' '}
         Woman
         {errors.gender && <ValidationError message={errors.gender?.message} />}
       </label>
       <label htmlFor="agreement">
-        <input {...register('agreement')} name="agreement" type="checkbox" />I
-        agree with Terms & Conditions
+        <input
+          {...register('agreement')}
+          name="agreement"
+          type="checkbox"
+          data-testid="agreement"
+        />
+        I agree with Terms & Conditions
         {errors.agreement && (
           <ValidationError message={errors.agreement?.message} />
         )}

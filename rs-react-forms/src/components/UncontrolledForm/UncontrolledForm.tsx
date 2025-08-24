@@ -87,17 +87,28 @@ export function UncontrolledForm() {
           type="text"
           placeholder="Enter name"
           ref={inputRef}
+          data-testid="name"
         />
         {errors.name && <ValidationError message={errors.name} />}
       </label>
       <label htmlFor="age">
         <div>Please enter your age:</div>
-        <input name="age" type="number" placeholder="Enter age" />
+        <input
+          name="age"
+          type="number"
+          placeholder="Enter age"
+          data-testid="age"
+        />
         {errors.age && <ValidationError message={errors.age} />}
       </label>
       <label htmlFor="email">
         <div>Please enter your email:</div>
-        <input name="email" type="email" placeholder="Enter label" />
+        <input
+          name="email"
+          type="email"
+          placeholder="Enter label"
+          data-testid="email"
+        />
         {errors.email && <ValidationError message={errors.email} />}
       </label>
       <label htmlFor="country">
@@ -107,6 +118,7 @@ export function UncontrolledForm() {
           type="text"
           list="countries"
           placeholder="Enter country"
+          data-testid="country"
         />
         {errors.country && <ValidationError message={errors.country} />}
         <datalist id="countries">
@@ -117,7 +129,12 @@ export function UncontrolledForm() {
       </label>
       <label htmlFor="password">
         <div>Please enter your password:</div>
-        <input name="password" type="password" placeholder="Enter password" />
+        <input
+          name="password"
+          type="password"
+          placeholder="Enter password"
+          data-testid="password"
+        />
         {errors.password && <ValidationError message={errors.password} />}
       </label>
       <label htmlFor="confirmation">
@@ -126,6 +143,7 @@ export function UncontrolledForm() {
           name="confirmation"
           type="password"
           placeholder="Confirm password"
+          data-testid="confirmation"
         />
         {errors.confirmation && (
           <ValidationError message={errors.confirmation} />
@@ -133,18 +151,24 @@ export function UncontrolledForm() {
       </label>
       <label htmlFor="image">
         <div>Upload file:</div>
-        <input name="image" type="file" defaultValue="" />
+        <input name="image" type="file" defaultValue="" data-testid="image" />
         {errors.image && <ValidationError message={errors.image} />}
       </label>
       <label htmlFor="gender">
         <div>Choose your gender:</div>
-        <input name="gender" type="radio" value="man" /> Man
-        <input name="gender" type="radio" value="woman" /> Woman
+        <input name="gender" type="radio" value="man" data-testid="man" /> Man
+        <input
+          name="gender"
+          type="radio"
+          value="woman"
+          data-testid="woman"
+        />{' '}
+        Woman
         {errors.gender && <ValidationError message={errors.gender} />}
       </label>
       <label htmlFor="agreement">
-        <input name="agreement" type="checkbox" />I agree with Terms &
-        Conditions
+        <input name="agreement" type="checkbox" data-testid="agreement" />I
+        agree with Terms & Conditions
         {errors.agreement && <ValidationError message={errors.agreement} />}
       </label>
 
