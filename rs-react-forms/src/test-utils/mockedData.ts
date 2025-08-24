@@ -1,16 +1,17 @@
-import type { Person } from '../models/types';
+import type { FormDataType, Person } from '../models/types';
+import { transformFileToBase64 } from '../utilities/transformFileToBase64';
 
 export const DataAddedToStore: Person = {
   name: 'Test',
   age: 20,
   email: 'test@test.com',
-  password: 'test',
+  password: '1!aA',
   gender: 'man',
   image: 'image.png',
   country: 'Russia',
 };
 
-export const CorrectInput = {
+export const CorrectInput: FormDataType = {
   name: 'Test',
   age: 20,
   image: new File(['image'], 'image.png', { type: 'image/png' }),
@@ -44,4 +45,18 @@ export const EmptyInput = {
   confirmation: '',
   gender: '',
   agreement: 'on',
+};
+
+export const DataWithRealFile = async () => {
+  const image = await transformFileToBase64(
+    new File(['image'], 'image.png', { type: 'image/png' })
+  );
+
+  const data = { ...DataAddedToStore };
+  if (typeof image !== 'string') {
+    data.image = '';
+    return [data];
+  }
+  data.image = image;
+  return [data];
 };

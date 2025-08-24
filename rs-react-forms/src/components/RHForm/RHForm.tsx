@@ -60,6 +60,7 @@ export function RHForm() {
       onSubmit={handleSubmit(onSubmit)}
       role="dialog"
       aria-modal="true"
+      data-testid="rhf"
     >
       <h1>React-Hook-Form</h1>
       <label htmlFor="name">
