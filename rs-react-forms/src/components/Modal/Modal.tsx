@@ -24,6 +24,7 @@ export function Modal() {
 
   return createPortal(
     <dialog
+      data-testid="modal"
       className={style['modal-wrapper']}
       onClick={(event) => {
         const clickedElement = event.target;
