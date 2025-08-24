@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type { FormDataType } from '../models/types';
 import { CorrectInput } from './mockedData';
+import type { FormDataType } from '../models/types';
 
 export async function fillFormCorrectly() {
   const field: (keyof FormDataType)[] = [

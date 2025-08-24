@@ -8,7 +8,7 @@ export interface Person {
   country: string;
 }
 
-export interface FormData {
+export interface FormDataType {
   name: string;
   age: number;
   image: File | FileList;
