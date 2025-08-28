@@ -16,19 +16,19 @@ export function Table({ data }: { data: DisplayedDataType }) {
             </tr>
           </thead>
           <tbody>
-            {Object.keys(data).map((key) => {
+            {data.map((country) => {
               return (
-                <tr key={key}>
-                  <td className={style.cell}>{key}</td>
-                  <td className={style.cell}>{data[key].data.at(-1)?.year}</td>
+                <tr key={country.name}>
+                  <td className={style.cell}>{country.name}</td>
+                  <td className={style.cell}>{country.data.at(-1)?.year}</td>
                   <td className={style.cell}>
-                    {data[key].data.at(-1)?.population ?? 'N/A'}
+                    {country.data.at(-1)?.population ?? 'N/A'}
                   </td>
                   <td className={style.cell}>
-                    {data[key].data.at(-1)?.co2 ?? 'N/A'}
+                    {country.data.at(-1)?.co2 ?? 'N/A'}
                   </td>
                   <td className={style.cell}>
-                    {data[key].data.at(-1)?.co2_per_capita ?? 'N/A'}
+                    {country.data.at(-1)?.co2_per_capita ?? 'N/A'}
                   </td>
                 </tr>
               );
