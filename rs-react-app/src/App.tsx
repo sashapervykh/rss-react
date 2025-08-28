@@ -1,4 +1,4 @@
-import { Table } from './components/Table/Table';
+import { Table } from './components/Table/Table/Table';
 
 function App() {
   return <Table />;
