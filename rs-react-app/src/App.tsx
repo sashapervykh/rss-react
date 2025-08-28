@@ -1,7 +1,7 @@
-import { Table } from './components/Table/Table/Table';
+import { DataLoader } from './components/DataLoader/DataLoader';
 
 function App() {
-  return <Table />;
+  return <DataLoader />;
 }
 
 export default App;

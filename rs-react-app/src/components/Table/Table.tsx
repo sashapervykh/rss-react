@@ -1,9 +1,7 @@
-import { use } from 'react';
-import { loadCO2Data } from '../../../utilities/loadCO2Data';
+import type { DisplayedDataType } from '../../models/schema';
 import style from './style.module.css';
 
-export function Table() {
-  const data = use(loadCO2Data());
+export function Table({ data }: { data: DisplayedDataType }) {
   return (
     <section>
       {

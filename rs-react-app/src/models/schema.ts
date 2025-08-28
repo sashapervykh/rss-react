@@ -31,3 +31,5 @@ export const DataSchema = z.record(
     ),
   })
 );
+
+export type DisplayedDataType = z.infer<typeof DataSchema>;
