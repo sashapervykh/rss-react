@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  gap: 5px;
+}
+
+.column-wrapper {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.column {
+  padding: 5px;
+  border: 2px solid rgb(92, 92, 92);
+  width: fit-content;
+  border-radius: 5px;
+}
+
+.chosen {
+  color: white;
+  font-weight: bold;
+  background-color: rgb(106, 106, 106);
+}

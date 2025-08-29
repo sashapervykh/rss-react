@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import type { DisplayedDataType } from '../../models/schema';
 import style from './style.module.css';
 import { sortData } from '../../utilities/sortData';
+import { useControls } from '../../hooks/useControls/useControls';
 
 export function Table({ data }: { data: DisplayedDataType }) {
+  const { controls } = useControls();
   const [displayedData, setDisplayedData] = useState(data);
 
   const [populationOrder, setPopulationOrder] = useState<
@@ -58,6 +60,13 @@ export function Table({ data }: { data: DisplayedDataType }) {
               </th>
               <th className={style.cell}>CO2</th>
               <th className={style.cell}>CO2 per capita</th>
+              {controls.columns &&
+                controls.columns.length !== 0 &&
+                controls.columns.map((elem) => (
+                  <th className={style.cell} key={elem}>
+                    {elem}
+                  </th>
+                ))}
             </tr>
           </thead>
           <tbody>
@@ -75,6 +84,19 @@ export function Table({ data }: { data: DisplayedDataType }) {
                   <td className={style.cell}>
                     {country.data.at(-1)?.co2_per_capita ?? 'N/A'}
                   </td>
+                  {controls.columns &&
+                    controls.columns.length !== 0 &&
+                    controls.columns.map((elem) => {
+                      const propName =
+                        elem[0].toLowerCase() +
+                        elem.split(' ').join('_').slice(1);
+                      const value = country.data.at(-1)?.[propName];
+                      return (
+                        <td className={style.cell} key={elem}>
+                          {typeof value === 'number' ? value : 'N/A'}
+                        </td>
+                      );
+                    })}
                 </tr>
               );
             })}

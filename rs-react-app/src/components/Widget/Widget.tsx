@@ -29,11 +29,6 @@ export function Widget() {
         Country
         <input {...register('country')} name="country"></input>
       </label>
-      <label htmlFor="columns">
-        <select {...register('columns')} name="columns">
-          Add columns
-        </select>
-      </label>
       <button>Apply</button>
       <button>Clear</button>
     </form>
