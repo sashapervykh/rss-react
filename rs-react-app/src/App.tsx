@@ -1,7 +1,9 @@
+import { Suspense } from 'react';
 import { ColumnsWidget } from './components/ColumnsWidget/ColumnsWidget';
 import { DataLoader } from './components/DataLoader/DataLoader';
 import { Widget } from './components/Widget/Widget';
 import { ControlsProvider } from './hooks/useControls/ControlsProvider';
+import { Spinner } from './components/Spinner/Spinner';
 
 function App() {
   return (
@@ -9,7 +11,9 @@ function App() {
       <ControlsProvider>
         <Widget />
         <ColumnsWidget />
-        <DataLoader />
+        <Suspense fallback={<Spinner />}>
+          <DataLoader />
+        </Suspense>
       </ControlsProvider>
     </>
   );
