@@ -1,17 +1,24 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { DisplayedDataType } from '../../models/schema';
 import style from './style.module.css';
 import { sortData } from '../../utilities/sortData';
 
 export function Table({ data }: { data: DisplayedDataType }) {
   const [displayedData, setDisplayedData] = useState(data);
+
   const [populationOrder, setPopulationOrder] = useState<
     '\u2191' | '\u2193' | null
   >(null);
   const [nameOrder, setNameOrder] = useState<'\u2191' | '\u2193' | null>(null);
+
+  useEffect(() => {
+    setDisplayedData(data);
+  }, [data]);
+
   const sort = (column: 'population' | 'name', order?: '\u2191' | '\u2193') => {
     setDisplayedData(sortData(data, column, order));
   };
+
   return (
     <section>
       {

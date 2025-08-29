@@ -1,7 +1,16 @@
 import { DataLoader } from './components/DataLoader/DataLoader';
+import { Widget } from './components/Widget/Widget';
+import { ControlsProvider } from './hooks/useControls/ControlsProvider';
 
 function App() {
-  return <DataLoader />;
+  return (
+    <>
+      <ControlsProvider>
+        <Widget />
+        <DataLoader />
+      </ControlsProvider>
+    </>
+  );
 }
 
 export default App;
