@@ -5,6 +5,7 @@ import { Table } from '../Table/Table';
 import { useControls } from '../../hooks/useControls/useControls';
 import type { DisplayedDataType } from '../../models/schema';
 import { filterData } from '../../utilities/filterData';
+import { filterYear } from '../../utilities/filterYear';
 
 export function DataLoader() {
   const { controls } = useControls();
@@ -13,11 +14,12 @@ export function DataLoader() {
 
   useEffect(() => {
     let newData = [...data];
-    console.log('country:', controls.country);
 
     if (controls.country) {
       newData = filterData(newData, controls.country);
-      console.log('country:', newData);
+    }
+    if (controls.year) {
+      newData = filterYear(newData, controls.year);
     }
     setDataToDisplay(newData);
   }, [controls, data]);
