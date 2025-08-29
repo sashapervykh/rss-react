@@ -12,10 +12,13 @@ export const ControlsProvider = ({
     country: undefined,
     columns: undefined,
   });
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
   const controlsContextValue = {
     controls,
+    modalOpen,
     setControls,
+    setModalOpen,
   };
 
   return (

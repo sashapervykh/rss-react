@@ -4,7 +4,7 @@ import { useControls } from '../../hooks/useControls/useControls';
 
 export function Widget() {
   const { register, handleSubmit } = useForm<ControlsContextValueType>();
-  const { setControls } = useControls();
+  const { setControls, setModalOpen } = useControls();
 
   const onSubmit = (data: ControlsContextValueType) => {
     setControls({
@@ -30,6 +30,13 @@ export function Widget() {
         <input {...register('country')} name="country"></input>
       </label>
       <button>Apply</button>
+      <button
+        onClick={() => {
+          setModalOpen(true);
+        }}
+      >
+        Add columns
+      </button>
       <button>Clear</button>
     </form>
   );

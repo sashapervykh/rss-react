@@ -7,5 +7,7 @@ export const ControlsContext = createContext<ControlsContextType>({
     country: undefined,
     columns: undefined,
   },
+  modalOpen: false,
+  setModalOpen: () => {},
   setControls: () => {},
 });

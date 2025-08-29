@@ -6,5 +6,7 @@ export interface ControlsContextValueType {
 
 export interface ControlsContextType {
   controls: ControlsContextValueType;
+  modalOpen: boolean;
+  setModalOpen: (modalOpen: boolean) => void;
   setControls: (controls: ControlsContextValueType) => void;
 }
