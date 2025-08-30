@@ -31,6 +31,7 @@ export function Widget() {
       </label>
       <button>Apply</button>
       <button
+        type="button"
         onClick={() => {
           setModalOpen(true);
         }}

@@ -2,9 +2,16 @@ import { createPortal } from 'react-dom';
 import { ADDITIONAL_COLUMNS } from '../../constants/constants';
 import { useControls } from '../../hooks/useControls/useControls';
 import style from './style.module.css';
+import { useEffect, useState } from 'react';
 
 export function ColumnsWidget() {
   const { controls, setControls, modalOpen, setModalOpen } = useControls();
+  const [newColumns, setNewColumns] = useState<string[]>([]);
+  console.log(newColumns, controls);
+
+  useEffect(() => {
+    if (modalOpen) setNewColumns(controls.columns ? controls.columns : []);
+  }, [modalOpen, controls]);
 
   return createPortal(
     modalOpen && (
@@ -18,26 +25,17 @@ export function ColumnsWidget() {
               return (
                 <div
                   key={elem}
-                  className={`${style.column} ${controls.columns?.includes(newName) ? style.chosen : ''}`}
+                  className={`${style.column} ${newColumns.includes(newName) ? style.chosen : ''}`}
                   onClick={() => {
-                    let newControls = { ...controls };
-                    if (!newControls.columns) {
-                      newControls.columns = [newName];
-                      setControls(newControls);
-                      return;
-                    }
-
-                    if (newControls.columns.includes(newName)) {
-                      newControls = {
-                        ...newControls,
-                        columns: newControls.columns.filter(
-                          (elem) => elem !== newName
-                        ),
-                      };
+                    if (newColumns.includes(newName)) {
+                      setNewColumns((prev) => {
+                        return prev.filter((elem) => elem !== newName);
+                      });
                     } else {
-                      newControls.columns.push(newName);
+                      setNewColumns((prev) => {
+                        return [...prev, newName];
+                      });
                     }
-                    setControls(newControls);
                   }}
                 >
                   {newName}
@@ -54,7 +52,18 @@ export function ColumnsWidget() {
             >
               Cancel
             </button>
-            <button className={style.button}>Apply</button>
+            <button
+              className={style.button}
+              onClick={() => {
+                setControls((prev) => ({
+                  ...prev,
+                  columns: newColumns,
+                }));
+                setModalOpen(false);
+              }}
+            >
+              Apply
+            </button>
           </div>
         </div>
       </div>

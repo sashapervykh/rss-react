@@ -8,5 +8,5 @@ export interface ControlsContextType {
   controls: ControlsContextValueType;
   modalOpen: boolean;
   setModalOpen: (modalOpen: boolean) => void;
-  setControls: (controls: ControlsContextValueType) => void;
+  setControls: React.Dispatch<React.SetStateAction<ControlsContextValueType>>;
 }
