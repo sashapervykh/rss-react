@@ -22,30 +22,20 @@
 
 #### Sorting population
 
-|              | Before optimization | After optimization |
-| :----------- | :-----------------: | -----------------: |
-| Commit       |         10          |              $2.50 |
-| Render       |          5          |              $3.00 |
-| Interactions |         12          |              $1.75 |
-| Flame Graph  |         12          |              $1.75 |
-| Ranked Chart |         12          |              $1.75 |
+|              |                   Before optimization                   |                                     After optimization |
+| :----------- | :-----------------------------------------------------: | -----------------------------------------------------: |
+| Commit       |                         77.2ms                          |                                                        |
+| Render       | _Table_: 0.8ms of 77.2ms; _TableBody_: 73.4ms of 76.4ms |                                                        |
+| Interactions | Press "Population" head in table with the initial data  | Press "Population" head in table with the initial data |
+| Flame Graph  |                ![alt text](image-4.png)                 |                                                        |
+| Ranked Chart |                ![alt text](image-5.png)                 |                                                        |
 
 #### Adding column
 
-|              | Before optimization | After optimization |
-| :----------- | :-----------------: | -----------------: |
-| Commit       |         10          |              $2.50 |
-| Render       |          5          |              $3.00 |
-| Interactions |         12          |              $1.75 |
-| Flame Graph  |         12          |              $1.75 |
-| Ranked Chart |         12          |              $1.75 |
-
-#### Clearing
-
-|              | Before optimization | After optimization |
-| :----------- | :-----------------: | -----------------: |
-| Commit       |         10          |              $2.50 |
-| Render       |          5          |              $3.00 |
-| Interactions |         12          |              $1.75 |
-| Flame Graph  |         12          |              $1.75 |
-| Ranked Chart |         12          |              $1.75 |
+|              |                                  Before optimization                                   |                                                 After optimization |
+| :----------- | :------------------------------------------------------------------------------------: | -----------------------------------------------------------------: |
+| Commit       |                                          97.8                                          |                                                                    |
+| Render       | _DataLoader_: 0.1ms of 96.7ms; _Table_: 0.8ms of 96.6ms; _TableBody_: 89.3ms of 95.7ms |                                                                    |
+| Interactions |           Press "Apply" button on columns modal with 'Methane' column chosen           | Press "Apply" button on columns modal with 'Methane' column chosen |
+| Flame Graph  |                                ![alt text](image-6.png)                                |                                                              $1.75 |
+| Ranked Chart |                                ![alt text](image-7.png)                                |                                                              $1.75 |
