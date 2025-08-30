@@ -3,7 +3,7 @@ import type { DisplayedDataType } from '../../models/schema';
 import style from './style.module.css';
 import { sortData } from '../../utilities/sortData';
 import { useControls } from '../../hooks/useControls/useControls';
-import { TableBody } from '../TableBody/TableBody';
+import TableBody from '../TableBody/TableBody';
 import { getUpdatedData } from '../../utilities/getUpdatedData';
 
 export function Table({ data }: { data: DisplayedDataType }) {

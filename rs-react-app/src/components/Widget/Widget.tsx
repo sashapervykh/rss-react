@@ -7,11 +7,11 @@ export function Widget() {
   const { setControls, setModalOpen } = useControls();
 
   const onSubmit = (data: ControlsContextValueType) => {
-    setControls({
+    setControls((prev) => ({
+      ...prev,
       year: data.year ? Number(data.year) : undefined,
       country: data.country ? data.country : undefined,
-      columns: data.columns ? data.columns : undefined,
-    });
+    }));
   };
 
   return (
