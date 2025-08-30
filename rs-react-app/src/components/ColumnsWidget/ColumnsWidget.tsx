@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 export function ColumnsWidget() {
   const { controls, setControls, modalOpen, setModalOpen } = useControls();
   const [newColumns, setNewColumns] = useState<string[]>([]);
-  console.log(newColumns, controls);
 
   useEffect(() => {
     if (modalOpen) setNewColumns(controls.columns ? controls.columns : []);
