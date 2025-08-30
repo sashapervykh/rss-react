@@ -2,13 +2,13 @@
 
 #### Selecting year
 
-|              |                                Before optimization                                |                                After optimization |
-| :----------- | :-------------------------------------------------------------------------------: | ------------------------------------------------: |
-| Commit       |                                      86.3ms                                       |                                                   |
-| Render       | +DataLoader: 0.2ms of 84.7ms +Table: 0.6ms of 84.5ms +TableBody: 81.6ms of 83.9ms |                                                   |
-| Interactions |                 Press 'Apply button' with year input value = 2000                 | Press 'Apply button' with year input value = 2000 |
-| Flame Graph  |                              ![alt text](image.png)                               |                                                   |
-| Ranked Chart |                             ![alt text](image-1.png)                              |                                                   |
+|              |                                  Before optimization                                   |                                After optimization |
+| :----------- | :------------------------------------------------------------------------------------: | ------------------------------------------------: |
+| Commit       |                                         86.3ms                                         |                                                   |
+| Render       | _DataLoader_: 0.2ms of 84.7ms; _Table_: 0.6ms of 84.5ms; _TableBody_: 81.6ms of 83.9ms |                                                   |
+| Interactions |                   Press 'Apply button' with year input value = 2000                    | Press 'Apply button' with year input value = 2000 |
+| Flame Graph  |                                 ![alt text](image.png)                                 |                                                   |
+| Ranked Chart |                                ![alt text](image-1.png)                                |                                                   |
 
 #### Searching country
 
