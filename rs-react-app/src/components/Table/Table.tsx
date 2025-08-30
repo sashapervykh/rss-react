@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { DisplayedDataType } from '../../models/schema';
 import style from './style.module.css';
 import { sortData } from '../../utilities/sortData';
 import { useControls } from '../../hooks/useControls/useControls';
 import { TableBody } from '../TableBody/TableBody';
+import { getUpdatedData } from '../../utilities/getUpdatedData';
 
 export function Table({ data }: { data: DisplayedDataType }) {
-  const { controls } = useControls();
+  const {
+    controls: { year, country, columns },
+  } = useControls();
   const [displayedData, setDisplayedData] = useState(data);
 
   const [populationOrder, setPopulationOrder] = useState<
@@ -14,9 +17,14 @@ export function Table({ data }: { data: DisplayedDataType }) {
   >(null);
   const [nameOrder, setNameOrder] = useState<'\u2191' | '\u2193' | null>(null);
 
+  const getDataToDisplay = useMemo(
+    () => getUpdatedData(data, year, country, undefined, undefined),
+    [data, year, country]
+  );
+
   useEffect(() => {
-    setDisplayedData(data);
-  }, [data]);
+    setDisplayedData(getDataToDisplay);
+  }, [getDataToDisplay]);
 
   const sort = (column: 'population' | 'name', order?: '\u2191' | '\u2193') => {
     setDisplayedData(sortData(data, column, order));
@@ -61,9 +69,9 @@ export function Table({ data }: { data: DisplayedDataType }) {
               </th>
               <th className={style.cell}>CO2</th>
               <th className={style.cell}>CO2 per capita</th>
-              {controls.columns &&
-                controls.columns.length !== 0 &&
-                controls.columns.map((elem) => (
+              {columns &&
+                columns.length !== 0 &&
+                columns.map((elem) => (
                   <th className={style.cell} key={elem}>
                     {elem}
                   </th>

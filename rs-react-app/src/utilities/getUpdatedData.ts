@@ -5,7 +5,7 @@ import { sortData } from './sortData';
 
 export function getUpdatedData(
   data: DisplayedDataType,
-  year: number | undefined,
+  year: number | undefined | '',
   country: string | undefined,
   sortingName: 'population' | 'name' | undefined,
   sortingOrder: '\u2191' | '\u2193' | undefined
