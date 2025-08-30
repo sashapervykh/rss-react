@@ -3,7 +3,7 @@ import type { ControlsContextValueType } from '../../models/types';
 import { useControls } from '../../hooks/useControls/useControls';
 
 export function Widget() {
-  const { register, handleSubmit } = useForm<ControlsContextValueType>();
+  const { register, handleSubmit, reset } = useForm<ControlsContextValueType>();
   const { setControls, setModalOpen } = useControls();
 
   const onSubmit = (data: ControlsContextValueType) => {
@@ -38,7 +38,13 @@ export function Widget() {
       >
         Add columns
       </button>
-      <button>Clear</button>
+      <button
+        onClick={() => {
+          reset();
+        }}
+      >
+        Clear
+      </button>
     </form>
   );
 }
