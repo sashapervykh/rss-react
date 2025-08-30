@@ -2,13 +2,13 @@
 
 #### Selecting year
 
-|              | Before optimization | After optimization |
-| :----------- | :-----------------: | -----------------: |
-| Commit       |         10          |              $2.50 |
-| Render       |          5          |              $3.00 |
-| Interactions |         12          |              $1.75 |
-| Flame Graph  |         12          |              $1.75 |
-| Ranked Chart |         12          |              $1.75 |
+|              |  Before optimization   | After optimization |
+| :----------- | :--------------------: | -----------------: |
+| Commit       |         86.3ms         |              $2.50 |
+| Render       |           5            |              $3.00 |
+| Interactions |           12           |              $1.75 |
+| Flame Graph  |           12           |              $1.75 |
+| Ranked Chart | ![alt text](image.png) |              $1.75 |
 
 #### Searching country
 
