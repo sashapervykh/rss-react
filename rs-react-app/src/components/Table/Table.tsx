@@ -20,6 +20,7 @@ const Table = memo(function Table({
   const [sortingOrder, setSortingOrder] = useState<
     '\u2191' | '\u2193' | undefined
   >(undefined);
+
   const { columns } = useColumns();
 
   const dataToDisplay = useMemo(
