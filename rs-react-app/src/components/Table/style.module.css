@@ -1,0 +1,26 @@
+.table {
+  border-collapse: collapse;
+  overflow-x: scroll;
+}
+
+.cell {
+  border: 2px solid black;
+  padding: 5px;
+}
+
+.cell-highlighted {
+  animation: highlight 1s ease-in-out;
+}
+
+@keyframes highlight {
+  0% {
+    background-color: aliceblue;
+  }
+
+  50% {
+    background-color: rgb(45, 127, 198);
+  }
+  100% {
+    background-color: aliceblue;
+  }
+}
