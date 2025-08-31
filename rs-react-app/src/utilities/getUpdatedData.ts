@@ -12,13 +12,14 @@ export function getUpdatedData(
 ) {
   let newData = [...data];
   if (year) {
-    newData = filterYear(data, year);
+    newData = filterYear(newData, year);
   }
   if (country) {
-    newData = filterData(data, country);
+    newData = filterData(newData, country);
   }
   if (sortingName && sortingOrder) {
-    newData = sortData(data, sortingName, sortingOrder);
+    newData = sortData(newData, sortingName, sortingOrder);
   }
+
   return newData;
 }
