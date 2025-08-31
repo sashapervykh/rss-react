@@ -33,6 +33,11 @@ export const DatasetSchema = z.record(
     data: DataSchema,
   })
 );
+export const OneCountrySchema = z.object({
+  name: z.string(),
+  iso_code: z.string().optional(),
+  data: DataSchema,
+});
 
 export const DisplayedDataSchema = z.array(
   z.object({
@@ -43,3 +48,4 @@ export const DisplayedDataSchema = z.array(
 );
 
 export type DisplayedDataType = z.infer<typeof DisplayedDataSchema>;
+export type OneCountryType = z.infer<typeof OneCountrySchema>;
