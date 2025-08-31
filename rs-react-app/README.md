@@ -16,7 +16,7 @@
 | :----------- | :--------------------------------------------------------------------------------: | ---------------------------------------------------------------------: |
 | Commit       |                                       2.6ms                                        |                                                                  0.9ms |
 | Render       | _DataLoader_: 0.2ms of 1.6ms; _Table_: 0.7ms of 1.4ms; _TableBody_: 0.2ms of 0.6ms | _DataLoader_: 0.1ms of 0.1ms; _Table_ and _TableBody_ did not rerender |
-| Interactions |               Press 'Apply button' with year input value = 'Bahrain'               |                 Press 'Apply button' with year input value = 'Bahrain' |
+| Interactions |         Repeated pressing 'Apply button' with year input value = 'Bahrain'         |     Repeated pressing 'Apply button' with year input value = 'Bahrain' |
 | Flame Graph  |                              ![alt text](image-4.png)                              |                                              ![alt text](image-10.png) |
 | Ranked Chart |                              ![alt text](image-5.png)                              |                                              ![alt text](image-11.png) |
 
