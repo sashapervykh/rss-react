@@ -1,21 +1,26 @@
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import type { DisplayedDataType } from '../../models/schema';
 import style from './style.module.css';
-import { useControls } from '../../hooks/useControls/useControls';
 import TableBody from '../TableBody/TableBody';
 import { getUpdatedData } from '../../utilities/getUpdatedData';
+import { useColumns } from '../../hooks/useColumns/useColumns';
 
-export function Table({ data }: { data: DisplayedDataType }) {
-  const {
-    controls: { year, country, columns },
-  } = useControls();
-
+const Table = memo(function Table({
+  data,
+  year,
+  country,
+}: {
+  data: DisplayedDataType;
+  year: number | undefined | '';
+  country: string | undefined;
+}) {
   const [sortingName, setSortingName] = useState<
     'population' | 'country' | undefined
   >(undefined);
   const [sortingOrder, setSortingOrder] = useState<
     '\u2191' | '\u2193' | undefined
   >(undefined);
+  const { columns } = useColumns();
 
   const dataToDisplay = useMemo(
     () => getUpdatedData(data, year, country, sortingName, sortingOrder),
@@ -79,4 +84,6 @@ export function Table({ data }: { data: DisplayedDataType }) {
       }
     </section>
   );
-}
+});
+
+export default Table;

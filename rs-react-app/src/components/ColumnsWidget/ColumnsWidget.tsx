@@ -1,16 +1,19 @@
 import { createPortal } from 'react-dom';
 import { ADDITIONAL_COLUMNS } from '../../constants/constants';
-import { useControls } from '../../hooks/useControls/useControls';
+
 import style from './style.module.css';
 import { useEffect, useState } from 'react';
+import { useColumns } from '../../hooks/useColumns/useColumns';
+import { useControls } from '../../hooks/useControls/useControls';
 
 export function ColumnsWidget() {
-  const { controls, setControls, modalOpen, setModalOpen } = useControls();
+  const { modalOpen, setModalOpen } = useControls();
+  const { columns, setColumns } = useColumns();
   const [newColumns, setNewColumns] = useState<string[]>([]);
 
   useEffect(() => {
-    if (modalOpen) setNewColumns(controls.columns ? controls.columns : []);
-  }, [modalOpen, controls]);
+    if (modalOpen) setNewColumns(columns ? columns : []);
+  }, [modalOpen, columns]);
 
   return createPortal(
     modalOpen && (
@@ -54,10 +57,7 @@ export function ColumnsWidget() {
             <button
               className={style.button}
               onClick={() => {
-                setControls((prev) => ({
-                  ...prev,
-                  columns: newColumns,
-                }));
+                setColumns(newColumns);
                 setModalOpen(false);
               }}
             >

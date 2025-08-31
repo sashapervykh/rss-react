@@ -1,14 +1,14 @@
 import { memo } from 'react';
 import type { DisplayedDataType } from '../../models/schema';
 import TableRow from '../TableRow/TableRow';
+import { useColumns } from '../../hooks/useColumns/useColumns';
 
 const TableBody = memo(function TableBody({
   data,
-  columns,
 }: {
   data: DisplayedDataType;
-  columns: string[] | undefined;
 }) {
+  const { columns } = useColumns();
   return (
     <tbody>
       {data.map((country) => {

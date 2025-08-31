@@ -4,16 +4,19 @@ import { DataLoader } from './components/DataLoader/DataLoader';
 import { Widget } from './components/Widget/Widget';
 import { ControlsProvider } from './hooks/useControls/ControlsProvider';
 import { Spinner } from './components/Spinner/Spinner';
+import { ColumnsProvider } from './hooks/useColumns/ColumnsProvider';
 
 function App() {
   return (
     <>
       <ControlsProvider>
-        <Widget />
-        <ColumnsWidget />
-        <Suspense fallback={<Spinner />}>
-          <DataLoader />
-        </Suspense>
+        <ColumnsProvider>
+          <Widget />
+          <ColumnsWidget />
+          <Suspense fallback={<Spinner />}>
+            <DataLoader />
+          </Suspense>
+        </ColumnsProvider>
       </ControlsProvider>
     </>
   );

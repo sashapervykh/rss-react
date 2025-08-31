@@ -7,11 +7,10 @@ export function Widget() {
   const { setControls, setModalOpen } = useControls();
 
   const onSubmit = (data: ControlsContextValueType) => {
-    setControls((prev) => ({
-      ...prev,
+    setControls({
       year: data.year ? Number(data.year) : undefined,
       country: data.country ? data.country : undefined,
-    }));
+    });
   };
 
   return (
@@ -31,19 +30,19 @@ export function Widget() {
       </label>
       <button>Apply</button>
       <button
+        onClick={() => {
+          reset();
+        }}
+      >
+        Clear
+      </button>
+      <button
         type="button"
         onClick={() => {
           setModalOpen(true);
         }}
       >
         Add columns
-      </button>
-      <button
-        onClick={() => {
-          reset();
-        }}
-      >
-        Clear
       </button>
     </form>
   );

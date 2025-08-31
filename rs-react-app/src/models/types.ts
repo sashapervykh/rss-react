@@ -1,7 +1,6 @@
 export interface ControlsContextValueType {
   year: number | undefined | '';
   country: string | undefined | '';
-  columns: string[] | undefined | '';
 }
 
 export interface ControlsContextType {
@@ -9,4 +8,9 @@ export interface ControlsContextType {
   modalOpen: boolean;
   setModalOpen: (modalOpen: boolean) => void;
   setControls: React.Dispatch<React.SetStateAction<ControlsContextValueType>>;
+}
+
+export interface ColumnsContextType {
+  columns: string[];
+  setColumns: React.Dispatch<React.SetStateAction<string[]>>;
 }

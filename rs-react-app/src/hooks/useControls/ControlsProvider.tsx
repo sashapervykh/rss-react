@@ -10,7 +10,6 @@ export const ControlsProvider = ({
   const [controls, setControls] = useState<ControlsContextValueType>({
     year: undefined,
     country: undefined,
-    columns: undefined,
   });
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
