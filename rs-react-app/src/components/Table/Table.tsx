@@ -1,7 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import type { DisplayedDataType } from '../../models/schema';
 import style from './style.module.css';
-import { sortData } from '../../utilities/sortData';
 import { useControls } from '../../hooks/useControls/useControls';
 import TableBody from '../TableBody/TableBody';
 import { getUpdatedData } from '../../utilities/getUpdatedData';
@@ -10,25 +9,18 @@ export function Table({ data }: { data: DisplayedDataType }) {
   const {
     controls: { year, country, columns },
   } = useControls();
-  const [displayedData, setDisplayedData] = useState(data);
 
-  const [populationOrder, setPopulationOrder] = useState<
-    '\u2191' | '\u2193' | null
-  >(null);
-  const [nameOrder, setNameOrder] = useState<'\u2191' | '\u2193' | null>(null);
+  const [sortingName, setSortingName] = useState<
+    'population' | 'country' | undefined
+  >(undefined);
+  const [sortingOrder, setSortingOrder] = useState<
+    '\u2191' | '\u2193' | undefined
+  >(undefined);
 
-  const getDataToDisplay = useMemo(
-    () => getUpdatedData(data, year, country, undefined, undefined),
-    [data, year, country]
+  const dataToDisplay = useMemo(
+    () => getUpdatedData(data, year, country, sortingName, sortingOrder),
+    [data, year, country, sortingName, sortingOrder]
   );
-
-  useEffect(() => {
-    setDisplayedData(getDataToDisplay);
-  }, [getDataToDisplay]);
-
-  const sort = (column: 'population' | 'name', order?: '\u2191' | '\u2193') => {
-    setDisplayedData(sortData(data, column, order));
-  };
 
   return (
     <section>
@@ -39,33 +31,37 @@ export function Table({ data }: { data: DisplayedDataType }) {
               <th
                 className={style.cell}
                 onClick={() => {
-                  const newOrder = !nameOrder
-                    ? '\u2191'
-                    : nameOrder === '\u2191'
-                      ? '\u2193'
-                      : '\u2191';
-                  setPopulationOrder(null);
-                  setNameOrder(newOrder);
-                  sort('name', newOrder);
+                  if (sortingName !== 'country') {
+                    setSortingName('country');
+                    setSortingOrder('↑');
+                    return;
+                  }
+
+                  setSortingOrder((prev) => (prev === '↑' ? '↓' : '↑'));
                 }}
               >
-                Country {Boolean(nameOrder) && nameOrder}
+                Country{' '}
+                {Boolean(sortingOrder) &&
+                  sortingName === 'country' &&
+                  sortingOrder}
               </th>
               <th className={style.cell}>Year</th>
               <th
                 className={style.cell}
                 onClick={() => {
-                  const newOrder = !populationOrder
-                    ? '\u2191'
-                    : populationOrder === '\u2191'
-                      ? '\u2193'
-                      : '\u2191';
-                  setPopulationOrder(newOrder);
-                  setNameOrder(null);
-                  sort('population', newOrder);
+                  if (sortingName !== 'population') {
+                    setSortingName('population');
+                    setSortingOrder('↑');
+                    return;
+                  }
+
+                  setSortingOrder((prev) => (prev === '↑' ? '↓' : '↑'));
                 }}
               >
-                Population {Boolean(populationOrder) && populationOrder}
+                Population{' '}
+                {Boolean(sortingOrder) &&
+                  sortingName === 'population' &&
+                  sortingOrder}
               </th>
               <th className={style.cell}>CO2</th>
               <th className={style.cell}>CO2 per capita</th>
@@ -78,7 +74,7 @@ export function Table({ data }: { data: DisplayedDataType }) {
                 ))}
             </tr>
           </thead>
-          <TableBody data={displayedData} />
+          <TableBody data={dataToDisplay} />
         </table>
       }
     </section>

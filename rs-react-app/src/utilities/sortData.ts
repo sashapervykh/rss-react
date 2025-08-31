@@ -2,12 +2,12 @@ import type { DisplayedDataType } from '../models/schema';
 
 export function sortData(
   data: DisplayedDataType,
-  column: 'population' | 'name',
+  column: 'population' | 'country',
   order?: '\u2191' | '\u2193'
 ) {
   const arr = [...data];
-  if (column === 'name' && order === '\u2191') return arr.sort();
-  if (column === 'name' && order === '\u2193') return arr.sort().reverse();
+  if (column === 'country' && order === '\u2191') return arr.sort();
+  if (column === 'country' && order === '\u2193') return arr.sort().reverse();
   if (column === 'population' && order === '\u2191') {
     return arr.sort((a, b) => {
       const population1 = a.data.at(-1)?.population;

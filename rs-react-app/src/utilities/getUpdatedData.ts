@@ -7,7 +7,7 @@ export function getUpdatedData(
   data: DisplayedDataType,
   year: number | undefined | '',
   country: string | undefined,
-  sortingName: 'population' | 'name' | undefined,
+  sortingName: 'population' | 'country' | undefined,
   sortingOrder: '\u2191' | '\u2193' | undefined
 ) {
   let newData = [...data];
