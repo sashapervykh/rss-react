@@ -12,7 +12,7 @@ const TableRow = memo(function TableRow({
   return (
     <tr>
       <td className={style.cell}>{country.name}</td>
-      <td className={style.cell}>{country.data.at(-1)?.year}</td>
+      <td className={style.cell}>{country.data.at(-1)?.year ?? 'N/A'}</td>
       <td className={style.cell}>{country.data.at(-1)?.population ?? 'N/A'}</td>
       <td className={style.cell}>{country.data.at(-1)?.co2 ?? 'N/A'}</td>
       <td className={style.cell}>

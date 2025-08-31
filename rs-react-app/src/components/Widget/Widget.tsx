@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import type { ControlsContextValueType } from '../../models/types';
 import { useControls } from '../../hooks/useControls/useControls';
+import style from './style.module.css';
 
 export function Widget() {
   const { register, handleSubmit, reset } = useForm<ControlsContextValueType>();
@@ -14,22 +15,28 @@ export function Widget() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="year">
-        Year
+    <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+      <label className={style.label} htmlFor="year">
+        <div className={style['label-text']}>Year</div>
         <input
+          className={style.input}
           {...register('year')}
           name="year"
           type="number"
           min="1750"
         ></input>
       </label>
-      <label htmlFor="country">
-        Country
-        <input {...register('country')} name="country"></input>
+      <label className={style.label} htmlFor="country">
+        <div className={style['label-text']}>Country</div>
+        <input
+          className={style.input}
+          {...register('country')}
+          name="country"
+        ></input>
       </label>
-      <button>Apply</button>
+      <button className={style.button}>Apply</button>
       <button
+        className={style.button}
         onClick={() => {
           reset();
         }}
@@ -37,6 +44,7 @@ export function Widget() {
         Clear
       </button>
       <button
+        className={style.button}
         type="button"
         onClick={() => {
           setModalOpen(true);
