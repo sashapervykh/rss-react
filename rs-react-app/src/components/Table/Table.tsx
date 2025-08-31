@@ -50,6 +50,7 @@ const Table = memo(function Table({
                   sortingName === 'country' &&
                   sortingOrder}
               </th>
+              <th className={style.cell}>ISO</th>
               <th className={style.cell}>Year</th>
               <th
                 className={style.cell}
