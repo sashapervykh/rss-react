@@ -2,13 +2,13 @@
 
 #### Selecting year
 
-|              |                                   Before optimization                                    |                                After optimization |
-| :----------- | :--------------------------------------------------------------------------------------: | ------------------------------------------------: |
-| Commit       |                                         101.3ms                                          |                                                   |
-| Render       | _DataLoader_: 0.1ms of 100.5ms; _Table_: 3.7ms of 100.4ms; _TableBody_: 12.2ms of 96.7ms |                                                   |
-| Interactions |                    Press 'Apply button' with year input value = 2000                     | Press 'Apply button' with year input value = 2000 |
-| Flame Graph  |                                 ![alt text](image-6.png)                                 |                                                   |
-| Ranked Chart |                                 ![alt text](image-7.png)                                 |                                                   |
+|              |                                   Before optimization                                    |                                                     After optimization |
+| :----------- | :--------------------------------------------------------------------------------------: | ---------------------------------------------------------------------: |
+| Commit       |                                         101.3ms                                          |                                                                    1ms |
+| Render       | _DataLoader_: 0.1ms of 100.5ms; _Table_: 3.7ms of 100.4ms; _TableBody_: 12.2ms of 96.7ms | _DataLoader_: 0.1ms of 0.1ms; _Table_ and _TableBody_ did not rerender |
+| Interactions |              Repeated pressing 'Apply button' with year input value = 2000               |          Repeated pressing 'Apply button' with year input value = 2000 |
+| Flame Graph  |                                 ![alt text](image-6.png)                                 |                                              ![alt text](image-14.png) |
+| Ranked Chart |                                 ![alt text](image-7.png)                                 |                                              ![alt text](image-15.png) |
 
 #### Searching country
 
